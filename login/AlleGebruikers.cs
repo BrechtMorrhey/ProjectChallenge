@@ -27,21 +27,21 @@ namespace ProjectChallenge
         public void SlaStudentOp(Leerling leerling)
         {
             leerlingen.Add(leerling);
-            StreamWriter opslaanStudent = File.AppendText(@"C:\ProjectVoorb\ProjectVoorb\gebruikers\studenten.txt");
+            StreamWriter opslaanStudent = File.AppendText("leerlingen.txt");
             opslaanStudent.WriteLine(leerling.ToString());
             opslaanStudent.Close();
         }
         public void SlaLeerkrachtOp(Leerkracht leerkracht)
         {
             leerkrachten.Add(leerkracht);
-            StreamWriter opslaanLeerkracht = File.AppendText(@"C:\ProjectVoorb\ProjectVoorb\gebruikers\leerkrachten.txt");
+            StreamWriter opslaanLeerkracht = File.AppendText("leerkrachten.txt");
             opslaanLeerkracht.WriteLine(leerkracht.ToString());
             opslaanLeerkracht.Close();
         }
 
         private void LeesStudentenIn() 
         {
-            StreamReader studenten = File.OpenText(@"C:\ProjectVoorb\ProjectVoorb\gebruikers\studenten.txt");
+            StreamReader studenten = File.OpenText("leerlingen.txt");
             string regel = studenten.ReadLine();
             while (regel != null)
             {
@@ -54,7 +54,7 @@ namespace ProjectChallenge
 
         private void LeesLeerkrachtenIn()
         {
-            StreamReader leerkrachten = File.OpenText(@"C:\ProjectVoorb\ProjectVoorb\gebruikers\leerkrachten.txt");
+            StreamReader leerkrachten = File.OpenText("leerkrachten.txt");
             string regel = leerkrachten.ReadLine();
             while (regel != null)
             {
