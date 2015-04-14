@@ -47,7 +47,7 @@ namespace ProjectChallenge
                 MessageBox.Show("Foute login");
 
                 // ENKEL VOOR TESTDOELEINDEN
-                MessageBox.Show("Login OK");
+                
                 MainVragenWindow w = new MainVragenWindow();
                 w.Show();
                 // VERWIJDER UIT UITEINDELIJK PROJECT
