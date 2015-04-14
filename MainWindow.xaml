@@ -17,6 +17,7 @@
                 HorizontalAlignment="Left" VerticalAlignment="Top"
                 Margin="313,199,0,0" 
                 Width="100" Height="35" Click="registratieButton_Click"/>
+        <Ellipse Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="100" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="100"/>
 
 
     </Grid>
