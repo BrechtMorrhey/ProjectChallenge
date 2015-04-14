@@ -25,3 +25,6 @@ C:\Users\11402671\Documents\Visual Studio 2013\Projects\Challenge\ProjectChallen
 C:\Users\11402671\Documents\Visual Studio 2013\Projects\Challenge\ProjectChallenge\obj\Debug\login\LoginWindow.g.cs
 C:\Users\11402671\Documents\Visual Studio 2013\Projects\Challenge\ProjectChallenge\obj\Debug\login\RegistratieWindow.g.cs
 C:\Users\11402671\Documents\Visual Studio 2013\Projects\Challenge\ProjectChallenge\obj\Debug\ProjectChallenge.csprojResolveAssemblyReference.cache
+\\Macbookpro-7f5c\pxl\Dropbox\ProjectChallenge\bin\Debug\ProjectChallenge.exe.config
+\\Macbookpro-7f5c\pxl\Dropbox\ProjectChallenge\obj\Debug\ProjectChallenge.exe
+\\Macbookpro-7f5c\pxl\Dropbox\ProjectChallenge\obj\Debug\ProjectChallenge.pdb
