@@ -37,7 +37,7 @@ namespace ProjectChallenge
                     gebruikersTextBox.AppendText(student.ToString());
                     gebruikersTextBox.AppendText(Environment.NewLine);
                 }
-                
+                MessageBox.Show("Login OK");
                 MainVragenWindow w = new MainVragenWindow();
                 w.Show();
             }
