@@ -4,17 +4,22 @@
 winexe
 C#
 .cs
-C:\Users\11402671\Documents\Visual Studio 2013\Projects\Challenge\ProjectChallenge\obj\Debug\
+D:\Documents\GitHub\ProjectChallenge\obj\Debug\
 ProjectChallenge
 none
 false
 DEBUG;TRACE
+<<<<<<< HEAD
 C:\Users\11402671\Documents\Visual Studio 2013\Projects\Challenge\ProjectChallenge\App.xaml
 <<<<<<< HEAD
 9-855073939
 =======
 8481241961
 >>>>>>> origin/brecht
+=======
+D:\Documents\GitHub\ProjectChallenge\App.xaml
+9-855073939
+>>>>>>> origin/stijn
 
 232042102894
 12-1401562060

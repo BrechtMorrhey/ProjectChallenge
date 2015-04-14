@@ -59,4 +59,36 @@ C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge.Prop
 C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge.csproj.GenerateResource.Cache
 C:\Users\11402671\Documents\Visual Studio 2013\Projects\Challenge\ProjectChallenge\obj\Debug\game\Game.baml
 C:\Users\11402671\Documents\Visual Studio 2013\Projects\Challenge\ProjectChallenge\obj\Debug\game\Game.g.cs
+<<<<<<< HEAD
 >>>>>>> origin/game
+=======
+D:\Documents\GitHub\ProjectChallenge\bin\Debug\ProjectChallenge.exe.config
+D:\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge.exe
+D:\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge.pdb
+D:\Documents\GitHub\ProjectChallenge\bin\Debug\ProjectChallenge.exe
+D:\Documents\GitHub\ProjectChallenge\bin\Debug\ProjectChallenge.pdb
+D:\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge.csprojResolveAssemblyReference.cache
+D:\Documents\GitHub\ProjectChallenge\obj\Debug\game\Game.baml
+D:\Documents\GitHub\ProjectChallenge\obj\Debug\login\LoginWindow.baml
+D:\Documents\GitHub\ProjectChallenge\obj\Debug\MainWindow.baml
+D:\Documents\GitHub\ProjectChallenge\obj\Debug\login\RegistratieWindow.baml
+D:\Documents\GitHub\ProjectChallenge\obj\Debug\vragen\AanpassenWindow.baml
+D:\Documents\GitHub\ProjectChallenge\obj\Debug\vragen\MainVragenWindow.baml
+D:\Documents\GitHub\ProjectChallenge\obj\Debug\vragen\OplossenWindow.baml
+D:\Documents\GitHub\ProjectChallenge\obj\Debug\vragen\OpstellenWindow.baml
+D:\Documents\GitHub\ProjectChallenge\obj\Debug\vragen\ScoreWindow.baml
+D:\Documents\GitHub\ProjectChallenge\obj\Debug\game\Game.g.cs
+D:\Documents\GitHub\ProjectChallenge\obj\Debug\login\LoginWindow.g.cs
+D:\Documents\GitHub\ProjectChallenge\obj\Debug\MainWindow.g.cs
+D:\Documents\GitHub\ProjectChallenge\obj\Debug\login\RegistratieWindow.g.cs
+D:\Documents\GitHub\ProjectChallenge\obj\Debug\vragen\AanpassenWindow.g.cs
+D:\Documents\GitHub\ProjectChallenge\obj\Debug\vragen\MainVragenWindow.g.cs
+D:\Documents\GitHub\ProjectChallenge\obj\Debug\vragen\OplossenWindow.g.cs
+D:\Documents\GitHub\ProjectChallenge\obj\Debug\vragen\OpstellenWindow.g.cs
+D:\Documents\GitHub\ProjectChallenge\obj\Debug\vragen\ScoreWindow.g.cs
+D:\Documents\GitHub\ProjectChallenge\obj\Debug\App.g.cs
+D:\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge_MarkupCompile.cache
+D:\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge.g.resources
+D:\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge.Properties.Resources.resources
+D:\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge.csproj.GenerateResource.Cache
+>>>>>>> origin/stijn
