@@ -25,7 +25,7 @@ namespace ProjectChallenge
         public MainWindow()
         {
             InitializeComponent();
-            //git test
+
             alleGebruikers = new AlleGebruikers();
             
         }
