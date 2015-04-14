@@ -25,7 +25,7 @@ namespace ProjectChallenge
         public MainWindow()
         {
             InitializeComponent();
-
+            // akki test
             alleGebruikers = new AlleGebruikers();
             
         }
