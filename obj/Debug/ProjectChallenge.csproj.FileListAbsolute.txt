@@ -59,9 +59,7 @@ C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge.Prop
 C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge.csproj.GenerateResource.Cache
 C:\Users\11402671\Documents\Visual Studio 2013\Projects\Challenge\ProjectChallenge\obj\Debug\game\Game.baml
 C:\Users\11402671\Documents\Visual Studio 2013\Projects\Challenge\ProjectChallenge\obj\Debug\game\Game.g.cs
-<<<<<<< HEAD
 >>>>>>> origin/game
-=======
 D:\Documents\GitHub\ProjectChallenge\bin\Debug\ProjectChallenge.exe.config
 D:\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge.exe
 D:\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge.pdb
