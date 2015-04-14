@@ -25,6 +25,38 @@ C:\Users\11402671\Documents\Visual Studio 2013\Projects\Challenge\ProjectChallen
 C:\Users\11402671\Documents\Visual Studio 2013\Projects\Challenge\ProjectChallenge\obj\Debug\login\LoginWindow.g.cs
 C:\Users\11402671\Documents\Visual Studio 2013\Projects\Challenge\ProjectChallenge\obj\Debug\login\RegistratieWindow.g.cs
 C:\Users\11402671\Documents\Visual Studio 2013\Projects\Challenge\ProjectChallenge\obj\Debug\ProjectChallenge.csprojResolveAssemblyReference.cache
+<<<<<<< HEAD
 \\Macbookpro-7f5c\pxl\Dropbox\ProjectChallenge\bin\Debug\ProjectChallenge.exe.config
 \\Macbookpro-7f5c\pxl\Dropbox\ProjectChallenge\obj\Debug\ProjectChallenge.exe
 \\Macbookpro-7f5c\pxl\Dropbox\ProjectChallenge\obj\Debug\ProjectChallenge.pdb
+=======
+C:\Users\stijn\Documents\GitHub\ProjectChallenge\bin\Debug\ProjectChallenge.exe.config
+C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge.exe
+C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge.pdb
+C:\Users\stijn\Documents\GitHub\ProjectChallenge\bin\Debug\ProjectChallenge.exe
+C:\Users\stijn\Documents\GitHub\ProjectChallenge\bin\Debug\ProjectChallenge.pdb
+C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge.csprojResolveAssemblyReference.cache
+C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\login\LoginWindow.baml
+C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\MainWindow.baml
+C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\login\RegistratieWindow.baml
+C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\vragen\AanpassenWindow.baml
+C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\vragen\MainVragenWindow.baml
+C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\vragen\OplossenWindow.baml
+C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\vragen\OpstellenWindow.baml
+C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\vragen\ScoreWindow.baml
+C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\login\LoginWindow.g.cs
+C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\MainWindow.g.cs
+C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\login\RegistratieWindow.g.cs
+C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\vragen\AanpassenWindow.g.cs
+C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\vragen\MainVragenWindow.g.cs
+C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\vragen\OplossenWindow.g.cs
+C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\vragen\OpstellenWindow.g.cs
+C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\vragen\ScoreWindow.g.cs
+C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\App.g.cs
+C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge_MarkupCompile.cache
+C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge.g.resources
+C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge.Properties.Resources.resources
+C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge.csproj.GenerateResource.Cache
+C:\Users\11402671\Documents\Visual Studio 2013\Projects\Challenge\ProjectChallenge\obj\Debug\game\Game.baml
+C:\Users\11402671\Documents\Visual Studio 2013\Projects\Challenge\ProjectChallenge\obj\Debug\game\Game.g.cs
+>>>>>>> origin/game
