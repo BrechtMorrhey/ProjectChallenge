@@ -74,6 +74,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="vragen\MeerkeuzeVraag.cs" />
     <Compile Include="vragen\OplossenWindow.xaml.cs">
       <DependentUpon>OplossenWindow.xaml</DependentUpon>
     </Compile>
@@ -84,6 +85,7 @@
       <DependentUpon>ScoreWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="vragen\Vraag.cs" />
+    <Compile Include="vragen\wiskundigeVraag.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="vragen\BasisVraag.cs" />
