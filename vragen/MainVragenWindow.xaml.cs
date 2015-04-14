@@ -33,7 +33,7 @@ namespace ProjectChallenge
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.ShowDialog();
             bestandsNaam = dialog.FileName;
-            if (bestandsNaam != null)
+            if (bestandsNaam != null && bestandsNaam != "")
             {
                 Window w = new AanpassenWindow(bestandsNaam);
                 w.Show();
@@ -45,7 +45,7 @@ namespace ProjectChallenge
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.ShowDialog();
             bestandsNaam = dialog.FileName;
-            if (bestandsNaam != null)
+            if (bestandsNaam != null && bestandsNaam != "")
             {
                 Window w = new OplossenWindow(bestandsNaam);
                 w.Show();
@@ -57,9 +57,11 @@ namespace ProjectChallenge
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.ShowDialog();
             bestandsNaam = dialog.FileName;
-            Window w = new AanpassenWindow(bestandsNaam);
-            w.Show();
-           
+            if (bestandsNaam != null && bestandsNaam!="")
+            {
+                Window w = new AanpassenWindow(bestandsNaam);
+                w.Show();
+            }
         }
     }
 }

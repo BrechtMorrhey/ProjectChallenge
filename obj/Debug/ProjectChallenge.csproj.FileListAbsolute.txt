@@ -24,3 +24,4 @@ C:\Users\11402671\Documents\Visual Studio 2013\Projects\Challenge\ProjectChallen
 C:\Users\11402671\Documents\Visual Studio 2013\Projects\Challenge\ProjectChallenge\obj\Debug\login\RegistratieWindow.baml
 C:\Users\11402671\Documents\Visual Studio 2013\Projects\Challenge\ProjectChallenge\obj\Debug\login\LoginWindow.g.cs
 C:\Users\11402671\Documents\Visual Studio 2013\Projects\Challenge\ProjectChallenge\obj\Debug\login\RegistratieWindow.g.cs
+C:\Users\11402671\Documents\Visual Studio 2013\Projects\Challenge\ProjectChallenge\obj\Debug\ProjectChallenge.csprojResolveAssemblyReference.cache
