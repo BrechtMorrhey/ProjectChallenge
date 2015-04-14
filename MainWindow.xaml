@@ -17,7 +17,6 @@
                 HorizontalAlignment="Left" VerticalAlignment="Top"
                 Margin="313,199,0,0" 
                 Width="100" Height="35" Click="registratieButton_Click"/>
-        
 
 
     </Grid>
