@@ -19,8 +19,8 @@ namespace ProjectChallenge
         {
             leerlingen = new List<Leerling>();
             leerkrachten = new List<Leerkracht>();
-            LeesStudentenIn();
-            LeesLeerkrachtenIn();
+            //LeesStudentenIn();
+            //LeesLeerkrachtenIn();
             //Paden van deze methoden moeten aangepast worden
         }
 
