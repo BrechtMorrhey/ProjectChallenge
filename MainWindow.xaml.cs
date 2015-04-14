@@ -43,5 +43,11 @@ namespace ProjectChallenge
             Hide();
             login.Show();
         }
+
+        private void gameButton_Click(object sender, RoutedEventArgs e)
+        {
+            Game w = new Game();
+            w.Show();
+        }
     }
 }
