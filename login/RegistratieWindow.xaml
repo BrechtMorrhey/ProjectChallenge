@@ -1,0 +1,17 @@
+﻿<Window x:Class="ProjectChallenge.RegistratieWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="RegistratieWindow" Height="350" Width="525">
+    <Grid>
+        <TextBox Name="naamTextBox" HorizontalAlignment="Left" Height="23" Margin="30,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="naam"/>
+        <TextBox Name="voornaamTextBox" HorizontalAlignment="Left" Height="23" Margin="193,75,0,0" TextWrapping="Wrap" Text="voornaam" VerticalAlignment="Top" Width="120"/>
+        <PasswordBox Name="passwoordPasswordBox" HorizontalAlignment="Left" Height="23" Margin="193,125,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button Content="saveButton" HorizontalAlignment="Left" Margin="238,175,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <DatePicker Name="datumDatePicker" HorizontalAlignment="Left" Margin="30,125,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox Name="soortRegistratieComboBox" HorizontalAlignment="Left" Margin="30,27,0,0" VerticalAlignment="Top" Width="120">
+            <ComboBoxItem Name="leerlingItem">Leerling</ComboBoxItem>
+            <ComboBoxItem Name="leerkrachtItem">Leerkracht</ComboBoxItem>
+        </ComboBox>
+
+    </Grid>
+</Window>

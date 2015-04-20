@@ -9,24 +9,10 @@ ProjectChallenge
 none
 false
 DEBUG;TRACE
-<<<<<<< HEAD
-<<<<<<< HEAD
-C:\Users\11402671\Documents\Visual Studio 2013\Projects\Challenge\ProjectChallenge\App.xaml
-<<<<<<< HEAD
-9-855073939
-=======
-8481241961
->>>>>>> origin/brecht
-=======
 D:\Documents\GitHub\ProjectChallenge\App.xaml
 9-855073939
->>>>>>> origin/stijn
-=======
-D:\Documents\GitHub\ProjectChallenge\App.xaml
-9-855073939
->>>>>>> origin/master
 
-25-468320001
+291024445037
 12-1401562060
 game\Game.xaml;login\LoginWindow.xaml;MainWindow.xaml;login\RegistratieWindow.xaml;vragen\AanpassenWindow.xaml;vragen\MainVragenWindow.xaml;vragen\OplossenWindow.xaml;vragen\OpstellenWindow.xaml;vragen\ScoreWindow.xaml;
 

@@ -63,8 +63,11 @@ C:\Users\11402671\Documents\Visual Studio 2013\Projects\Challenge\ProjectChallen
 D:\Documents\GitHub\ProjectChallenge\bin\Debug\ProjectChallenge.exe.config
 D:\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge.exe
 D:\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge.pdb
+<<<<<<< HEAD
 D:\Documents\GitHub\ProjectChallenge\bin\Debug\ProjectChallenge.exe
 D:\Documents\GitHub\ProjectChallenge\bin\Debug\ProjectChallenge.pdb
+=======
+>>>>>>> origin/master
 D:\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge.csprojResolveAssemblyReference.cache
 D:\Documents\GitHub\ProjectChallenge\obj\Debug\game\Game.baml
 D:\Documents\GitHub\ProjectChallenge\obj\Debug\login\LoginWindow.baml
@@ -89,4 +92,9 @@ D:\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge_MarkupCompile.ca
 D:\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge.g.resources
 D:\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge.Properties.Resources.resources
 D:\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge.csproj.GenerateResource.Cache
+<<<<<<< HEAD
 >>>>>>> origin/stijn
+=======
+D:\Documents\GitHub\ProjectChallenge\bin\Debug\ProjectChallenge.exe
+D:\Documents\GitHub\ProjectChallenge\bin\Debug\ProjectChallenge.pdb
+>>>>>>> origin/master
