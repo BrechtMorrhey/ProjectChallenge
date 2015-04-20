@@ -20,22 +20,6 @@ namespace ProjectChallenge
             this.antwoord = antwoord;
            
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         //properties
 
         public override string Opgave

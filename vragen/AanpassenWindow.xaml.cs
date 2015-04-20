@@ -23,8 +23,9 @@ namespace ProjectChallenge
         private List<Vraag> vragenLijst;
         private string bestandsNaam;
         private int counter;
-
-        public AanpassenWindow(string bestandsNaam)
+        
+              
+        public AanpassenWindow(string bestandsNaam, bool nieuweLijst)
         {
             InitializeComponent();
 
@@ -33,52 +34,57 @@ namespace ProjectChallenge
             // als ge dit in XAML probeert te doen krijgt ge een NullReferenceException in uw InitializeComponent 
             //door een WPF bug die uw events checked voor de bijbehorende controls zijn aangemaakt
             // http://stackoverflow.com/questions/2518231/wpf-getting-control-null-reference-during-initializecomponent
-
-            string line;
-            BasisVraag basisVraag;
-
-            
+                                   
             vragenLijst = new List<Vraag>();
             this.bestandsNaam = bestandsNaam;
-            counter = 0;
+            if (!nieuweLijst)   // als het geen nieuwe lijst is, laadt de oude lijst in
+            {
+                string line;
+                BasisVraag basisVraag;
 
-            try { 
-                StreamReader inputStream = File.OpenText(bestandsNaam);
-                line = inputStream.ReadLine();
-                bool fouteInvoer = false;
-                while (line != null && fouteInvoer == false)
+                counter = 0;
+
+                try
                 {
-                    switch (line.Split(',')[0])
+                    StreamReader inputStream = File.OpenText(bestandsNaam);
+                    line = inputStream.ReadLine();
+                    bool fouteInvoer = false;
+                    while (line != null && fouteInvoer == false)
                     {
-                        case "basis":
-                            basisVraag = new BasisVraag(line.Split(',')[1], line.Split(',')[2]);
-                            vragenLijst.Add(basisVraag);
-                            line = inputStream.ReadLine();
-                            break;
-                        case "meerkeuze":
-                            //code voor meerkeuze
-                            break;
-                        case "wiskunde":
-                            //code voor wiskunde
-                            break;
-                        default: MessageBox.Show("Fout invoerbestand");
-                            fouteInvoer = true;
-                            this.Close();
-                            break;
+                        switch (line.Split(',')[0])
+                        {
+                            case "basis":
+                                basisVraag = new BasisVraag(line.Split(',')[1], line.Split(',')[2]);
+                                vragenLijst.Add(basisVraag);
+                                line = inputStream.ReadLine();
+                                break;
+                            case "meerkeuze":
+                                //code voor meerkeuze
+                                break;
+                            case "wiskunde":
+                                //code voor wiskunde
+                                break;
+                            default: MessageBox.Show("Fout invoerbestand");
+                                fouteInvoer = true;
+                                this.Close();
+                                break;
+                        }
                     }
-                }
-                
+
 
                 }
-            catch (FileNotFoundException)
-            {
-                // dit dient enkel om foutmelding te onderdrukken als een nieuwe file gemaakt moet worden, er zou hier al een nieuwe file gemaakt
-                // kunnen worden maar het is beter om het aanmaken van onnodige bestanden te vermijden en te wachten tot de gebruiker effectief op 
-                // opslaan drukt
+                catch (FileNotFoundException)
+                {
+                    MessageBox.Show("Bestand niet gevonden.");
+                    this.Close();
                 }
-            catch (ArgumentException)
-            {
-                this.Close();
+                catch (ArgumentException)
+                {
+                    // deze exception treedt op als de user het OpenFileDialog sluit
+                    // AanpassenWindow moet dan niet opengaan
+                    this.Close();
+                }
+
             }
             
 
