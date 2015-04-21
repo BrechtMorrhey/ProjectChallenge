@@ -28,6 +28,7 @@ namespace ProjectChallenge
         {
             string line;
             BasisVraag basisVraag;
+            StreamReader inputStream = null;
 
             this.bestandsNaam = bestandsNaam;
             counter = 0;
@@ -36,7 +37,7 @@ namespace ProjectChallenge
 
             try
             {
-                StreamReader inputStream = File.OpenText(bestandsNaam);
+                inputStream = File.OpenText(bestandsNaam);
                 line = inputStream.ReadLine();
                 bool fouteInvoer = false;
                 while (line != null && fouteInvoer == false)
@@ -67,6 +68,13 @@ namespace ProjectChallenge
             {
                 MessageBox.Show("Invoerbestand bestaat niet");
                 this.Close();
+            }
+            finally
+            {
+                if (inputStream != null)
+                {
+                    inputStream.Close();
+                }
             }
 
             LaadVraag();
@@ -119,7 +127,7 @@ namespace ProjectChallenge
 
         private void Klaar()
         {
-            Window w = new ScoreWindow(vragenLijst);
+            Window w = new ScoreWindow(vragenLijst, bestandsNaam);
             w.Show();
             this.Close();
         }

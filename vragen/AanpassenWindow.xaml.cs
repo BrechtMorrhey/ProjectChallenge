@@ -41,12 +41,12 @@ namespace ProjectChallenge
             {
                 string line;
                 BasisVraag basisVraag;
-
+                StreamReader inputStream = null;
                 counter = 0;
-
+                
                 try
                 {
-                    StreamReader inputStream = File.OpenText(bestandsNaam);
+                    inputStream = File.OpenText(bestandsNaam);
                     line = inputStream.ReadLine();
                     bool fouteInvoer = false;
                     while (line != null && fouteInvoer == false)
@@ -84,7 +84,13 @@ namespace ProjectChallenge
                     // AanpassenWindow moet dan niet opengaan
                     this.Close();
                 }
-
+                finally
+                {
+                    if (inputStream != null)
+                    {
+                        inputStream.Close();
+                    }
+                }
             }
             
 

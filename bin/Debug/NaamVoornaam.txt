@@ -1,0 +1,6 @@
+Voornaam Naam
+False	dez	e
+False	ds	zef
+False	d	de
+True		
+Score: 1/4	 Percentage: 25%
