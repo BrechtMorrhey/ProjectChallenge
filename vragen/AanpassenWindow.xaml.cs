@@ -23,7 +23,8 @@ namespace ProjectChallenge
         private List<Vraag> vragenLijst;
         private string bestandsNaam;
         private int counter;
-        Style juistStyle;
+        Brush juistBrush;
+        FontWeight juistFontWeight;
         double textBoxWidth;
         double textBoxHeight;
         
@@ -116,7 +117,8 @@ namespace ProjectChallenge
             }
             
             // kopieer de opmaak en grootte van de TextBoxes in de listbox voor later
-            juistStyle = ((TextBox)meerkeuzeListBox.Items[0]).Style;
+            juistBrush = ((TextBox)meerkeuzeListBox.Items[0]).Foreground;
+            juistFontWeight = ((TextBox)meerkeuzeListBox.Items[0]).FontWeight;
             textBoxWidth = ((TextBox)meerkeuzeListBox.Items[0]).Width;
             textBoxHeight = ((TextBox)meerkeuzeListBox.Items[0]).Height;
 
@@ -215,7 +217,8 @@ namespace ProjectChallenge
                     lijstItem.Width = textBoxWidth;
                     meerkeuzeListBox.Items.Add(lijstItem);
                 }
-                ((TextBox)meerkeuzeListBox.Items[0]).Style = juistStyle;              
+                ((TextBox)meerkeuzeListBox.Items[0]).Foreground = juistBrush;
+                ((TextBox)meerkeuzeListBox.Items[0]).FontWeight = juistFontWeight; 
             }
             else
             {
@@ -247,7 +250,8 @@ namespace ProjectChallenge
                                 lijstItem.Width = textBoxWidth;
                                 meerkeuzeListBox.Items.Add(lijstItem);                           
                         }
-                        ((TextBox)meerkeuzeListBox.Items[0]).Style = juistStyle;
+                        ((TextBox)meerkeuzeListBox.Items[0]).FontWeight = juistFontWeight;
+                        ((TextBox)meerkeuzeListBox.Items[0]).Foreground = juistBrush; 
                         typeVraagComboBox.SelectedIndex = 1;
                         break;
                     case VraagType.wiskunde: // code voor wiskundevraag
