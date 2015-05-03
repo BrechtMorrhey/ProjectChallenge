@@ -91,7 +91,15 @@ namespace ProjectChallenge
                                 this.Close();
                                 break;
                         }
-                        vragenLijst.Add(vraag);
+                        if (vraag != null)
+                        {
+                            vragenLijst.Add(vraag);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Vraag is null, programma zal nu afsluiten");
+                            this.Close();
+                        }
                         line = inputStream.ReadLine();
                         j++;
                     }

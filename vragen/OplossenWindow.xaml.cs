@@ -24,11 +24,14 @@ namespace ProjectChallenge
         private int counter;
         private string bestandsNaam;
         
+        
         public OplossenWindow(string bestandsNaam)
         {
-            string line;
-            BasisVraag basisVraag;
+            int i;
+            string line, lijst;
+            Vraag vraag=null;
             StreamReader inputStream = null;
+            List<string> antwoordenLijst;
 
             this.bestandsNaam = bestandsNaam;
             counter = 0;
@@ -45,13 +48,30 @@ namespace ProjectChallenge
                     switch (line.Split(',')[0])
                     {
                         case "basis":
-                            basisVraag = new BasisVraag(line.Split(',')[1], line.Split(',')[2]);
-                            vragenLijst.Add(basisVraag);
-                            line = inputStream.ReadLine();
+                            vraag = new BasisVraag(line.Split(',')[1], line.Split(',')[2]);
+                            
                             break;
                         case "meerkeuze":
-                            //code voor meerkeuze
-                            break;
+                            antwoordenLijst = new List<string>();
+                                lijst = line.Split(',')[2];
+                                i = 0;
+                                while ((lijst.Split('|')[i]).Trim() != "")   // maak de antwoordenlijst door elementen in te lezen zolang er geen lege waarde komt
+                                {
+                                    antwoordenLijst.Add(lijst.Split('|')[i]);
+                                    i++;
+                                }
+                                if (antwoordenLijst != null)
+                                {
+                                    vraag = new MeerkeuzeVraag(line.Split(',')[1], antwoordenLijst);
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Lege antwoordenlijst");
+                                    // de vraag wordt niet ingelezen en het programma probeert verder te gaan
+                                }
+                                //code voor meerkeuze
+                                break;
+                           
                         case "wiskunde":
                             //code voor wiskunde
                             break;
@@ -60,6 +80,16 @@ namespace ProjectChallenge
                             this.Close();
                             break;
                     }
+                    if (vraag != null)
+                    {
+                        vragenLijst.Add(vraag);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Vraag is null, programma zal nu afsluiten");
+                        this.Close();
+                    }
+                    line = inputStream.ReadLine();
                 }
 
 
@@ -94,7 +124,7 @@ namespace ProjectChallenge
 
         private void vorigeButton_Click(object sender, RoutedEventArgs e)
         {
-            vragenLijst[counter].Ingevuld = invulTextBox.Text;
+            SlaVraagOp();
             if ((counter - 1) >= 0)
             {
                 counter--; // ga naar de vorige vraag
@@ -102,26 +132,19 @@ namespace ProjectChallenge
             }
         }
 
+        
+
         private void volgendeButton_Click(object sender, RoutedEventArgs e)
         {
-            if (vragenLijst[counter].TypeVraag == VraagType.meerkeuze)
+            SlaVraagOp();
+            if (counter+1 < vragenLijst.Count)
             {
-                // code voor meerkeuze
-            }
-            else
-            {
-                vragenLijst[counter].Ingevuld = invulTextBox.Text;
-            }
-            counter++; // ga naar de volgende vraag
-
-            if (counter < vragenLijst.Count)
-            {
+                counter++;
                 LaadVraag();
             }
             else
             {
-                MessageBox.Show("Laatste vraag, druk op Klaar om af te sluiten uw score te bekijken");
-                counter--;
+                MessageBox.Show("Laatste vraag, druk op Klaar om af te sluiten uw score te bekijken");                
             }
         }
 
@@ -134,19 +157,40 @@ namespace ProjectChallenge
 
         private void klaarButton_Click(object sender, RoutedEventArgs e)
         {
+            SlaVraagOp();
             Klaar(); // misschien onnodig om methode voor te gebruiken
         }
 
         private void LaadVraag()
         {
+            opgaveTextBlock.Text = vragenLijst[counter].Opgave;
+            invulListBox.Items.Clear();
             switch (vragenLijst[counter].TypeVraag) { 
                 case(VraagType.basis):
                     invulTextBox.Visibility = Visibility.Visible;
                     invulListBox.Visibility = Visibility.Hidden;
+                    invulTextBox.Text = vragenLijst[counter].Ingevuld;
                     break;
                 case(VraagType.meerkeuze):
-                    invulTextBox.Visibility = Visibility.Visible;
-                    invulListBox.Visibility = Visibility.Hidden;
+                    invulTextBox.Visibility = Visibility.Hidden;
+                    invulListBox.Visibility = Visibility.Visible;
+
+                    List<string> antwoordenLijst=new List<string>();
+                    foreach (string antwoord in ((MeerkeuzeVraag)vragenLijst[counter]).AntwoordenLijst) // copy by value
+                    {
+                        antwoordenLijst.Add(antwoord);
+                    }
+                    Random randomIndex = new Random();
+                    int r;
+                    RadioButton radioKnop;
+                    while(antwoordenLijst.Count>0)// zet de antwoorden in willekeurige volgorde in de ListBox
+                    {
+                        r = randomIndex.Next(0, antwoordenLijst.Count);
+                        radioKnop = new RadioButton();
+                        radioKnop.Content = antwoordenLijst[r];                        
+                        invulListBox.Items.Add(radioKnop);
+                        antwoordenLijst.RemoveAt(r);
+                    }
                     break;
                 case(VraagType.wiskunde):
                     invulTextBox.Visibility = Visibility.Hidden;
@@ -156,11 +200,26 @@ namespace ProjectChallenge
                     // this.Close();
                     break;
             }
-
-            opgaveTextBlock.Text = vragenLijst[counter].Opgave;
-            invulTextBox.Text = vragenLijst[counter].Ingevuld;
-        
         }
-       
+        
+        public void SlaVraagOp()
+        {
+            switch (vragenLijst[counter].TypeVraag)
+            {
+                case (VraagType.basis):
+                case (VraagType.wiskunde):
+                    vragenLijst[counter].Ingevuld = invulTextBox.Text;
+                    break;
+                case (VraagType.meerkeuze):                    
+                    foreach (RadioButton radioKnop in invulListBox.Items)
+                    {
+                        if ((bool)radioKnop.IsChecked)
+                        {
+                            vragenLijst[counter].Ingevuld = (string)radioKnop.Content;
+                        }
+                    }
+                    break;          
+            }
+        }
     }
 }
