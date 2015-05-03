@@ -23,9 +23,6 @@ namespace ProjectChallenge
         private List<Vraag> vragenLijst;
         private string bestandsNaam;
         private int counter;
-        Style juistStyle;
-        double textBoxWidth;
-        double textBoxHeight;
         
               
         public AanpassenWindow(string bestandsNaam, bool nieuweLijst)
@@ -62,13 +59,12 @@ namespace ProjectChallenge
                                 vraag = new BasisVraag(line.Split(',')[1], line.Split(',')[2]);                                
                                 break;
                             case "meerkeuze":
-                                antwoordenLijst = new List<string>();
+                                antwoordenLijst = null;
                                 lijst = line.Split(',')[2];
                                 i = 0;
                                 while ((lijst.Split('|')[i]).Trim() != "")   // maak de antwoordenlijst door elementen in te lezen zolang er geen lege waarde komt
                                 {
                                     antwoordenLijst.Add(lijst.Split('|')[i]);
-                                    i++;
                                 }
                                 if (antwoordenLijst != null)
                                 {
@@ -115,14 +111,8 @@ namespace ProjectChallenge
                 }
             }
             
-            // kopieer de opmaak en grootte van de TextBoxes in de listbox voor later
-            juistStyle = ((TextBox)meerkeuzeListBox.Items[0]).Style;
-            textBoxWidth = ((TextBox)meerkeuzeListBox.Items[0]).Width;
-            textBoxHeight = ((TextBox)meerkeuzeListBox.Items[0]).Height;
-
 
             LaadVraag();
-
             
             
         }
@@ -168,7 +158,7 @@ namespace ProjectChallenge
                 {
                     case 0: vraag = new BasisVraag(opgaveTextBox.Text, antwoordTextBox.Text);                                    
                         break;
-                    case 1: List<string> antwoordenLijst= new List<string>();
+                    case 1: List<string> antwoordenLijst=null;
                         foreach (TextBox antwoordBox in meerkeuzeListBox.Items)
                         {
                             antwoordenLijst.Add(antwoordBox.Text);
@@ -204,18 +194,6 @@ namespace ProjectChallenge
             {
                 opgaveTextBox.Text = "";
                 antwoordTextBox.Text = "";
-                // reset de meerkeuze ListBox
-                meerkeuzeListBox.Items.Clear();
-                TextBox lijstItem;
-                for (int i=0; i < 2; i++)
-                {
-                    // dit stukje code komt meerdere keren terug, kan gerefactored worden
-                    lijstItem = new TextBox();
-                    lijstItem.Height = textBoxHeight;
-                    lijstItem.Width = textBoxWidth;
-                    meerkeuzeListBox.Items.Add(lijstItem);
-                }
-                ((TextBox)meerkeuzeListBox.Items[0]).Style = juistStyle;              
             }
             else
             {
@@ -225,29 +203,9 @@ namespace ProjectChallenge
                     case VraagType.basis: antwoordTextBox.Text = vragenLijst[counter].Antwoord;
                         typeVraagComboBox.SelectedIndex = 0;
                         break;
-                    case VraagType.meerkeuze: 
-                        //meerkeuzeListBox.ItemsSource = ((MeerkeuzeVraag)vragenLijst[counter]).AntwoordenLijst;
-                        //het gebruik van ItemsSource levert verschillende problemen op, dus gebruiken we in de plaats een simpele lus                     
-                        meerkeuzeListBox.Items.Clear();
-                        TextBox lijstItem;
-                        foreach (string antwoord in ((MeerkeuzeVraag)vragenLijst[counter]).AntwoordenLijst)
-                        // we kunnen niet zomaar aan de antwoordenlijst aangezien dit geen property van Vraag is dus moeten we eerst naar MeerkeuzeVraag casten
+                    case VraagType.meerkeuze: // we kunnen niet zomaar aan de antwoordenlijst aangezien dit geen property van Vraag is dus moeten we eerst naar MeerkeuzeVraag casten
                         // dit is niet zo een mooie oplossing, alternatieven??
-                        {
-                            lijstItem = new TextBox();
-                            lijstItem.Height = textBoxHeight;
-                            lijstItem.Width = textBoxWidth;
-                            lijstItem.Text = antwoord;
-                            meerkeuzeListBox.Items.Add(lijstItem);
-                        }
-                        while (meerkeuzeListBox.Items.Count < 2)  //als de antwoorden niet volledig zijn ingevuld, vul dan aan met lege
-                        {              
-                                lijstItem = new TextBox();
-                                lijstItem.Height = textBoxHeight;
-                                lijstItem.Width = textBoxWidth;
-                                meerkeuzeListBox.Items.Add(lijstItem);                           
-                        }
-                        ((TextBox)meerkeuzeListBox.Items[0]).Style = juistStyle;
+                        meerkeuzeListBox.ItemsSource = ((MeerkeuzeVraag)vragenLijst[counter]).AntwoordenLijst;
                         typeVraagComboBox.SelectedIndex = 1;
                         break;
                     case VraagType.wiskunde: // code voor wiskundevraag
@@ -321,7 +279,7 @@ namespace ProjectChallenge
 
         private void minButton_Click(object sender, RoutedEventArgs e)
         {
-            if (meerkeuzeListBox.Items.Count > 2)
+            if (meerkeuzeListBox.Items.Count <= 2)
             {
                 meerkeuzeListBox.Items.RemoveAt(meerkeuzeListBox.Items.Count - 1); // verwijder het laatste item in de lijst
             }
@@ -331,7 +289,6 @@ namespace ProjectChallenge
             }
         }
 
-        
         
     }
 }
