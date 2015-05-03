@@ -55,7 +55,8 @@ namespace ProjectChallenge
                     inputStream = File.OpenText(bestandsNaam);
                     line = inputStream.ReadLine();
                     bool fouteInvoer = false;
-                    while (line != null && fouteInvoer == false)
+                    int j = 0;
+                    while (line != null && fouteInvoer == false && j<10000)
                     {
                         switch (line.Split(',')[0])
                         {
@@ -92,8 +93,13 @@ namespace ProjectChallenge
                         }
                         vragenLijst.Add(vraag);
                         line = inputStream.ReadLine();
+                        j++;
                     }
-
+                    if (j >= 10000)
+                    {
+                        MessageBox.Show("Bestand te groot, programma sluit nu af");
+                        this.Close();
+                    }
 
                 }
                 catch (FileNotFoundException)
@@ -132,7 +138,10 @@ namespace ProjectChallenge
         private void volgendeButton_Click(object sender, RoutedEventArgs e)
         {
             VoegVraagToe();
-            counter++;
+            if (counter + 1 < vragenLijst.Count + 1)    // Dit zorgt ervoor dat de gebruiker niet eindeloos voorbij het einde van de lijst kan gaan, maar wel een nieuwe vraag kan toevoegen
+            {
+                counter++;
+            }
             LaadVraag();
         }
 
@@ -165,12 +174,14 @@ namespace ProjectChallenge
 
         private void VoegVraagToe()
         {
-            Vraag vraag = null;
+            if (!(opgaveTextBox.Text == "" && (antwoordTextBox.Text == "" || ((TextBox)meerkeuzeListBox.Items[0]).Text == "")))    // kijk of de gebruiker alle velden heeft ingevuld
+            {
+                Vraag vraag = null;
                 switch (typeVraagComboBox.SelectedIndex)
                 {
-                    case 0: vraag = new BasisVraag(opgaveTextBox.Text, antwoordTextBox.Text);                                    
+                    case 0: vraag = new BasisVraag(opgaveTextBox.Text, antwoordTextBox.Text);
                         break;
-                    case 1: List<string> antwoordenLijst= new List<string>();
+                    case 1: List<string> antwoordenLijst = new List<string>();
                         foreach (TextBox antwoordBox in meerkeuzeListBox.Items)
                         {
                             antwoordenLijst.Add(antwoordBox.Text);
@@ -196,6 +207,7 @@ namespace ProjectChallenge
                     MessageBox.Show("Vraag is null, programma zal nu afsluiten");
                     this.Close();
                 }
+            }            
         }
 
 
