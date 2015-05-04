@@ -72,7 +72,7 @@ namespace ProjectChallenge
         {
             get
             {
-                return ingevuld != null;
+                return (ingevuld != null && ingevuld != "");
             }
         }
         public override bool IsJuist {

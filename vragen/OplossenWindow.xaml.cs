@@ -191,6 +191,18 @@ namespace ProjectChallenge
                         invulListBox.Items.Add(radioKnop);
                         antwoordenLijst.RemoveAt(r);
                     }
+
+                    // duid het eventueel ingevulde antwoord aan
+                    if (vragenLijst[counter].IsIngevuld)
+                    {
+                        foreach (RadioButton item in invulListBox.Items)
+                        {
+                            if (item.Content == vragenLijst[counter].Ingevuld)  //als de radiobutton dezelfde inhoud heeft als het ingevulde antwoord, duid de radiobutton aan
+                            {
+                                item.IsChecked = true;
+                            }
+                        }
+                    }
                     break;
                 case(VraagType.wiskunde):
                     invulTextBox.Visibility = Visibility.Hidden;
