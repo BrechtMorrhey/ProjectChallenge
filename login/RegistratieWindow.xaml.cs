@@ -42,7 +42,7 @@ namespace ProjectChallenge
             {
                 Leerling student = new Leerling(naam, voornaam, geboorteDatum, passwoord, allegebruikers);
                 student.SlaOp();
-                MessageBox.Show(string.Format("student:\t{0}\npasswoord:\t{1}\nOpgeslagen", student.ID, student.Paswoord));
+                MessageBox.Show(string.Format("student:\t\t{0}\npasswoord:\t{1}\nOpgeslagen", student.ID, student.Paswoord));
             }
             else if (soortRegistratieComboBox.SelectedItem == leerkrachtItem)
             {
