@@ -197,7 +197,7 @@ namespace ProjectChallenge
                     {
                         foreach (RadioButton item in invulListBox.Items)
                         {
-                            if (item.Content == vragenLijst[counter].Ingevuld)  //als de radiobutton dezelfde inhoud heeft als het ingevulde antwoord, duid de radiobutton aan
+                            if ((String)item.Content == vragenLijst[counter].Ingevuld)  //als de radiobutton dezelfde inhoud heeft als het ingevulde antwoord, duid de radiobutton aan
                             {
                                 item.IsChecked = true;
                             }
