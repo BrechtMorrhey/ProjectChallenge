@@ -14,7 +14,7 @@
         <Label x:Name="antwoordLabel" Content="Antwoord" HorizontalAlignment="Left" Margin="10,126,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="antwoordTextBox" HorizontalAlignment="Left" Height="44" Margin="10,156,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="258"/>
         <Button x:Name="volgendeButton" Content="Volgende Vraag" HorizontalAlignment="Left" Margin="10,205,0,0" VerticalAlignment="Top" Width="120" Click="volgendeButton_Click" Height="19"/>
-        <Button x:Name="opslaanButton" Content="Opslaan" HorizontalAlignment="Left" Margin="159,238,0,0" VerticalAlignment="Top" Width="75" Click="opslaanButton_Click"/>
+        <Button x:Name="opslaanButton" Content="Opslaan" HorizontalAlignment="Left" Margin="164,214,0,0" VerticalAlignment="Top" Width="75" Click="opslaanButton_Click"/>
         <Button x:Name="vorigeButton" Content="Vorige Vraag" HorizontalAlignment="Left" Margin="10,229,0,0" VerticalAlignment="Top" Width="120" Click="vorigeButton_Click"/>
         <ListBox x:Name="meerkeuzeListBox" HorizontalAlignment="Left" Height="189" Margin="285,84,0,0" VerticalAlignment="Top" Width="373" >
             <TextBox Width="350" Height="25" Foreground="#FF17E217" FontWeight="Bold"/>
@@ -24,6 +24,7 @@
         <Button x:Name="verwijderButton" Content="Verwijder Vraag" HorizontalAlignment="Left" Margin="10,253,0,0" VerticalAlignment="Top" Width="120" Click="verwijderButton_Click"/>
         <Button x:Name="minButton" Content="-" HorizontalAlignment="Left" Margin="285,279,0,0" VerticalAlignment="Top" Width="39" Height="29" Click="minButton_Click"/>
         <Button x:Name="plusButton" Content="+" HorizontalAlignment="Left" Margin="611,280,0,0" VerticalAlignment="Top" Width="39" Height="29" Click="plusButton_Click"/>
+        <Button x:Name="opslaanAlsButton" Content="Opslaan als" HorizontalAlignment="Left" Margin="164,239,0,0" VerticalAlignment="Top" Width="75" Click="opslaanAlsButton_Click"/>
 
     </Grid>
 </Window>

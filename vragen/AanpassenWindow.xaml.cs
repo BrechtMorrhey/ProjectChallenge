@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
+using Microsoft.Win32;
 
 namespace ProjectChallenge
 {
@@ -178,6 +179,30 @@ namespace ProjectChallenge
                 outputStream.WriteLine(vraag.ToString());
             }
             outputStream.Close();
+            MessageBox.Show("Vraag opgeslagen in " +bestandsNaam);
+        }
+
+        private void opslaanAlsButton_Click(object sender, RoutedEventArgs e)
+        {
+            VoegVraagToe();
+            SaveFileDialog dialog = new SaveFileDialog();
+            dialog.ShowDialog();
+            bestandsNaam = dialog.FileName;
+            if (bestandsNaam != null && bestandsNaam != "")
+            {
+                StreamWriter outputStream = File.CreateText(bestandsNaam);
+                foreach (Vraag vraag in vragenLijst)
+                {
+                    outputStream.WriteLine(vraag.ToString());
+                }
+                outputStream.Close();
+                MessageBox.Show("Vraag opgeslagen in " + bestandsNaam);
+            }
+            //niet nodig, treedt alleen op als op Cancel gedrukt wordt
+            //else
+            //{
+            //    MessageBox.Show("Geen bestandsnaam opgegeven");
+            //}
         }
 
         private void VoegVraagToe()
@@ -354,6 +379,8 @@ namespace ProjectChallenge
                 MessageBox.Show("Minimum aantal antwoorden bereikt");
             }
         }
+
+        
 
         
         
