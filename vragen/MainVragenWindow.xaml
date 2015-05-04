@@ -6,6 +6,7 @@
         <Button x:Name="oplossenButton" Content="Los vragen op" HorizontalAlignment="Left" Margin="79,114,0,0" VerticalAlignment="Top" Width="116" Height="75" Click="oplossenButton_Click"/>
         <Button x:Name="opstellenButton" Content="Stel vragen op" HorizontalAlignment="Left" Margin="350,114,0,0" VerticalAlignment="Top" Width="114" Height="75" Click="opstellenButton_Click"/>
         <Button x:Name="aanpassenButton" Content="Pas vragen aan" HorizontalAlignment="Left" Margin="350,208,0,0" VerticalAlignment="Top" Width="114" Height="60" Click="aanpassenButton_Click"/>
+        <Button x:Name="scoreButton" Content="Bekijk scores" HorizontalAlignment="Left" Margin="350,40,0,0" VerticalAlignment="Top" Width="114" Height="48" Click="scoreButton_Click"/>
 
     </Grid>
 </Window>

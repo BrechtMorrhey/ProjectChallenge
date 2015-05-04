@@ -63,5 +63,11 @@ namespace ProjectChallenge
                 w.Show();
             }
         }
+
+        private void scoreButton_Click(object sender, RoutedEventArgs e)
+        {
+            Window w = new OverzichtScoresWindow();
+            w.Show();
+        }
     }
 }
