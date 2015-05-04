@@ -10,7 +10,6 @@ namespace ProjectChallenge
     {
         private string opgave;       
         private string ingevuld; // ingevulde antwoord
-        private bool isIngevuld, isJuist;
         private List<string> antwoordenLijst;
 
          // constructor
