@@ -24,8 +24,8 @@ namespace ProjectChallenge
             this.paswoord = paswoord;
         }
 
-        //  methoden
-
+        //  methoden 
+        public abstract string GeefGebruikersType();
         
 
         //  properties

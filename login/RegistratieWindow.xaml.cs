@@ -24,11 +24,13 @@ namespace ProjectChallenge
         private string voornaam;
         private string geboorteDatum;
         private string passwoord;
+        private string klas;
         private AlleGebruikers allegebruikers;
         public RegistratieWindow(AlleGebruikers allegebruikers)
         {
             InitializeComponent();
             this.allegebruikers = allegebruikers;
+            klasComboBox.ItemsSource = allegebruikers.Klassen;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -37,10 +39,11 @@ namespace ProjectChallenge
             voornaam = voornaamTextBox.Text;
             passwoord = passwoordPasswordBox.Password;
             geboorteDatum = datumDatePicker.Text;
+            
 
             if (soortRegistratieComboBox.SelectedItem == leerlingItem)
             {
-                Leerling student = new Leerling(naam, voornaam, geboorteDatum, passwoord, allegebruikers);
+                Leerling student = new Leerling(naam, voornaam, geboorteDatum, passwoord, klas, allegebruikers);
                 student.SlaOp();
                 MessageBox.Show(string.Format("student:\t\t{0}\npasswoord:\t{1}\nOpgeslagen", student.ID, student.Paswoord));
             }
@@ -49,6 +52,20 @@ namespace ProjectChallenge
                 Leerkracht leerkracht = new Leerkracht(naam, voornaam, geboorteDatum, passwoord, allegebruikers);
                 leerkracht.SlaOp();
                 MessageBox.Show(string.Format("leerkracht:\t{0}\npasswoord:\t{1}\nOpgeslagen", leerkracht.ID, leerkracht.Paswoord));
+            }
+        }
+
+        private void soortRegistratieComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (soortRegistratieComboBox.SelectedItem == leerlingItem)
+            {
+                klasLabel.Visibility = Visibility.Hidden;
+                klasComboBox.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                klasLabel.Visibility = Visibility.Visible;
+                klasComboBox.Visibility = Visibility.Visible;
             }
         }
     }

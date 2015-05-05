@@ -56,5 +56,5 @@ C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge_Mark
 C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge.g.resources
 C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge.Properties.Resources.resources
 C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\ProjectChallenge.csproj.GenerateResource.Cache
-C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\login\maakKlas.baml
-C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\login\maakKlas.g.cs
+C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\login\maakKlasWindow.baml
+C:\Users\stijn\Documents\GitHub\ProjectChallenge\obj\Debug\login\maakKlasWindow.g.cs

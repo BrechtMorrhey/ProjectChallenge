@@ -22,10 +22,22 @@ namespace ProjectChallenge
     public partial class MainVragenWindow : Window
     {
         private string bestandsNaam;
+        private AlleGebruikers gebruikers;
 
-        public MainVragenWindow()
+        public MainVragenWindow(Leerkracht gebruiker, AlleGebruikers alleGebruikers)
         {
             InitializeComponent();
+
+            gebruikers = alleGebruikers;
+            nieuweKlasButton.Visibility = Visibility.Visible;
+            opstellenButton.Visibility = Visibility.Visible;
+            aanpassenButton.Visibility = Visibility.Visible;
+        }
+
+        public MainVragenWindow(Leerling gebruiker)
+        {
+            InitializeComponent();
+            oplossenButton.Visibility = Visibility.Visible;
         }
 
         private void opstellenButton_Click(object sender, RoutedEventArgs e)
@@ -63,5 +75,11 @@ namespace ProjectChallenge
                 w.Show();
             }
         }
+
+        private void nieuweKlasButton_Click(object sender, RoutedEventArgs e)
+        {
+            Window nieuweKlas = new login.maakKlasWindow(gebruikers, this);
+
+        } 
     }
 }

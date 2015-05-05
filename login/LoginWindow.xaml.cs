@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,36 +20,43 @@ namespace ProjectChallenge
     public partial class LoginWindow : Window
     {
         private AlleGebruikers alleGebruikers;
-        public LoginWindow(AlleGebruikers alleGebruikers)
+        private Persoon gebruiker;
+        private MainWindow mainWindow;
+        public LoginWindow(MainWindow mainWindow, AlleGebruikers alleGebruikers)
         {
             InitializeComponent();
             this.alleGebruikers = alleGebruikers;
+            this.mainWindow = mainWindow;
         }
 
         private void loginButton_Click(object sender, RoutedEventArgs e)
         {
             bool loginOk = Login();
-
+            MainVragenWindow w;
             if (loginOk)
             {
-                foreach(Leerling student in alleGebruikers.Leerlingen)
-                {
-                    gebruikersTextBox.AppendText(student.ToString());
-                    gebruikersTextBox.AppendText(Environment.NewLine);
-                }
                 MessageBox.Show("Login OK");
-                MainVragenWindow w = new MainVragenWindow();
+                if( gebruiker.GeefGebruikersType() == "leerling")
+                {
+                    Leerling leerling = (Leerling) gebruiker;
+                    w = new MainVragenWindow(leerling);
+                }
+                else 
+                {
+                    Leerkracht leerkracht = (Leerkracht)gebruiker;
+                    w = new MainVragenWindow(leerkracht, alleGebruikers);
+                }
+
                 w.Show();
             }
             else
             {
-                gebruikersTextBox.Clear();
                 MessageBox.Show("Foute login");
 
                 // ENKEL VOOR TESTDOELEINDEN
                 
-                MainVragenWindow w = new MainVragenWindow();
-                w.Show();
+                //MainVragenWindow w = new MainVragenWindow();
+                //w.Show();
                 // VERWIJDER UIT UITEINDELIJK PROJECT
             }
         }
@@ -65,6 +72,7 @@ namespace ProjectChallenge
                 {
                     if (gebruikerPassword == student.Paswoord)
                     {
+                        gebruiker = student;
                         return true; 
                     }
                 }
@@ -75,11 +83,18 @@ namespace ProjectChallenge
                 {
                     if (gebruikerPassword == leerkracht.Paswoord)
                     {
+                        gebruiker = leerkracht;
                         return true;
                     }
                 }
             }
             return false;
+        }
+
+        private void backButton_Click(object sender, RoutedEventArgs e)
+        {
+            mainWindow.Show();
+            this.Close();
         }
     }
 }

@@ -13,22 +13,28 @@ namespace ProjectChallenge
         //  eigenschappen
         private List<Leerling> leerlingen;
         private List<Leerkracht> leerkrachten;
-        private string aceDirPath, aceGebruikersPath, leerlingPath, leerkrachtPath;
+        private List<string> klassen;
+        private string aceDirPath, aceGebruikersPath, leerlingPath, leerkrachtPath, klassenPath;
         private StreamWriter opslaanStudent = null;
         private StreamWriter opslaanLeerkracht = null;
+        private StreamWriter writeKlassenStream = null;
         private StreamReader studentenStream = null;
         private StreamReader leerkrachtenStream = null;
+        private StreamReader readKlassenStream = null;
+
 
         //  methoden
         public AlleGebruikers()
         {
             aceDirPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "ace");
+            aceGebruikersPath = aceDirPath + "\\aceGebruikers";
             leerlingPath = aceGebruikersPath + "\\leerlingen.txt";
             leerkrachtPath = aceGebruikersPath + "\\leerkrachten.txt";
-            aceGebruikersPath = aceDirPath + "\\aceGebruikers";
+            klassenPath = aceGebruikersPath + "\\klassen.txt";
 
             leerlingen = new List<Leerling>();
             leerkrachten = new List<Leerkracht>();
+            klassen = new List<string>();
             
             if (!Directory.Exists(aceDirPath))
             {
@@ -48,10 +54,12 @@ namespace ProjectChallenge
             catch (FileNotFoundException)
             {
                 File.CreateText(leerlingPath);
-                studentenStream = File.OpenText(leerlingPath);
             }
             finally {
-                studentenStream.Close();
+                if (studentenStream != null)
+                {
+                    studentenStream.Close();
+                }
             }
 
             try
@@ -62,13 +70,33 @@ namespace ProjectChallenge
             catch (FileNotFoundException)
             {
                 File.CreateText(leerkrachtPath);
-                leerkrachtenStream = File.OpenText(leerkrachtPath);
             }
             finally
             {
-                leerkrachtenStream.Close();
+                if (leerkrachtenStream != null)
+                {
+                    leerkrachtenStream.Close();
+                }
+            }
+
+            try
+            {
+                readKlassenStream = File.OpenText(klassenPath);
+            }
+            catch (FileNotFoundException)
+            {
+                File.CreateText(klassenPath);
+            }
+            finally
+            {
+                LeesKlassenIn();
+                readKlassenStream.Close();
             }
             
+            if (klassen.Count == 0)
+            {
+                SlaKlasOp("testKlas");
+            }
         }
 
         public void SlaStudentOp(Leerling leerling)
@@ -95,23 +123,48 @@ namespace ProjectChallenge
             try
             {
                 opslaanLeerkracht = File.AppendText(leerkrachtPath);
-                opslaanLeerkracht.WriteLine(leerkracht.ToString());
             }
             catch
             {
-                opslaanLeerkracht = File.CreateText(leerkrachtPath);
-                opslaanLeerkracht.WriteLine(leerkracht.ToString());
+                opslaanLeerkracht = File.CreateText(leerkrachtPath); 
             }
             finally
             {
+                opslaanLeerkracht.WriteLine(leerkracht.ToString());
                 opslaanLeerkracht.Close();
             }
         }
 
+        public void SlaKlasOp(string klas)
+        {
+            try
+            {
+                writeKlassenStream = File.AppendText(klassenPath);
+            }
+            catch(FileNotFoundException)
+            {
+                writeKlassenStream = File.CreateText(klassenPath);
+            }
+            finally
+            {
+                klassen.Add(klas);
+                writeKlassenStream.WriteLine(klas);
+                writeKlassenStream.Close();
+            }
+        }
+
+        public void LeesKlassenIn()
+        {
+            string regel = readKlassenStream.ReadLine();
+            while (regel != null)
+            {
+                klassen.Add(regel);
+                regel = readKlassenStream.ReadLine();
+            }
+        }
 
         private void LeesStudentenIn() 
         {
-            studentenStream = File.OpenText(leerlingPath);
             string regel = studentenStream.ReadLine();
             while (regel != null)
             {
@@ -141,7 +194,7 @@ namespace ProjectChallenge
             }
             else
             {
-                Leerling leerling = new Leerling(gebruikersGegevens[2], gebruikersGegevens[3], gebruikersGegevens[4], gebruikersGegevens[1], this);
+                Leerling leerling = new Leerling(gebruikersGegevens[3], gebruikersGegevens[4], gebruikersGegevens[5], gebruikersGegevens[2], gebruikersGegevens[0], this);
                 leerlingen.Add(leerling);
             }   
            
@@ -161,6 +214,14 @@ namespace ProjectChallenge
             get
             {
                 return leerkrachten;
+            }
+        }
+
+        public List<string> Klassen
+        {
+            get
+            {
+                return klassen;
             }
         }
 

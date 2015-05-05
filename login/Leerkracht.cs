@@ -11,6 +11,7 @@ namespace ProjectChallenge
     {
         //  eigenschappen
         private AlleGebruikers alleGebruikers;
+        
 
         //  constructor
         public Leerkracht(string naam, string voornaam, /* datetime maken */ string geboorteDatum, string passwoord, AlleGebruikers allegebruikers)
@@ -31,5 +32,9 @@ namespace ProjectChallenge
             alleGebruikers.SlaLeerkrachtOp(this);
         }
 
+        public override string GeefGebruikersType()
+        {
+            return "leerkracht";
+        }
     }
 }

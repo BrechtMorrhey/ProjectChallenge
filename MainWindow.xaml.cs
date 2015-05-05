@@ -39,7 +39,7 @@ namespace ProjectChallenge
 
         private void loginButton_Click(object sender, RoutedEventArgs e)
         {
-            LoginWindow login = new LoginWindow(alleGebruikers);
+            LoginWindow login = new LoginWindow(this, alleGebruikers);
             Hide();
             login.Show();
         }
