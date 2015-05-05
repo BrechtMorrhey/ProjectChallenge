@@ -37,13 +37,12 @@ namespace ProjectChallenge
             counter = 0;
             vragenLijst = new List<Vraag>();
             InitializeComponent();
-
+            int j = 0;
             try
             {
                 inputStream = File.OpenText(bestandsNaam);
                 line = inputStream.ReadLine();
-                bool fouteInvoer = false;
-                while (line != null && fouteInvoer == false)
+                while (line != null && j<10000)
                 {
                     switch (line.Split(',')[0])
                     {
@@ -75,10 +74,7 @@ namespace ProjectChallenge
                         case "wiskunde":
                             //code voor wiskunde
                             break;
-                        default: MessageBox.Show("Fout invoerbestand");
-                            fouteInvoer = true;
-                            this.Close();
-                            break;
+                        default: throw new OnbekendVraagTypeException("Onbekend Type Vraag voor vraag " + line.Split(',')[1]);
                     }
                     if (vraag != null)
                     {
@@ -90,20 +86,28 @@ namespace ProjectChallenge
                         this.Close();
                     }
                     line = inputStream.ReadLine();
+                    j++;
                 }
-
-
             }
             catch (FileNotFoundException)
             {
                 MessageBox.Show("Invoerbestand bestaat niet");
                 this.Close();
             }
+            catch (OnbekendVraagTypeException e)
+            {
+                MessageBox.Show(e.Message + "/n Bestand is mogelijk corrupt, programma zal nu afsluiten");
+            }
             finally
             {
                 if (inputStream != null)
                 {
                     inputStream.Close();
+                }
+                if (j >= 10000)
+                {
+                    MessageBox.Show("Bestand is te groot, programma zal nu afsluiten");
+                    this.Close();
                 }
             }
 
@@ -207,10 +211,7 @@ namespace ProjectChallenge
                 case(VraagType.wiskunde):
                     invulTextBox.Visibility = Visibility.Hidden;
                     invulListBox.Visibility = Visibility.Visible;
-                    break;
-                default: MessageBox.Show("Verkeerd vraag type");
-                    // this.Close();
-                    break;
+                    break;               
             }
         }
         

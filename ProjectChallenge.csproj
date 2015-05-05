@@ -73,6 +73,7 @@
     <Compile Include="login\RegistratieWindow.xaml.cs">
       <DependentUpon>RegistratieWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OnbekendVraagTypeException.cs" />
     <Compile Include="vragen\ScoreLeerlingWindow.xaml.cs">
       <DependentUpon>ScoreLeerlingWindow.xaml</DependentUpon>
     </Compile>

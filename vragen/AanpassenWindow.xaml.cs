@@ -50,14 +50,13 @@ namespace ProjectChallenge
                 List<string> antwoordenLijst;
                 StreamReader inputStream = null;
                 counter = 0;
-                
+
+                int j = 0;
                 try
                 {
                     inputStream = File.OpenText(bestandsNaam);
-                    line = inputStream.ReadLine();
-                    bool fouteInvoer = false;
-                    int j = 0;
-                    while (line != null && fouteInvoer == false && j<10000)
+                    line = inputStream.ReadLine();                    
+                    while (line != null && j<10000)
                     {
                         switch (line.Split(',')[0])
                         {
@@ -79,7 +78,7 @@ namespace ProjectChallenge
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Lege antwoordenlijst");
+                                    MessageBox.Show("Lege antwoordenlijst voor vraag " + line.Split(',')[1]+"/n vraag wordt overgeslagen");
                                     // de vraag wordt niet ingelezen en het programma probeert verder te gaan
                                 }
                                 //code voor meerkeuze
@@ -87,10 +86,8 @@ namespace ProjectChallenge
                             case "wiskunde":
                                 //code voor wiskunde
                                 break;
-                            default: MessageBox.Show("Fout invoerbestand");
-                                fouteInvoer = true;
-                                this.Close();
-                                break;
+                            default: throw new OnbekendVraagTypeException("Onbekend Type Vraag voor vraag "+line.Split(',')[1]);
+                                
                         }
                         if (vraag != null)
                         {
@@ -103,13 +100,7 @@ namespace ProjectChallenge
                         }
                         line = inputStream.ReadLine();
                         j++;
-                    }
-                    if (j >= 10000)
-                    {
-                        MessageBox.Show("Bestand te groot, programma sluit nu af");
-                        this.Close();
-                    }
-
+                    }                 
                 }
                 catch (FileNotFoundException)
                 {
@@ -122,11 +113,21 @@ namespace ProjectChallenge
                     // AanpassenWindow moet dan niet opengaan
                     this.Close();
                 }
+                catch (OnbekendVraagTypeException e)
+                {
+                    MessageBox.Show(e.Message + "/n Bestand is mogelijk corrupt, programma sluit nu af.");
+                    this.Close();
+                }
                 finally
                 {
                     if (inputStream != null)
                     {
                         inputStream.Close();
+                    }
+                    if (j >= 10000)
+                    {
+                        MessageBox.Show("Bestand te groot, programma sluit nu af");
+                        this.Close();
                     }
                 }
             }
@@ -268,44 +269,40 @@ namespace ProjectChallenge
             else
             {
                 opgaveTextBox.Text = vragenLijst[counter].Opgave;
-                switch (vragenLijst[counter].TypeVraag)
-                {
-                    case VraagType.basis: antwoordTextBox.Text = vragenLijst[counter].Antwoord;
-                        typeVraagComboBox.SelectedIndex = 0;
-                        break;
-                    case VraagType.meerkeuze: 
-                        //meerkeuzeListBox.ItemsSource = ((MeerkeuzeVraag)vragenLijst[counter]).AntwoordenLijst;
-                        //het gebruik van ItemsSource levert verschillende problemen op, dus gebruiken we in de plaats een simpele lus                     
-                        meerkeuzeListBox.Items.Clear();
-                        TextBox lijstItem;
-                        foreach (string antwoord in ((MeerkeuzeVraag)vragenLijst[counter]).AntwoordenLijst)
-                        // we kunnen niet zomaar aan de antwoordenlijst aangezien dit geen property van Vraag is dus moeten we eerst naar MeerkeuzeVraag casten
-                        // dit is niet zo een mooie oplossing, alternatieven??
-                        {
-                            lijstItem = new TextBox();
-                            lijstItem.Height = textBoxHeight;
-                            lijstItem.Width = textBoxWidth;
-                            lijstItem.Text = antwoord;
-                            meerkeuzeListBox.Items.Add(lijstItem);
-                        }
-                        while (meerkeuzeListBox.Items.Count < 2)  //als de antwoorden niet volledig zijn ingevuld, vul dan aan met lege
-                        {              
+                    switch (vragenLijst[counter].TypeVraag)
+                    {
+                        case VraagType.basis: antwoordTextBox.Text = vragenLijst[counter].Antwoord;
+                            typeVraagComboBox.SelectedIndex = 0;
+                            break;
+                        case VraagType.meerkeuze:
+                            //meerkeuzeListBox.ItemsSource = ((MeerkeuzeVraag)vragenLijst[counter]).AntwoordenLijst;
+                            //het gebruik van ItemsSource levert verschillende problemen op, dus gebruiken we in de plaats een simpele lus                     
+                            meerkeuzeListBox.Items.Clear();
+                            TextBox lijstItem;
+                            foreach (string antwoord in ((MeerkeuzeVraag)vragenLijst[counter]).AntwoordenLijst)
+                            // we kunnen niet zomaar aan de antwoordenlijst aangezien dit geen property van Vraag is dus moeten we eerst naar MeerkeuzeVraag casten
+                            // dit is niet zo een mooie oplossing, alternatieven??
+                            {
                                 lijstItem = new TextBox();
                                 lijstItem.Height = textBoxHeight;
                                 lijstItem.Width = textBoxWidth;
-                                meerkeuzeListBox.Items.Add(lijstItem);                           
-                        }
-                        ((TextBox)meerkeuzeListBox.Items[0]).FontWeight = juistFontWeight;
-                        ((TextBox)meerkeuzeListBox.Items[0]).Foreground = juistBrush; 
-                        typeVraagComboBox.SelectedIndex = 1;
-                        break;
-                    case VraagType.wiskunde: // code voor wiskundevraag
-                    default: MessageBox.Show("Onherkend type vraag, programma zal nu afsluiten");
-                        this.Close();
-                        break;
-
-                
-            }
+                                lijstItem.Text = antwoord;
+                                meerkeuzeListBox.Items.Add(lijstItem);
+                            }
+                            while (meerkeuzeListBox.Items.Count < 2)  //als de antwoorden niet volledig zijn ingevuld, vul dan aan met lege
+                            {
+                                lijstItem = new TextBox();
+                                lijstItem.Height = textBoxHeight;
+                                lijstItem.Width = textBoxWidth;
+                                meerkeuzeListBox.Items.Add(lijstItem);
+                            }
+                            ((TextBox)meerkeuzeListBox.Items[0]).FontWeight = juistFontWeight;
+                            ((TextBox)meerkeuzeListBox.Items[0]).Foreground = juistBrush;
+                            typeVraagComboBox.SelectedIndex = 1;
+                            break;
+                        case VraagType.wiskunde: // code voor wiskundevraag
+                            break;
+                    }
             }
         }
 
