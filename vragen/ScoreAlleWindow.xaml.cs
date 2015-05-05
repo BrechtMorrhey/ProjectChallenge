@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,19 +11,18 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace ProjectChallenge
 {
     /// <summary>
-    /// Interaction logic for ScoreKlasWindow.xaml
+    /// Interaction logic for ScoreAlleWindow.xaml
     /// </summary>
-    public partial class ScoreKlasWindow : Window
+    public partial class ScoreAlleWindow : Window
     {
-        string klas;
-
-        public ScoreKlasWindow(string klas)
+        public ScoreAlleWindow()
         {
-            this.klas=klas;            
+            string klas = "";
             InitializeComponent();
 
             string path = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/challenge scores";
@@ -33,32 +31,28 @@ namespace ProjectChallenge
                 Directory.CreateDirectory(path);
             }
             string[] files = Directory.GetFiles(path);  //oppassen voor Directory Not Found Exception
-            List<string> leerlingenLijst = new List<string>();
-            string filename, userId;
+            List<string> klassenLijst = new List<string>();
+            string filename;
 
-            // maak een lijst van alle leerlingen
+            // maak een lijst van alle klassen
             foreach (string file in files)
             {
-                filename=System.IO.Path.GetFileName(file);
-                if (klas == filename.Split('_')[0])
+                filename = System.IO.Path.GetFileName(file);
+                klas = filename.Split('_')[0];
+                if (!klassenLijst.Contains(klas))
                 {
-                    userId = filename.Split('_')[1];
-                    if (!leerlingenLijst.Contains(userId))
-                    {
-                        leerlingenLijst.Add(userId);
-                    }                
+                    klassenLijst.Add(klas);
                 }
-		 	}
+            }
 
-            Dictionary<string, double> leerlingScores = new Dictionary<string,double>();
-            foreach(string item in leerlingenLijst)
+            Dictionary<string, double> klasScores = new Dictionary<string, double>();
+            foreach (string item in klassenLijst)
             {
-                leerlingScores.Add(item,0);
-            }           
+                klasScores.Add(item, 0);
+            }
 
             double score;
-            string vraag="";
-            string voorNaam, naam,line;
+            string vraag = "";
             StreamReader inputStream = null;
             foreach (string file in files)
             {
@@ -66,39 +60,36 @@ namespace ProjectChallenge
                 {
                     inputStream = File.OpenText(file);
                     filename = System.IO.Path.GetFileName(file);
-                    if (klas == filename.Split('_')[0])
-                    {
-                        userId = filename.Split('_')[1];
-                        vraag = filename.Split('_')[3];
-                        line=inputStream.ReadLine();
-                        voorNaam = line.Split(',')[0];
-                        naam = line.Split(',')[1];
-                        score = Convert.ToDouble(((inputStream.ReadLine().Split(':')[2]).Split('%')[0])); //verwijder procent teken en converteer naar double
+                    klas = filename.Split('_')[0];
+                    vraag = filename.Split('_')[3];
+                    inputStream.ReadLine(); //sla de eerste lijn over
+                    score = Convert.ToDouble(((inputStream.ReadLine().Split(':')[2]).Split('%')[0])); //verwijder procent teken en converteer naar double
 
-                        //bereken nieuwe gemiddelde score
-                        if (leerlingScores[userId] != 0)
-                        {
-                            score = (score + leerlingScores[userId]) / 2;
-                        }
-                        leerlingScores[userId] = score;
+                    //bereken nieuwe gemiddelde score
+                    if (klasScores[klas] != 0)
+                    {
+                        score = (score + klasScores[klas]) / 2;
                     }
+                    klasScores[klas] = score;
                 }
                 catch (FileNotFoundException)
                 {
-                    MessageBox.Show("Bestand "+file+" niet gevonden.");
+                    MessageBox.Show("Bestand " + file + " niet gevonden.");
                     this.Close();
                 }
                 catch (ArgumentException)
                 {
-                    MessageBox.Show("Argument Exception bij inlezen bestand " +file);
+                    MessageBox.Show("Argument Exception bij inlezen bestand " + file);
                     this.Close();
                 }
-                catch (FormatException) {
-                    MessageBox.Show("Kan score in " +file+" bij vraag "+vraag+" niet omzetten");
+                catch (FormatException)
+                {
+                    MessageBox.Show("Kan score in " + file + " bij vraag " + vraag + " niet omzetten");
                     this.Close();
-                }               
-                catch (OverflowException) {
-                    MessageBox.Show("Score in " +file+" bij vraag "+vraag+" is te groot");
+                }
+                catch (OverflowException)
+                {
+                    MessageBox.Show("Score in " + file + " bij vraag " + vraag + " is te groot");
                     this.Close();
                 }
                 catch (KeyNotFoundException)
@@ -115,7 +106,7 @@ namespace ProjectChallenge
                 }
             }
             Button b;
-            foreach (KeyValuePair <string,double> entry in leerlingScores)
+            foreach (KeyValuePair<string, double> entry in klasScores)
             {
                 b = new Button();
                 b.Content = entry.Key + ":\t" + entry.Value + "%";
@@ -127,9 +118,9 @@ namespace ProjectChallenge
 
         private void scoresListBoxItem_Click(object sender, RoutedEventArgs e)
         {
-            string userId = ((string)((Button)(sender)).Content).Split(':')[0];
-            Window w = new ScoreLeerlingWindow(userId);
-            w.Show();
+            string klas = ((string)((Button)(sender)).Content).Split(':')[0];
+            Window w = new ScoreKlasWindow(klas);
+            w.Show();            
         }
     }
 }

@@ -6,6 +6,6 @@
         <Label x:Name="userIdLabel" Content="Geef userId in" HorizontalAlignment="Left" Margin="32,10,0,0" VerticalAlignment="Top" Width="102"/>
         <TextBox x:Name="userIdTextBox" HorizontalAlignment="Left" Height="23" Margin="32,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Button x:Name="userIdButton" Content="Score per leerling" HorizontalAlignment="Left" Margin="32,69,0,0" VerticalAlignment="Top" Width="139" Click="userIdButton_Click"/>
-        <Button x:Name="klasButton" Content="Score per klas" HorizontalAlignment="Left" Margin="32,153,0,0" VerticalAlignment="Top" Width="139" Click="klasButton_Click"/>
+        <Button x:Name="alleButton" Content="Alle Scores" HorizontalAlignment="Left" Margin="32,153,0,0" VerticalAlignment="Top" Width="139" Click="alleButton_Click"/>
     </Grid>
 </Window>
