@@ -22,9 +22,18 @@ namespace ProjectChallenge
     {
         public ScoreAlleWindow()
         {
+            
+            InitializeComponent();            
+        }
+        private void scoresListBoxItem_Click(object sender, RoutedEventArgs e)
+        {
+            string klas = ((string)((Button)(sender)).Content).Split(':')[0];
+            Window w = new ScoreKlasWindow(klas);
+            w.Show();            
+        }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
             string klas = "";
-            InitializeComponent();
-
             string path = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/challenge scores";
             if (!Directory.Exists(path))
             {
@@ -114,13 +123,6 @@ namespace ProjectChallenge
                 scoresListBox.Items.Add(b);
             }
             //http://stackoverflow.com/questions/141088/what-is-the-best-way-to-iterate-over-a-dictionary-in-c
-        }
-
-        private void scoresListBoxItem_Click(object sender, RoutedEventArgs e)
-        {
-            string klas = ((string)((Button)(sender)).Content).Split(':')[0];
-            Window w = new ScoreKlasWindow(klas);
-            w.Show();            
         }
     }
 }

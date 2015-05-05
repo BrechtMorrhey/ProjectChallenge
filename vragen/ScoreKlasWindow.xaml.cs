@@ -25,8 +25,18 @@ namespace ProjectChallenge
         public ScoreKlasWindow(string klas)
         {
             this.klas=klas;            
-            InitializeComponent();
+            InitializeComponent();            
+        }
 
+        private void scoresListBoxItem_Click(object sender, RoutedEventArgs e)
+        {
+            string userId = ((string)((Button)(sender)).Content).Split(':')[0];
+            Window w = new ScoreLeerlingWindow(userId);
+            w.Show();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
             string path = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/challenge scores";
             if (!Directory.Exists(path))
             {
@@ -39,26 +49,26 @@ namespace ProjectChallenge
             // maak een lijst van alle leerlingen
             foreach (string file in files)
             {
-                filename=System.IO.Path.GetFileName(file);
+                filename = System.IO.Path.GetFileName(file);
                 if (klas == filename.Split('_')[0])
                 {
                     userId = filename.Split('_')[1];
                     if (!leerlingenLijst.Contains(userId))
                     {
                         leerlingenLijst.Add(userId);
-                    }                
+                    }
                 }
-		 	}
+            }
 
-            Dictionary<string, double> leerlingScores = new Dictionary<string,double>();
-            foreach(string item in leerlingenLijst)
+            Dictionary<string, double> leerlingScores = new Dictionary<string, double>();
+            foreach (string item in leerlingenLijst)
             {
-                leerlingScores.Add(item,0);
-            }           
+                leerlingScores.Add(item, 0);
+            }
 
             double score;
-            string vraag="";
-            string voorNaam, naam,line;
+            string vraag = "";
+            string voorNaam, naam, line;
             StreamReader inputStream = null;
             foreach (string file in files)
             {
@@ -70,7 +80,7 @@ namespace ProjectChallenge
                     {
                         userId = filename.Split('_')[1];
                         vraag = filename.Split('_')[3];
-                        line=inputStream.ReadLine();
+                        line = inputStream.ReadLine();
                         voorNaam = line.Split(',')[0];
                         naam = line.Split(',')[1];
                         score = Convert.ToDouble(((inputStream.ReadLine().Split(':')[2]).Split('%')[0])); //verwijder procent teken en converteer naar double
@@ -85,20 +95,22 @@ namespace ProjectChallenge
                 }
                 catch (FileNotFoundException)
                 {
-                    MessageBox.Show("Bestand "+file+" niet gevonden.");
+                    MessageBox.Show("Bestand " + file + " niet gevonden.");
                     this.Close();
                 }
                 catch (ArgumentException)
                 {
-                    MessageBox.Show("Argument Exception bij inlezen bestand " +file);
+                    MessageBox.Show("Argument Exception bij inlezen bestand " + file);
                     this.Close();
                 }
-                catch (FormatException) {
-                    MessageBox.Show("Kan score in " +file+" bij vraag "+vraag+" niet omzetten");
+                catch (FormatException)
+                {
+                    MessageBox.Show("Kan score in " + file + " bij vraag " + vraag + " niet omzetten");
                     this.Close();
-                }               
-                catch (OverflowException) {
-                    MessageBox.Show("Score in " +file+" bij vraag "+vraag+" is te groot");
+                }
+                catch (OverflowException)
+                {
+                    MessageBox.Show("Score in " + file + " bij vraag " + vraag + " is te groot");
                     this.Close();
                 }
                 catch (KeyNotFoundException)
@@ -115,7 +127,7 @@ namespace ProjectChallenge
                 }
             }
             Button b;
-            foreach (KeyValuePair <string,double> entry in leerlingScores)
+            foreach (KeyValuePair<string, double> entry in leerlingScores)
             {
                 b = new Button();
                 b.Content = entry.Key + ":\t" + entry.Value + "%";
@@ -123,13 +135,6 @@ namespace ProjectChallenge
                 scoresListBox.Items.Add(b);
             }
             //http://stackoverflow.com/questions/141088/what-is-the-best-way-to-iterate-over-a-dictionary-in-c
-        }
-
-        private void scoresListBoxItem_Click(object sender, RoutedEventArgs e)
-        {
-            string userId = ((string)((Button)(sender)).Content).Split(':')[0];
-            Window w = new ScoreLeerlingWindow(userId);
-            w.Show();
         }
     }
 }

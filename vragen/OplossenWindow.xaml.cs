@@ -27,104 +27,9 @@ namespace ProjectChallenge
         
         public OplossenWindow(string bestandsNaam)
         {
-            int i;
-            string line, lijst;
-            Vraag vraag=null;
-            StreamReader inputStream = null;
-            List<string> antwoordenLijst;
-
             this.bestandsNaam = bestandsNaam;
-            counter = 0;
-            vragenLijst = new List<Vraag>();
-            InitializeComponent();
-            int j = 0;
-            try
-            {
-                inputStream = File.OpenText(bestandsNaam);
-                line = inputStream.ReadLine();
-                while (line != null && j<10000)
-                {
-                    switch (line.Split(',')[0])
-                    {
-                        case "basis":
-                            vraag = new BasisVraag(line.Split(',')[1], line.Split(',')[2]);
-                            
-                            break;
-                        case "meerkeuze":
-                            antwoordenLijst = new List<string>();
-                                lijst = line.Split(',')[2];
-                                i = 0;
-                                while ((lijst.Split('|')[i]).Trim() != "")   // maak de antwoordenlijst door elementen in te lezen zolang er geen lege waarde komt
-                                {
-                                    antwoordenLijst.Add(lijst.Split('|')[i]);
-                                    i++;
-                                }
-                                if (antwoordenLijst != null)
-                                {
-                                    vraag = new MeerkeuzeVraag(line.Split(',')[1], antwoordenLijst);
-                                }
-                                else
-                                {
-                                    MessageBox.Show("Lege antwoordenlijst");
-                                    // de vraag wordt niet ingelezen en het programma probeert verder te gaan
-                                }
-                                //code voor meerkeuze
-                                break;
-                           
-                        case "wiskunde":
-                            //code voor wiskunde
-                            break;
-                        default: throw new OnbekendVraagTypeException("Onbekend Type Vraag voor vraag " + line.Split(',')[1]);
+            InitializeComponent();                     
                     }
-                    if (vraag != null)
-                    {
-                        vragenLijst.Add(vraag);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Vraag is null, programma zal nu afsluiten");
-                        this.Close();
-                    }
-                    line = inputStream.ReadLine();
-                    j++;
-                }
-            }
-            catch (FileNotFoundException)
-            {
-                MessageBox.Show("Invoerbestand bestaat niet");
-                this.Close();
-            }
-            catch (OnbekendVraagTypeException e)
-            {
-                MessageBox.Show(e.Message + "/n Bestand is mogelijk corrupt, programma zal nu afsluiten");
-            }
-            finally
-            {
-                if (inputStream != null)
-                {
-                    inputStream.Close();
-                }
-                if (j >= 10000)
-                {
-                    MessageBox.Show("Bestand is te groot, programma zal nu afsluiten");
-                    this.Close();
-                }
-            }
-
-            LaadVraag();
-            //StreamReader inputStream = File.OpenText(bestandsNaam);
-            //line = inputStream.ReadLine();
-            //while (line != null)
-            //{
-            //    basisVraag=new BasisVraag(line.Split(',')[0],line.Split(',')[1]);
-            //    vragenLijst.Add(basisVraag);
-            //    line = inputStream.ReadLine();
-
-            //}
-            //opgaveTextBlock.Text = vragenLijst[counter].Opgave; //zet eerste vraag klaar
-            
-            
-        }
 
         private void vorigeButton_Click(object sender, RoutedEventArgs e)
         {
@@ -233,6 +138,105 @@ namespace ProjectChallenge
                     }
                     break;          
             }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            int i;
+            string line, lijst;
+            Vraag vraag = null;
+            StreamReader inputStream = null;
+            List<string> antwoordenLijst;
+
+
+            counter = 0;
+            vragenLijst = new List<Vraag>();
+
+            int j = 0;
+            try
+            {
+                inputStream = File.OpenText(bestandsNaam);
+                line = inputStream.ReadLine();
+                while (line != null && j < 10000)
+                {
+                    switch (line.Split(',')[0])
+                    {
+                        case "basis":
+                            vraag = new BasisVraag(line.Split(',')[1], line.Split(',')[2]);
+
+                            break;
+                        case "meerkeuze":
+                            antwoordenLijst = new List<string>();
+                            lijst = line.Split(',')[2];
+                            i = 0;
+                            while ((lijst.Split('|')[i]).Trim() != "")   // maak de antwoordenlijst door elementen in te lezen zolang er geen lege waarde komt
+                            {
+                                antwoordenLijst.Add(lijst.Split('|')[i]);
+                                i++;
+                            }
+                            if (antwoordenLijst != null)
+                            {
+                                vraag = new MeerkeuzeVraag(line.Split(',')[1], antwoordenLijst);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Lege antwoordenlijst");
+                                // de vraag wordt niet ingelezen en het programma probeert verder te gaan
+                            }
+                            //code voor meerkeuze
+                            break;
+
+                        case "wiskunde":
+                            //code voor wiskunde
+                            break;
+                        default: throw new OnbekendVraagTypeException("Onbekend Type Vraag voor vraag " + line.Split(',')[1]);
+                    }
+                    if (vraag != null)
+                    {
+                        vragenLijst.Add(vraag);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Vraag is null, programma zal nu afsluiten");
+                        this.Close();
+                    }
+                    line = inputStream.ReadLine();
+                    j++;
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                MessageBox.Show("Invoerbestand bestaat niet");
+                this.Close();
+            }
+            catch (OnbekendVraagTypeException exception)
+            {
+                MessageBox.Show(exception.Message + "/n Bestand is mogelijk corrupt, programma zal nu afsluiten");
+            }
+            finally
+            {
+                if (inputStream != null)
+                {
+                    inputStream.Close();
+                }
+                if (j >= 10000)
+                {
+                    MessageBox.Show("Bestand is te groot, programma zal nu afsluiten");
+                    this.Close();
+                }
+            }
+
+            LaadVraag();
+            //StreamReader inputStream = File.OpenText(bestandsNaam);
+            //line = inputStream.ReadLine();
+            //while (line != null)
+            //{
+            //    basisVraag=new BasisVraag(line.Split(',')[0],line.Split(',')[1]);
+            //    vragenLijst.Add(basisVraag);
+            //    line = inputStream.ReadLine();
+
+            //}
+            //opgaveTextBlock.Text = vragenLijst[counter].Opgave; //zet eerste vraag klaar
         }
     }
 }
