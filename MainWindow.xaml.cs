@@ -19,14 +19,24 @@ namespace ProjectChallenge
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// 
+    
     public partial class MainWindow : Window
     {
+        
+        
         AlleGebruikers alleGebruikers;
         public MainWindow()
         {
-            InitializeComponent();
-            // akki test
-            alleGebruikers = new AlleGebruikers();
+            try
+            {
+                InitializeComponent();
+                alleGebruikers = new AlleGebruikers();
+            }
+            catch(System.Exception e)
+            {
+                ProjectChallenge.Exception.Handle(e);
+            }
             
         }
 
@@ -51,3 +61,7 @@ namespace ProjectChallenge
         }
     }
 }
+    
+
+
+

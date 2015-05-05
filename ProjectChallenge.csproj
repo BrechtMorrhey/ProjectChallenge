@@ -53,6 +53,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Exception.cs" />
     <Compile Include="game\BlauwObject.cs" />
     <Compile Include="game\Game.xaml.cs">
       <DependentUpon>Game.xaml</DependentUpon>
