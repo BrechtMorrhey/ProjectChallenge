@@ -51,19 +51,8 @@ namespace ProjectChallenge
                 this.Close();
             }
             else
-            {
-<<<<<<< HEAD
+            { 
                 MessageBox.Show("Foute login", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                // ENKEL VOOR TESTDOELEINDEN
-
-                MainVragenWindow w = new MainVragenWindow();
-                w.Show();
-                // VERWIJDER UIT UITEINDELIJK PROJECT
-=======
-                MessageBox.Show("Foute login");
-                
->>>>>>> origin/stijn
             }
         }
 
