@@ -14,25 +14,21 @@ namespace ProjectChallenge
         private static SolidColorBrush objectKleur = new SolidColorBrush(Colors.Blue);
         private SolidColorBrush kleur;
         private Rectangle blauwObject;        
-        private Canvas canvas;
-        private Random randomNumber = new Random();
+       
 
-        public BlauwObject(Canvas drawingCanvas) :base()
+        public BlauwObject(Canvas drawingCanvas):base(drawingCanvas)
         {
-            blauwObject = new Rectangle();
-            canvas = drawingCanvas;
-            X = randomNumber.Next(0, 497);
-            Y = randomNumber.Next(0, 248);
-            Width = 10;
-            Height = 10;            
-
+            blauwObject = new Rectangle();                     
             blauwObject.Width = Width;
             blauwObject.Height = Height;
             blauwObject.Margin = new Thickness(X, Y, 0, 0);
             kleur = ObjectKleur;
             blauwObject.Fill = kleur;
         }
-
+        public override Shape objectShape
+        {
+            get { return blauwObject; }
+        }
         public override SolidColorBrush Kleur
         {
             get { return kleur; }
@@ -43,10 +39,7 @@ namespace ProjectChallenge
             get { return objectKleur; }
         }
 
-        public override void DisplayOn(Canvas drawingCanvas)
-        {
-            canvas.Children.Add(blauwObject);
-        }
+        
 
         public override void UpdateElement()
         {

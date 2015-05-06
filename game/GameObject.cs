@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace ProjectChallenge
 {
@@ -15,14 +16,22 @@ namespace ProjectChallenge
         private bool leven;
         private int x, y, width, height;
         private int xStepSize, yStepSize;
+        private Canvas canvas;        
 
-        public GameObject()
+        public GameObject(Canvas drawingCanvas)
         {
+            Random randomNumber = new Random();
+            canvas = drawingCanvas;
+            width = 10;
+            height = 10;
             xStepSize = 1;
             yStepSize = 1;
-            leven = true;
+            leven = true;            
+            x = randomNumber.Next(1, (int)(canvas.Width-width));
+            y = randomNumber.Next(1, (int)(canvas.Height-height));            
         }
 
+        public abstract Shape objectShape { get; }
         public int X
         {
             get { return x; }
@@ -72,11 +81,11 @@ namespace ProjectChallenge
         public void Move()
         {
 
-            if ((X > 480) || (X < 0))
+            if ((X > (int)(canvas.Width - width)) || (X < 1))
             {
                 xStepSize = -xStepSize;
             }
-            if ((Y > 240) || (Y < 0))
+            if ((Y > (int)(canvas.Height - height)) || (Y < 1))
             {
                 yStepSize = -yStepSize;
             }
@@ -84,56 +93,92 @@ namespace ProjectChallenge
             Y += yStepSize;
         }
 
+        public bool Overlapping(List<GameObject> gameObjecten)
+        {
+            bool overlap = false;
+            foreach (GameObject item in gameObjecten)
+            {
+                int linkerrandA = this.X;
+                int rechterrandA = this.X + this.Width;
+                int linkerrandB = item.X;
+                int rechterrandB = item.X + item.Width;
+                bool horizontaleOverlap = (rechterrandA >= linkerrandB && linkerrandA <= rechterrandB);
+
+                int onderrandA = this.Y;
+                int bovenrandA = this.Y + this.Height;
+                int onderrandB = item.Y;
+                int bovenrandB = item.Y + this.Height;
+                bool vertikaleOverlap = (bovenrandA >= onderrandB && onderrandA <= bovenrandB);
+
+                overlap = (horizontaleOverlap && vertikaleOverlap)|| overlap;               
+            }
+            return overlap;
+        }
         
         public void DetecteerBotsing(List<GameObject> botsingObjecten)
         {
             botsingObjecten.Remove(this);  //doe het object zelf weg uit de lijst
-            foreach (GameObject botsingObject in botsingObjecten)
+
+            List<GameObject> botsingLokaleLijst = new List<GameObject>();
+            foreach (GameObject item in botsingObjecten) //copy by value
+            {
+                botsingLokaleLijst.Add(item);
+            }
+
+            bool botsing = false;
+            while(botsingLokaleLijst.Count > 0  && !botsing) // stop de loop na een botsing zodat het object zelf niet kan blijven vasthangen
             {
                 // http://stackoverflow.com/questions/13513932/algorithm-to-detect-overlapping-periods
                 //A is gameobject en B is botsingObject
-                int linkerrandA = this.X - this.Width / 2;
-                int rechterrandA = this.X + this.Width / 2;
-                int linkerrandB = botsingObject.X - botsingObject.Width / 2;
-                int rechterrandB = botsingObject.X - botsingObject.Width / 2;
-                bool horizontaleOverlap = rechterrandA >= linkerrandB && linkerrandA <= rechterrandB;
+                int linkerrandA = this.X;
+                int rechterrandA = this.X + this.Width;
+                int linkerrandB = botsingLokaleLijst[0].X;
+                int rechterrandB = botsingLokaleLijst[0].X + botsingLokaleLijst[0].Width;
+                bool horizontaleOverlap = (rechterrandA >= linkerrandB && linkerrandA <= rechterrandB);
 
-                int onderrandA = this.Y - this.Height / 2;
-                int bovenrandA = this.Y + this.Height / 2;
-                int onderrandB = botsingObject.Y - this.Height / 2;
-                int bovenrandB = botsingObject.Y + this.Height / 2;
-                bool vertikaleOverlap = bovenrandA >= onderrandB && onderrandA < bovenrandB;
+                int onderrandA = this.Y;
+                int bovenrandA = this.Y + this.Height;
+                int onderrandB = botsingLokaleLijst[0].Y;
+                int bovenrandB = botsingLokaleLijst[0].Y + this.Height;
+                bool vertikaleOverlap = (bovenrandA >= onderrandB && onderrandA <= bovenrandB);
+                botsing = horizontaleOverlap && vertikaleOverlap;
 
-                if (horizontaleOverlap && vertikaleOverlap)
+                if (botsing)
                 {
                     //botsing
                     //laat we de andere kant uitbewegen
                     this.xStepSize = -this.xStepSize;
                     this.yStepSize = -this.yStepSize;
-                    botsingObject.xStepSize = -botsingObject.xStepSize;
-                    botsingObject.yStepSize = -botsingObject.yStepSize;
+                    botsingLokaleLijst[0].xStepSize = -botsingLokaleLijst[0].xStepSize;
+                    botsingLokaleLijst[0].yStepSize = -botsingLokaleLijst[0].yStepSize;
 
                     //verander kleur
-                    
-                    this.Leven = !(this.GetType() == botsingObject.GetType());
-                    botsingObject.Leven = !(this.GetType() == botsingObject.GetType());
-                    
-                    if (!(this.GetType() == botsingObject.GetType()) && this.Leven && botsingObject.Leven)
+
+                    //this.Leven = !(this.GetType() == botsingObject.GetType());
+                    //botsingObject.Leven = !(this.GetType() == botsingObject.GetType());
+
+                    if (!(this.GetType() == botsingLokaleLijst[0].GetType()) && this.Leven && botsingLokaleLijst[0].Leven)
                     {
                         this.Leven = false;
-                        botsingObject.Leven = false;
+                        botsingLokaleLijst[0].Leven = false;
                     }
-                    else if ((this.GetType() == botsingObject.GetType()) && (this.Leven || botsingObject.leven))
+                    else if ((this.GetType() == botsingLokaleLijst[0].GetType()) && (this.Leven || botsingLokaleLijst[0].Leven))
                     {
                         this.Leven = true;
-                        botsingObject.Leven = true;
+                        botsingLokaleLijst[0].Leven = true;
                     }
+
+                    botsingObjecten.Remove(botsingLokaleLijst[0]); //vermijd dat bij driedubbele botsing de twee laatste bollen in elkaar blijven hangen
                 }
+                botsingLokaleLijst.Remove(botsingLokaleLijst[0]); 
             }
         }
 
 
-        public abstract void DisplayOn(Canvas drawingCanvas);        
+        public void DisplayOn(Canvas drawingCanvas)
+        {
+            drawingCanvas.Children.Add(this.objectShape);
+        }        
         public abstract void UpdateElement();
         
 

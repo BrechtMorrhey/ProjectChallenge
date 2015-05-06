@@ -38,6 +38,10 @@ namespace ProjectChallenge
         {
             RoodObject roodObject;
             roodObject = new RoodObject(gameCanvas);
+            while (roodObject.Overlapping(gameObjecten))
+            {
+                roodObject = new RoodObject(gameCanvas);
+            }
             gameObjecten.Add(roodObject);
             roodObject.DisplayOn(gameCanvas);
         }
@@ -46,6 +50,10 @@ namespace ProjectChallenge
         {
             BlauwObject blauwObject;
             blauwObject = new BlauwObject(gameCanvas);
+            while (blauwObject.Overlapping(gameObjecten))
+            {
+                blauwObject = new BlauwObject(gameCanvas);
+            }
             gameObjecten.Add(blauwObject);
             blauwObject.DisplayOn(gameCanvas);
         }
@@ -65,6 +73,12 @@ namespace ProjectChallenge
                 //botsingLijst.Remove(botsingLijst[0]);    dit wordt in DetecteerBotsing gedaan            
             }
            
+        }
+
+        private void scoreButton_Click(object sender, RoutedEventArgs e)
+        {
+            Window w = new GameScore(gameObjecten);
+            w.Show();
         }
       }
     }
