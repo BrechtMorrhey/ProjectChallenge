@@ -4,39 +4,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace vragen
+namespace ProjectChallenge
 {
     class MeerkeuzeVraag : Vraag
     {
-        private string opgave, antwoord; // lijst antwoorden + index juiste antwoord
-        private string ingevuld;
-        private bool isIngevuld, isJuist;
+        private string opgave;       
+        private string ingevuld; // ingevulde antwoord
+        private List<string> antwoordenLijst;
 
          // constructor
 
-        public MeerkeuzeVraag(string opgave, string antwoord)
+        public MeerkeuzeVraag(string opgave, List<string> antwoordenLijst)
         {
-            this.opgave = opgave;
-            this.antwoord = antwoord;
-           
+            this.opgave = opgave;            
+            this.antwoordenLijst = antwoordenLijst;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         //properties
+        public override VraagType TypeVraag { get { return VraagType.meerkeuze; } }
+
+        public override string ToString()
+        {
+            string s = "meerkeuze," + opgave + ",";
+            foreach (string antwoord in antwoordenLijst)
+            {
+                s += antwoord +"|";
+            }
+            return s;
+        }
 
         public override string Opgave
         {
@@ -54,12 +48,11 @@ namespace vragen
         {
             get
             {
-                return antwoord;
+                return antwoordenLijst[0];
             }
             set
             {
-                antwoord = value;
-
+                antwoordenLijst[0] = value;
             }
         }
         public override string Ingevuld
@@ -78,15 +71,18 @@ namespace vragen
         {
             get
             {
-                return ingevuld != null;
+                return (ingevuld != null && ingevuld !="");
             }
         }
         public override bool IsJuist
         {
             get
             {
-                return antwoord == ingevuld;
+                return antwoordenLijst[0] == ingevuld;
+                // We vergelijken niet de ingevulde index met de antwoordindex maar de geselecteerde string, zo kan de volgorde van de antwoorden willekeurig gemaakt worden
             }
         }
+        public List<string> AntwoordenLijst { get { return antwoordenLijst; } set { antwoordenLijst = value; } }
+
     }
 }

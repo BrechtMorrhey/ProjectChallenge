@@ -32,14 +32,14 @@ namespace ProjectChallenge
 
         private void registratieButton_Click(object sender, RoutedEventArgs e)
         {
-            RegistratieWindow registratie = new RegistratieWindow(alleGebruikers);
+            RegistratieWindow registratie = new RegistratieWindow(alleGebruikers, this);
             Hide();
             registratie.Show();
         }
 
         private void loginButton_Click(object sender, RoutedEventArgs e)
         {
-            LoginWindow login = new LoginWindow(alleGebruikers);
+            LoginWindow login = new LoginWindow(this, alleGebruikers);
             Hide();
             login.Show();
         }

@@ -1,0 +1,12 @@
+﻿<Window x:Class="ProjectChallenge.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="LoginWindow" Height="300" Width="300">
+    <Grid>
+        <TextBox Name="idTextBox" HorizontalAlignment="Left" Height="23" Margin="10,31,0,0" TextWrapping="Wrap" Text="ID" VerticalAlignment="Top" Width="120"/>
+        <TextBox Name="passwordTextBox" HorizontalAlignment="Left" Height="23" Margin="163,31,0,0" TextWrapping="Wrap" Text="password" VerticalAlignment="Top" Width="120"/>
+        <Button Name="loginButton" Content="Login" HorizontalAlignment="Left" Margin="175,90,0,0" VerticalAlignment="Top" Width="84" Click="loginButton_Click" Height="29"/>
+        <Button x:Name="backButton_Copy" Content="Back" HorizontalAlignment="Left" Margin="30,90,0,0" VerticalAlignment="Top" Width="84" Click="backButton_Click" Height="29"/>
+
+    </Grid>
+</Window>
