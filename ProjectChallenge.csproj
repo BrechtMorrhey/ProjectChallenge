@@ -60,11 +60,13 @@
     <Compile Include="game\RoodObject.cs" />
     <Compile Include="game\Sprite.cs" />
     <Compile Include="login\AlleGebruikers.cs" />
-    <Compile Include="login\Klas.cs" />
     <Compile Include="login\Leerkracht.cs" />
     <Compile Include="login\Leerling.cs" />
     <Compile Include="login\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="login\maakKlasWindow.xaml.cs">
+      <DependentUpon>maakKlasWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -73,6 +75,12 @@
     <Compile Include="login\RegistratieWindow.xaml.cs">
       <DependentUpon>RegistratieWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="vragen\ScoreLeerlingWindow.xaml.cs">
+      <DependentUpon>ScoreLeerlingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="vragen\OverzichtScoresWindow.xaml.cs">
+      <DependentUpon>OverzichtScoresWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="vragen\AanpassenWindow.xaml.cs">
       <DependentUpon>AanpassenWindow.xaml</DependentUpon>
     </Compile>
@@ -80,6 +88,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="vragen\MeerkeuzeVraag.cs" />
     <Compile Include="vragen\OplossenWindow.xaml.cs">
       <DependentUpon>OplossenWindow.xaml</DependentUpon>
     </Compile>
@@ -90,6 +99,7 @@
       <DependentUpon>ScoreWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="vragen\Vraag.cs" />
+    <Compile Include="vragen\wiskundigeVraag.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="vragen\BasisVraag.cs" />
@@ -131,6 +141,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="login\maakKlasWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -138,6 +152,14 @@
     <Page Include="login\RegistratieWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="vragen\ScoreLeerlingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="vragen\OverzichtScoresWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="vragen\AanpassenWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

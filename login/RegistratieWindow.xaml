@@ -1,17 +1,25 @@
 ﻿<Window x:Class="ProjectChallenge.RegistratieWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="RegistratieWindow" Height="350" Width="525">
-    <Grid>
-        <TextBox Name="naamTextBox" HorizontalAlignment="Left" Height="23" Margin="30,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="naam"/>
-        <TextBox Name="voornaamTextBox" HorizontalAlignment="Left" Height="23" Margin="193,75,0,0" TextWrapping="Wrap" Text="voornaam" VerticalAlignment="Top" Width="120"/>
-        <PasswordBox Name="passwoordPasswordBox" HorizontalAlignment="Left" Height="23" Margin="193,125,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button Content="saveButton" HorizontalAlignment="Left" Margin="238,175,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <DatePicker Name="datumDatePicker" HorizontalAlignment="Left" Margin="30,125,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox Name="soortRegistratieComboBox" HorizontalAlignment="Left" Margin="30,27,0,0" VerticalAlignment="Top" Width="120">
+        Title="RegistratieWindow" Height="362" Width="326.999">
+    <Grid Margin="0,0,0,-0.333" HorizontalAlignment="Left" Width="317">
+        <Label Name="soortRegistratieLabel" HorizontalAlignment="Left" VerticalAlignment="Top" Height="23" Width="100" Margin="25,23,0,0" Content="_Soort Gebruiker:"/>
+        <Label Name="voornaamLabel" HorizontalAlignment="Left" VerticalAlignment="Top" Height="23" Width="100" Margin="25,65,0,0" Content="_Voornaam:"/>
+        <Label Name="naamLabel" HorizontalAlignment="Left" VerticalAlignment="Top" Height="23" Width="100" Margin="25,106,0,0" Content="_Naam:"/>
+        <Label Name="geboorteDatumLabel" HorizontalAlignment="Left" VerticalAlignment="Top" Height="23" Width="100" Margin="25,149,0,0" Content="_Geboortedatum:"/>
+        <Label Name="passwoordLabel" HorizontalAlignment="Left" VerticalAlignment="Top" Height="23" Width="100" Margin="25,194,0,0" Content="_Wachtwoord:"/>
+        <Label Name="klasLabel" HorizontalAlignment="Left" VerticalAlignment="Top" Height="23" Width="100" Margin="25,240,0,0" Content="_Klas:"/>
+        <TextBox Name="naamTextBox" HorizontalAlignment="Left" Height="23" Margin="156,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="naam"/>
+        <TextBox Name="voornaamTextBox" HorizontalAlignment="Left" Height="23" Margin="157,65,0,0" TextWrapping="Wrap" Text="voornaam" VerticalAlignment="Top" Width="120"/>
+        <PasswordBox Name="passwoordPasswordBox" HorizontalAlignment="Left" Height="23" Margin="156,194,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button Content="saveButton" HorizontalAlignment="Left" Height="23" Margin="201,286,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <DatePicker Name="datumDatePicker" HorizontalAlignment="Left" Margin="156,148,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox Name="soortRegistratieComboBox" HorizontalAlignment="Left" Margin="156,23,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="soortRegistratieComboBox_SelectionChanged">
             <ComboBoxItem Name="leerlingItem">Leerling</ComboBoxItem>
             <ComboBoxItem Name="leerkrachtItem">Leerkracht</ComboBoxItem>
         </ComboBox>
+        <ComboBox Name="klasComboBox" HorizontalAlignment="Left" Margin="156,240,0,0" VerticalAlignment="Top" Height="23" Width="120"/>
+        <Button Name="terugButton" Content="terug" HorizontalAlignment="Left" Height="23" Margin="25,286,0,0" VerticalAlignment="Top" Width="75" Click="terugButton_Click"/>
 
     </Grid>
 </Window>
