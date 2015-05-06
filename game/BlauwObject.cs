@@ -10,23 +10,23 @@ using System.Windows.Shapes;
 namespace ProjectChallenge
 {
     // Author: Timo Biesmans
-    public class BlauwObject : Sprite
+    public class BlauwObject : GameObject
     {
-
         private static SolidColorBrush objectKleur = new SolidColorBrush(Colors.Blue);
         private SolidColorBrush kleur;
-        private Rectangle blauwObject;        
-       
+        private Rectangle blauwObject;
 
-        public BlauwObject(Canvas drawingCanvas):base(drawingCanvas)
+
+        public BlauwObject(Canvas drawingCanvas)
+            : base(drawingCanvas)
         {
-            blauwObject = new Rectangle();                     
+            blauwObject = new Rectangle();
             blauwObject.Width = Width;
             blauwObject.Height = Height;
             blauwObject.Margin = new Thickness(X, Y, 0, 0);
-            blauwObject.Fill = new SolidColorBrush(Colors.Blue);
+            kleur = ObjectKleur;
+            blauwObject.Fill = kleur;
         }
-
         public override Shape objectShape
         {
             get { return blauwObject; }
@@ -38,15 +38,18 @@ namespace ProjectChallenge
         }
         public override SolidColorBrush ObjectKleur
         {
-            canvas.Children.Add(blauwObject);
+            get { return objectKleur; }
         }
 
-        protected override void UpdateElement()
+
+
+        public override void UpdateElement()
         {
             blauwObject.Margin = new Thickness(X, Y, 0, 0);
             blauwObject.Width = Width;
             blauwObject.Height = Height;
-            blauwObject.Fill = new SolidColorBrush(Colors.Blue);
+            blauwObject.Fill = kleur;
         }
     }
 }
+
