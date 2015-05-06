@@ -16,18 +16,20 @@ namespace ProjectChallenge
         // constructors
         public wiskundigeVraag()
         {
-            GenereerOpgave(); 
+            GenereerOpgave();
+            BerekenAntwoord(getal1, getal2, bewerking);
+ 
         }
 
-        public wiskundigeVraag(int min, int max)
-        {
-            GenereerOpgave(min, max);
-        }
+        //public wiskundigeVraag(int min, int max)
+        //{
+        //    GenereerOpgave(min, max);
+        //}
 
-        public wiskundigeVraag(int min, int max, string bewerking)
-        {
-            GenereerOpgave(min, max, bewerking);
-        }
+        //public wiskundigeVraag(int min, int max, string bewerking)
+        //{
+        //    GenereerOpgave(min, max, bewerking);
+        //}
 
 
         //Genereeropgave op 3 manieren
@@ -50,44 +52,6 @@ namespace ProjectChallenge
             this.opgave = opgave[index];
 
         }
-
-        public void GenereerOpgave(int min, int max)
-        {
-            Random random = new Random();
-            getal1 = random.Next(min, max);
-            getal2 = random.Next(min, max);
-            int index = random.Next(0, 3);
-            BewaarBewerking(index);
-
-            string[] opgave = new string[3];
-            opgave[0] = "" + getal1 + " + " + getal2;
-            opgave[1] = "" + getal1 + " - " + getal2;
-            opgave[2] = "" + getal1 + " * " + getal2;
-            opgave[3] = "" + getal1 + " / " + getal2;
-
-            this.opgave = opgave[index];
-
-        }
-
-        public void GenereerOpgave(int min, int max, string bewerking)
-        {
-            Random random = new Random();
-            getal1 = random.Next(min, max);
-            getal2 = random.Next(min, max);
-
-            int index = BerekenIndex(bewerking);
-            BewaarBewerking(index);
-
-            string[] opgave = new string[3];
-            opgave[0] = "" + getal1 + " + " + getal2;
-            opgave[1] = "" + getal1 + " - " + getal2;
-            opgave[2] = "" + getal1 + " * " + getal2;
-            opgave[3] = "" + getal1 + " / " + getal2;
-
-            this.opgave = opgave[index];
-
-        }
-
         // opslaan van de soort bewerking
         public void BewaarBewerking(int index)
         {
@@ -105,32 +69,14 @@ namespace ProjectChallenge
 
         }
 
-        // index berekenen indien de bewerking door de leerkracht word opgegeven
-        public int BerekenIndex(string bewerking) 
-        {
-            int index = -1;
-            switch(bewerking)
-            {
-                case "+": index = 0;
-                    break;
-                case "-": index = 1;
-                    break;
-                case "*": index = 2;
-                    break;
-                case "/": index = 3;
-                    break;
-            }               
-            return index;
-        }
-
         // bereken antwoord
-        public void BerekenAntwoord(int getal1 , int getal2, string bewerking)
+        public void BerekenAntwoord(int getal1, int getal2, string bewerking)
         {
             if (bewerking == "+")
             {
-                antwoord =Convert.ToString(getal1 + getal2);
+                antwoord = Convert.ToString(getal1 + getal2);
             }
-            else if(bewerking == "-")
+            else if (bewerking == "-")
             {
                 antwoord = Convert.ToString(getal1 - getal2);
             }
@@ -140,10 +86,70 @@ namespace ProjectChallenge
             }
             else if (bewerking == "/")
             {
-                antwoord =Convert.ToString( getal1 / getal2);
+                antwoord = Convert.ToString(getal1 / getal2);
             }
 
         }
+
+        //public void GenereerOpgave(int min, int max)
+        //{
+        //    Random random = new Random();
+        //    getal1 = random.Next(min, max);
+        //    getal2 = random.Next(min, max);
+        //    int index = random.Next(0, 3);
+        //    BewaarBewerking(index);
+
+        //    string[] opgave = new string[4];
+        //    opgave[0] = "" + getal1 + " + " + getal2;
+        //    opgave[1] = "" + getal1 + " - " + getal2;
+        //    opgave[2] = "" + getal1 + " * " + getal2;
+        //    opgave[3] = "" + getal1 + " / " + getal2;
+
+        //    this.opgave = opgave[index];
+
+        //}
+
+        //public void GenereerOpgave(int min, int max, string bewerking)
+        //{
+        //    Random random = new Random();
+        //    getal1 = random.Next(min, max);
+        //    getal2 = random.Next(min, max);
+
+        //    int index = BerekenIndex(bewerking);
+        //    BewaarBewerking(index);
+
+        //    string[] opgave = new string[4];
+        //    opgave[0] = "" + getal1 + " + " + getal2;
+        //    opgave[1] = "" + getal1 + " - " + getal2;
+        //    opgave[2] = "" + getal1 + " * " + getal2;
+        //    opgave[3] = "" + getal1 + " / " + getal2;
+
+        //    this.opgave = opgave[index];
+
+        //}
+
+       
+       
+
+        // index berekenen indien de bewerking door de leerkracht word opgegeven
+        //public int BerekenIndex(string bewerking) 
+        //{
+        //    int index = -1;
+        //    switch(bewerking)
+        //    {
+        //        case "+": index = 0;
+        //            break;
+        //        case "-": index = 1;
+        //            break;
+        //        case "*": index = 2;
+        //            break;
+        //        case "/": index = 3;
+        //            break;
+        //    }               
+        //    return index;
+        //}
+
+       
 
 
 

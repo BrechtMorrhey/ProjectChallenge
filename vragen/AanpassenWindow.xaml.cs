@@ -396,6 +396,7 @@ namespace ProjectChallenge
         {
             wiskundigeVraag vraag = new wiskundigeVraag();
             opgaveTextBox.Text = vraag.Opgave;
+            antwoordTextBox.Text = vraag.Antwoord;
         }
 
         
