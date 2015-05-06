@@ -26,6 +26,7 @@ namespace ProjectChallenge
         private MainWindow mainWindow;
         private string programmaDirPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Challenger");
         private string vragenlijstenDirPath;
+        private Leerling gebruiker;
         public MainVragenWindow()
         {
             InitializeComponent();
@@ -42,6 +43,7 @@ namespace ProjectChallenge
             this.mainWindow = mainWindow;
             gameButton.Visibility = Visibility.Visible;
             oplossenButton.Visibility = Visibility.Visible;
+            gebruiker = leerling;
         }
         public MainVragenWindow(Leerkracht leerkracht, AlleGebruikers allegebruikers, MainWindow mainWindow)
             :this()
@@ -81,7 +83,7 @@ namespace ProjectChallenge
             bestandsNaam = dialog.FileName;
             if (bestandsNaam != null && bestandsNaam != "")
             {
-                Window w = new OplossenWindow(bestandsNaam, this);
+                Window w = new OplossenWindow(bestandsNaam, gebruiker, this);
                 w.Show();
             }
         }

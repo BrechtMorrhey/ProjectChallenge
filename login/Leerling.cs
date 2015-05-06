@@ -43,5 +43,13 @@ namespace ProjectChallenge
         {
             return "leerling";
         }
+
+        public string Klas
+        {
+            get
+            {
+                return klas;
+            }
+        }
     }
 }
