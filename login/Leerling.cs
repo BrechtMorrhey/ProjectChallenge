@@ -14,10 +14,15 @@ namespace ProjectChallenge
         private string klas;
 
         //  constructor
-        public Leerling(string naam, string voornaam, /* datetime maken */ string geboorteDatum, string passwoord, string klas, AlleGebruikers allegebruikers)
+        public Leerling(string naam, string voornaam, string geboorteDatum, string passwoord, string klas, AlleGebruikers allegebruikers)
             :base(naam, voornaam, geboorteDatum, passwoord)
         {
-            base.id = naam.Substring(0, 1) + voornaam.Substring(0, 1) + geboorteDatum.Substring(0,2) + geboorteDatum.Substring(3,2);
+            string[] geboorteDatumSplitted = geboorteDatum.Split('/');
+            if (geboorteDatumSplitted[0].Length == 1)
+            {
+                geboorteDatumSplitted[0].PadLeft(1, '0');
+            }
+            base.id = naam.Substring(0, 1) + voornaam.Substring(0, 1) + geboorteDatumSplitted[0] + geboorteDatumSplitted[1];
             this.alleGebruikers = allegebruikers;
             this.klas = klas;
         }

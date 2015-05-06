@@ -32,19 +32,19 @@ namespace ProjectChallenge
         private void loginButton_Click(object sender, RoutedEventArgs e)
         {
             bool loginOk = Login();
-            //MainVragenWindow w;
+            MainVragenWindow menuWindow;
             if (loginOk)
             {
                 MessageBox.Show("Login OK");
                 if( gebruiker.GeefGebruikersType() == "leerling")
                 {
                     Leerling leerling = (Leerling) gebruiker;
-                    //w = new MainVragenWindow(leerling);
+                    menuWindow = new MainVragenWindow(leerling);
                 }
                 else 
                 {
                     Leerkracht leerkracht = (Leerkracht)gebruiker;
-                    //w = new MainVragenWindow(leerkracht, alleGebruikers);
+                    menuWindow = new MainVragenWindow(leerkracht, alleGebruikers);
                 }
 
                 //w.Show();

@@ -21,11 +21,11 @@ namespace ProjectChallenge.login
     {
         private MainVragenWindow menuWindow;
         private AlleGebruikers alleGebruikers;
-        public maakKlasWindow(AlleGebruikers alleGebruikers, MainVragenWindow menuWindow)
+        public maakKlasWindow(AlleGebruikers alleGebruikers/*, MainVragenWindow menuWindow*/)
         {
             InitializeComponent();
             this.alleGebruikers = alleGebruikers;
-            this.menuWindow = menuWindow;
+            //this.menuWindow = menuWindow;
         }
 
         private void nieuweKlasButton_Click(object sender, RoutedEventArgs e)
