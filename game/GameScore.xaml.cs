@@ -18,19 +18,26 @@ namespace ProjectChallenge
     /// </summary>
     public partial class GameScore : Window
     {
-        int scoreRood, scoreBlauw;
+        private int scoreRood, scoreBlauw;
         public GameScore(List<GameObject> gameObjecten)
         {
             InitializeComponent();
+            scoreRood = 0;
+            scoreBlauw = 0;
             foreach (GameObject gameObject in gameObjecten)
             {
-                //if (gameObject.GetType() == typeOf(RoodObject))
-                //{
-
-                //}             
-                    
-                
+                if (gameObject.Leven && gameObject is RoodObject)
+                {
+                    scoreRood++;
+                }
+                else if (gameObject.Leven && gameObject is BlauwObject)
+                {
+                    scoreBlauw++;
+                }
             }
+
+            scoreBlauwTextBlock.Text = Convert.ToString(scoreBlauw);
+            scoreRoodTextBlock.Text = Convert.ToString(scoreRood);
         }
     }
 }

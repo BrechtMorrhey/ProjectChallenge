@@ -74,6 +74,12 @@ namespace ProjectChallenge
             }
            
         }
+
+        private void scoreButton_Click(object sender, RoutedEventArgs e)
+        {
+            Window w = new GameScore(gameObjecten);
+            w.Show();
+        }
       }
     }
 
