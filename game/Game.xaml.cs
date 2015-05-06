@@ -24,10 +24,12 @@ namespace ProjectChallenge
     {
         private List<GameObject> gameObjecten = new List<GameObject>();
         private DispatcherTimer animationTimer;
+        private MainVragenWindow menuWindow;
 
-        public Game()
+        public Game(MainVragenWindow menuWindow)
         {
             InitializeComponent();
+            this.menuWindow = menuWindow;
             animationTimer = new DispatcherTimer();
             animationTimer.Interval = TimeSpan.FromMilliseconds(4);
             animationTimer.Tick += animationTimer_Tick;
@@ -79,6 +81,12 @@ namespace ProjectChallenge
         {
             Window w = new GameScore(gameObjecten);
             w.Show();
+        }
+
+        private void TerugButton_Click(object sender, RoutedEventArgs e)
+        {
+            menuWindow.Show();
+            this.Close();
         }
       }
     }

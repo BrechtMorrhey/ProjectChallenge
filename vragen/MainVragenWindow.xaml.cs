@@ -106,7 +106,7 @@ namespace ProjectChallenge
 
         private void GameButton_Click(object sender, RoutedEventArgs e)
         {
-            Game game = new Game();
+            Game game = new Game(this);
             game.Show();
             this.Hide();
         }
