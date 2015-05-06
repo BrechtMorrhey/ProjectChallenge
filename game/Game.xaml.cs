@@ -23,16 +23,14 @@ namespace ProjectChallenge
     // Author: Timo Biesmans
     public partial class Game : Window
     {
-        private List<Sprite> sprites = new List<Sprite>();
+        private List<GameObject> gameObjecten = new List<GameObject>();
         private DispatcherTimer animationTimer;
         private MainVragenWindow menuWindow;
 
         public Game(MainVragenWindow menuWindow)
         {
             InitializeComponent();
-
             this.menuWindow = menuWindow;
-
             animationTimer = new DispatcherTimer();
             animationTimer.Interval = TimeSpan.FromMilliseconds(4);
             animationTimer.Tick += animationTimer_Tick;
@@ -43,7 +41,6 @@ namespace ProjectChallenge
         {
             RoodObject roodObject;
             roodObject = new RoodObject(gameCanvas);
-
             while (roodObject.Overlapping(gameObjecten))
             {
                 roodObject = new RoodObject(gameCanvas);
@@ -56,7 +53,6 @@ namespace ProjectChallenge
         {
             BlauwObject blauwObject;
             blauwObject = new BlauwObject(gameCanvas);
-
             while (blauwObject.Overlapping(gameObjecten))
             {
                 blauwObject = new BlauwObject(gameCanvas);
@@ -67,11 +63,19 @@ namespace ProjectChallenge
 
         private void animationTimer_Tick(object sender, EventArgs e)
         {
-
-            foreach (Sprite sprite in sprites)
+            List<GameObject> botsingLijst = new List<GameObject>();
+            foreach (GameObject gameObject in gameObjecten)
             {
-                sprite.Move();
+                gameObject.Move();
+                botsingLijst.Add(gameObject);
             }
+
+            while (botsingLijst.Count > 0)
+            {
+                botsingLijst[0].DetecteerBotsing(botsingLijst);
+                //botsingLijst.Remove(botsingLijst[0]);    dit wordt in DetecteerBotsing gedaan            
+            }
+
         }
 
         private void scoreButton_Click(object sender, RoutedEventArgs e)
@@ -85,6 +89,6 @@ namespace ProjectChallenge
             menuWindow.Show();
             this.Close();
         }
-      }
     }
 }
+
