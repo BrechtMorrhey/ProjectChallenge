@@ -160,11 +160,11 @@ namespace ProjectChallenge
             while (regel != null)
             {
                 klassen.Add(regel);
-                regel = readKlassenStream.ReadLine();
-                if (regel == "testKlas")
+                if (regel.CompareTo("testKlas") == 0)
                 {
                     testKlasAanwezig = true;
                 }
+                regel = readKlassenStream.ReadLine();
             }
             if (!testKlasAanwezig)
             {
