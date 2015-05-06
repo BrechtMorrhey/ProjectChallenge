@@ -40,9 +40,6 @@ namespace ProjectChallenge
         {
             get { return objectKleur; }
         }
-
-
-
         public override void UpdateElement()
         {
             blauwObject.Margin = new Thickness(X, Y, 0, 0);
