@@ -1,15 +1,16 @@
 ﻿<Window x:Class="ProjectChallenge.MainVragenWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="276" Width="354.333"
+        WindowStyle="None">
     <Grid>
-        <Button x:Name="oplossenButton" Content="Los vragen op" HorizontalAlignment="Left" Margin="79,114,0,0" VerticalAlignment="Top" Width="116" Height="75" Click="oplossenButton_Click"/>
-        <Button x:Name="opstellenButton" Content="Stel vragen op" HorizontalAlignment="Left" Margin="350,114,0,0" VerticalAlignment="Top" Width="114" Height="75" Click="opstellenButton_Click"/>
-        <Button x:Name="aanpassenButton" Content="Pas vragen aan" HorizontalAlignment="Left" Margin="350,208,0,0" VerticalAlignment="Top" Width="114" Height="60" Click="aanpassenButton_Click"/>
-        <Button x:Name="scoreButton" Content="Bekijk scores" HorizontalAlignment="Left" Margin="350,40,0,0" VerticalAlignment="Top" Width="114" Height="48" Click="scoreButton_Click"/>
-        <Button x:Name="gameButton" Content="game" HorizontalAlignment="Left" Margin="79,40,0,0" VerticalAlignment="Top" Width="116" Height="48" Click="GameButton_Click"/>
-        <Button x:Name="exitButton" Content="Sluit af" HorizontalAlignment="Left" Margin="79,208,0,0" VerticalAlignment="Top" Width="116" Height="60" Click="ExitButton_Click"/>
-        <Button x:Name="nieuweKlasButton" Content="nieuwe klas" HorizontalAlignment="Left" Margin="214,114,0,0" VerticalAlignment="Top" Width="116" Height="75" Click="NieuweKlasButton_Click"/>
-        <Button x:Name="logUitButton" Content="Log uit" HorizontalAlignment="Left" Margin="214,208,0,0" VerticalAlignment="Top" Width="116" Height="60" Click="LogUitButton_Click"/>
+        <Button x:Name="oplossenButton" Content="Los vragen op" HorizontalAlignment="Left" Margin="40,40,0,0" VerticalAlignment="Top" Width="115" Height="80" Visibility="Hidden" Click="oplossenButton_Click"/>
+        <Button x:Name="opstellenButton" Content="Stel vragen op" HorizontalAlignment="Left" Margin="187,40,0,0" VerticalAlignment="Top" Width="115" Height="35" Visibility="Hidden" Click="opstellenButton_Click"/>
+        <Button x:Name="aanpassenButton" Content="Pas vragen aan" HorizontalAlignment="Left" Margin="187,85,0,0" VerticalAlignment="Top" Width="115" Height="35" Visibility="Hidden" Click="aanpassenButton_Click"/>
+        <Button x:Name="scoreButton" Content="Bekijk scores" HorizontalAlignment="Left" Margin="40,85,0,0" VerticalAlignment="Top" Width="115" Height="35" Visibility="Hidden" Click="scoreButton_Click"/>
+        <Button x:Name="gameButton" Content="game" HorizontalAlignment="Left" Margin="187,40,0,0" VerticalAlignment="Top" Width="115" Height="80" Visibility="Hidden" Click="GameButton_Click"/>
+        <Button x:Name="exitButton" Content="Sluit af" HorizontalAlignment="Left" Margin="187,149,0,0" VerticalAlignment="Top" Width="115" Height="80" Visibility="Visible" Click="ExitButton_Click"/>
+        <Button x:Name="nieuweKlasButton" Content="nieuwe klas" HorizontalAlignment="Left" Margin="40,40,0,0" VerticalAlignment="Top" Width="115" Height="35" Visibility="Hidden" Click="NieuweKlasButton_Click"/>
+        <Button x:Name="logUitButton" Content="Log uit" HorizontalAlignment="Left" Margin="40,149,0,0" VerticalAlignment="Top" Width="115" Height="80" Visibility="Visible" Click="LogUitButton_Click"/>
     </Grid>
 </Window>

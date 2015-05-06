@@ -34,12 +34,18 @@ namespace ProjectChallenge
         {
             InitializeComponent();
             this.mainWindow = mainWindow;
+            gameButton.Visibility = Visibility.Visible;
+            oplossenButton.Visibility = Visibility.Visible;
         }
         public MainVragenWindow(Leerkracht leerkracht, AlleGebruikers allegebruikers, MainWindow mainWindow)
         {
             InitializeComponent();
             this.alleGebruikers = allegebruikers;
             this.mainWindow = mainWindow;
+            aanpassenButton.Visibility = Visibility.Visible;
+            nieuweKlasButton.Visibility = Visibility.Visible;
+            opstellenButton.Visibility = Visibility.Visible;
+            scoreButton.Visibility = Visibility.Visible;
         }
 
         private void opstellenButton_Click(object sender, RoutedEventArgs e)
