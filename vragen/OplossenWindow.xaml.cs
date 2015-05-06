@@ -26,13 +26,14 @@ namespace ProjectChallenge
         private MainVragenWindow menuWindow;
         private string programmaDirPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Challenger");
         private string vragenlijstenDirPath;
-        
-        public OplossenWindow(string bestandsNaam, MainVragenWindow menuWindow)
+        private Leerling gebruiker;
+        public OplossenWindow(string bestandsNaam,Leerling gebruiker, MainVragenWindow menuWindow)
         {
             InitializeComponent();
             this.bestandsNaam = bestandsNaam;
             vragenlijstenDirPath = programmaDirPath + "\\Vragenlijsten";
             this.menuWindow = menuWindow;
+            this.gebruiker = gebruiker;
         }
 
         private void vorigeButton_Click(object sender, RoutedEventArgs e)
@@ -63,7 +64,7 @@ namespace ProjectChallenge
 
         private void Klaar()
         {
-            Window w = new ScoreWindow(vragenLijst, bestandsNaam);
+            Window w = new ScoreWindow(gebruiker, vragenLijst, bestandsNaam);
             w.Show();
             this.Close();
         }
