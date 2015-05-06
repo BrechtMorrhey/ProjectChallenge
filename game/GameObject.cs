@@ -92,6 +92,28 @@ namespace ProjectChallenge
             X += xStepSize;
             Y += yStepSize;
         }
+        public void Move(List<GameObject> gameObjecten, out GameObject botser)
+        {
+            this.Move();
+            bool overlap;            
+            this.Overlapping(gameObjecten, out overlap, out botser);
+            if (overlap)//normale botsing
+            {
+                Game.VeranderKleuren(this, botser);
+                xStepSize = -xStepSize;
+                yStepSize = -yStepSize;
+                this.Move();
+                botser.xStepSize = -botser.xStepSize;
+                botser.yStepSize = -botser.yStepSize;
+                botser.Move();
+            }
+            int i = 0;
+            while (this.Overlapping(gameObjecten) && i<100) //objecten geraken niet uit mekaars oppervlakte of drieweg botsing
+            {
+                this.Move();
+                i++;
+            }            
+        }
 
         public bool Overlapping(List<GameObject> gameObjecten)
         {
@@ -107,12 +129,39 @@ namespace ProjectChallenge
                 int onderrandA = this.Y;
                 int bovenrandA = this.Y + this.Height;
                 int onderrandB = item.Y;
-                int bovenrandB = item.Y + this.Height;
+                int bovenrandB = item.Y + item.Height;
                 bool vertikaleOverlap = (bovenrandA >= onderrandB && onderrandA <= bovenrandB);
 
-                overlap = (horizontaleOverlap && vertikaleOverlap)|| overlap;               
+                overlap = (horizontaleOverlap && vertikaleOverlap)|| overlap;   //verander overlap naar true, kan niet terug naar false veranderen                
             }
             return overlap;
+        }
+        public void Overlapping(List<GameObject> gameObjecten, out bool overlap, out GameObject botser)
+        {
+            overlap = false;
+            botser = null;
+            int i = 0;
+            while (!overlap && i < gameObjecten.Count)
+            {
+                int linkerrandA = this.X;
+                int rechterrandA = this.X + this.Width;
+                int linkerrandB = gameObjecten[i].X;
+                int rechterrandB = gameObjecten[i].X + gameObjecten[i].Width;
+                bool horizontaleOverlap = (rechterrandA >= linkerrandB && linkerrandA <= rechterrandB);
+
+                int onderrandA = this.Y;
+                int bovenrandA = this.Y + this.Height;
+                int onderrandB = gameObjecten[i].Y;
+                int bovenrandB = gameObjecten[i].Y + gameObjecten[i].Height;
+                bool vertikaleOverlap = (bovenrandA >= onderrandB && onderrandA <= bovenrandB);
+
+                overlap = (horizontaleOverlap && vertikaleOverlap) || overlap;   //verander overlap naar true, kan niet terug naar false veranderen
+                i++;
+            }
+            if (overlap)
+            {
+                botser = gameObjecten[i - 1];
+            }
         }
         
         public void DetecteerBotsing(List<GameObject> botsingObjecten)

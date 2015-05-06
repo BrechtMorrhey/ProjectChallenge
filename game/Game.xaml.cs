@@ -34,6 +34,20 @@ namespace ProjectChallenge
             animationTimer.IsEnabled = true;
         }
 
+        public static void VeranderKleuren(GameObject a, GameObject b)
+        {
+            if (!(a.GetType() == b.GetType()) && a.Leven && b.Leven)
+            {
+                a.Leven = false;
+                b.Leven = false;
+            }
+            else if ((a.GetType() == b.GetType()) && (a.Leven || b.Leven))
+            {
+                a.Leven = true;
+                b.Leven = true;
+            }
+        }
+
         private void roodButton_Click(object sender, RoutedEventArgs e)
         {
             RoodObject roodObject;
@@ -61,16 +75,23 @@ namespace ProjectChallenge
         private void animationTimer_Tick(object sender, EventArgs e)
         {
             List<GameObject> botsingLijst = new List<GameObject>();
-            foreach (GameObject gameObject in gameObjecten)
+            foreach (GameObject gameObject in gameObjecten) //copy by value
             {
-                gameObject.Move();                
                 botsingLijst.Add(gameObject);
             }
-                        
-            while(botsingLijst.Count>0)
+
+            if (botsingLijst.Count > 1)
             {
-                botsingLijst[0].DetecteerBotsing(botsingLijst);
-                //botsingLijst.Remove(botsingLijst[0]);    dit wordt in DetecteerBotsing gedaan            
+                while (botsingLijst.Count > 0)
+                {
+                    GameObject botser;
+                    botsingLijst[0].Move(botsingLijst, out botser);
+                    if (botser != null)
+                    {
+                        botsingLijst.Remove(botser); // vermijd onnodig telwerk
+                    }
+                    botsingLijst.RemoveAt(0);
+                }
             }
            
         }
