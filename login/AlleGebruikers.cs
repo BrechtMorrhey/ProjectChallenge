@@ -82,6 +82,7 @@ namespace ProjectChallenge
             try
             {
                 readKlassenStream = File.OpenText(klassenPath);
+                LeesKlassenIn();
             }
             catch (FileNotFoundException)
             {
@@ -90,9 +91,11 @@ namespace ProjectChallenge
                     readKlassenStream.Close();
                 }
                 File.CreateText(klassenPath);
+                klassen.Add("testKlas");
             }
             finally
             {
+<<<<<<< HEAD
                 readKlassenStream = File.OpenText(klassenPath);
                 LeesKlassenIn();
                 readKlassenStream.Close();
@@ -101,6 +104,12 @@ namespace ProjectChallenge
             if (klassen.Count == 0)
             {
                 SlaKlasOp("testKlas");
+=======
+                if (readKlassenStream != null)
+                {
+                    readKlassenStream.Close();
+                }
+>>>>>>> origin/stijn
             }
         }
 
@@ -142,6 +151,7 @@ namespace ProjectChallenge
 
         public void SlaKlasOp(string klas)
         {
+            klassen.Add(klas);
             try
             {
                 writeKlassenStream = File.AppendText(klassenPath);
@@ -152,7 +162,6 @@ namespace ProjectChallenge
             }
             finally
             {
-                klassen.Add(klas);
                 writeKlassenStream.WriteLine(klas);
                 writeKlassenStream.Close();
             }
@@ -160,6 +169,8 @@ namespace ProjectChallenge
 
         public void LeesKlassenIn()
         {
+            klassen.Add("testKlas");
+
             string regel = readKlassenStream.ReadLine();
             while (regel != null)
             {

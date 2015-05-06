@@ -32,6 +32,7 @@ namespace ProjectChallenge
             InitializeComponent();
             this.allegebruikers = allegebruikers;
             klasComboBox.ItemsSource = allegebruikers.Klassen;
+            klasComboBox.SelectedValue = "testKlas";
             this.mainWindow = mainWindow;
         }
 
@@ -41,7 +42,7 @@ namespace ProjectChallenge
             voornaam = voornaamTextBox.Text;
             passwoord = passwoordPasswordBox.Password;
             geboorteDatum = datumDatePicker.Text;
-            
+            klas = klasComboBox.SelectedItem.ToString();
 
             if (soortRegistratieComboBox.SelectedItem == leerlingItem)
             {

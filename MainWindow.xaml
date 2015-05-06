@@ -17,7 +17,7 @@
                 HorizontalAlignment="Left" VerticalAlignment="Top"
                 Margin="313,199,0,0" 
                 Width="100" Height="35" Click="registratieButton_Click"/>
-        <Button x:Name="gameButton" Content="Game" HorizontalAlignment="Left" Margin="225,36,0,0" VerticalAlignment="Top" Width="75" Click="gameButton_Click"/>
+        <Button x:Name="exitButton" Content="Exit" HorizontalAlignment="Left" Margin="225,36,0,0" VerticalAlignment="Top" Width="75" Click="exitButton_Click"/>
 
 
     </Grid>

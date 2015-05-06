@@ -32,25 +32,27 @@ namespace ProjectChallenge
         private void loginButton_Click(object sender, RoutedEventArgs e)
         {
             bool loginOk = Login();
-            //MainVragenWindow w;
+            MainVragenWindow menuWindow;
             if (loginOk)
             {
                 MessageBox.Show("Login OK");
                 if( gebruiker.GeefGebruikersType() == "leerling")
                 {
                     Leerling leerling = (Leerling) gebruiker;
-                    //w = new MainVragenWindow(leerling);
+                    menuWindow = new MainVragenWindow(leerling, Main);
                 }
                 else 
                 {
                     Leerkracht leerkracht = (Leerkracht)gebruiker;
-                    //w = new MainVragenWindow(leerkracht, alleGebruikers);
+                    menuWindow = new MainVragenWindow(leerkracht, alleGebruikers, Main);
                 }
 
-                //w.Show();
+                menuWindow.Show();
+                this.Close();
             }
             else
             {
+<<<<<<< HEAD
                 MessageBox.Show("Foute login", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 // ENKEL VOOR TESTDOELEINDEN
@@ -58,6 +60,10 @@ namespace ProjectChallenge
                 MainVragenWindow w = new MainVragenWindow();
                 w.Show();
                 // VERWIJDER UIT UITEINDELIJK PROJECT
+=======
+                MessageBox.Show("Foute login");
+                
+>>>>>>> origin/stijn
             }
         }
 
@@ -95,6 +101,17 @@ namespace ProjectChallenge
         {
             mainWindow.Show();
             this.Close();
+        }
+
+        public MainWindow Main
+        {
+            get
+            {
+                return mainWindow;
+            }
+            set
+            {
+            }
         }
     }
 }

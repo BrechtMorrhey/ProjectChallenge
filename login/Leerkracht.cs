@@ -17,7 +17,9 @@ namespace ProjectChallenge
         public Leerkracht(string naam, string voornaam, /* datetime maken */ string geboorteDatum, string passwoord, AlleGebruikers allegebruikers)
             : base(naam, voornaam, geboorteDatum, passwoord)
         {
-            base.id = naam.Substring(0, 1) + voornaam.Substring(0, 1) + geboorteDatum.Substring(6, 4);
+            string[] geboorteDatumSplitted = geboorteDatum.Split('/');
+
+            base.id = naam.Substring(0, 1) + voornaam.Substring(0, 1) + geboorteDatumSplitted[2];
             this.alleGebruikers = allegebruikers;
         }
 
