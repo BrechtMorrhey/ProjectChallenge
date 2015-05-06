@@ -46,5 +46,10 @@ namespace ProjectChallenge
             Window w = new ScoreAlleWindow();
             w.Show();
         }
+
+        private void scoreKlasButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

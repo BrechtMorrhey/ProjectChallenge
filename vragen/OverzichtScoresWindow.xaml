@@ -5,7 +5,10 @@
     <Grid>
         <Label x:Name="userIdLabel" Content="Geef userId in" HorizontalAlignment="Left" Margin="32,10,0,0" VerticalAlignment="Top" Width="102"/>
         <TextBox x:Name="userIdTextBox" HorizontalAlignment="Left" Height="23" Margin="32,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="userIdButton" Content="Score per leerling" HorizontalAlignment="Left" Margin="32,69,0,0" VerticalAlignment="Top" Width="139" Click="userIdButton_Click"/>
-        <Button x:Name="alleButton" Content="Alle Scores" HorizontalAlignment="Left" Margin="32,153,0,0" VerticalAlignment="Top" Width="139" Click="alleButton_Click"/>
+        <Button x:Name="userIdButton" Content="Scores van leerling" HorizontalAlignment="Left" Margin="32,69,0,0" VerticalAlignment="Top" Width="139" Click="userIdButton_Click"/>
+        <Button x:Name="alleButton" Content="Alle Scores" HorizontalAlignment="Left" Margin="32,177,0,0" VerticalAlignment="Top" Width="139" Click="alleButton_Click"/>
+        <Label Content="Geef Klas in" HorizontalAlignment="Left" Margin="32,88,0,0" VerticalAlignment="Top" Width="102"/>
+        <Button x:Name="scoreKlasButton" Content="Scores van Klas" HorizontalAlignment="Left" Margin="32,140,0,0" VerticalAlignment="Top" Width="102" RenderTransformOrigin="-0.439,-0.016" Click="scoreKlasButton_Click"/>
+        <TextBox x:Name="scoreKlasTextBox" HorizontalAlignment="Left" Height="23" Margin="32,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>
