@@ -194,14 +194,3 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
-ProjectChallenge.v12.suo
-obj/Debug/vragen/MainVragenWindow.g.i.cs
-obj/Debug/vragen/MainVragenWindow.g.cs
-obj/Debug/vragen/MainVragenWindow.baml
-ProjectChallenge.v12.suo
-obj/Debug/ProjectChallenge.csproj.FileListAbsolute.txt
-obj/Debug/ProjectChallenge.csproj.GenerateResource.Cache
-obj/Debug/ProjectChallenge.exe
-obj/Debug/ProjectChallenge_MarkupCompile.cache
-bin/Debug/ProjectChallenge.pdb
-bin/Debug/ProjectChallenge.exe
