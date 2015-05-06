@@ -154,13 +154,21 @@ namespace ProjectChallenge
 
         public void LeesKlassenIn()
         {
-            klassen.Add("testKlas");
+            bool testKlasAanwezig = false;
 
             string regel = readKlassenStream.ReadLine();
             while (regel != null)
             {
                 klassen.Add(regel);
                 regel = readKlassenStream.ReadLine();
+                if (regel == "testKlas")
+                {
+                    testKlasAanwezig = true;
+                }
+            }
+            if (!testKlasAanwezig)
+            {
+                klassen.Add("testKlas");
             }
         }
 
