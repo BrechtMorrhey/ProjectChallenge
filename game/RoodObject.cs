@@ -9,8 +9,10 @@ using System.Windows.Shapes;
 
 namespace ProjectChallenge
 {
-    public class RoodObject : Sprite
+    public class RoodObject : GameObject
     {
+        private static SolidColorBrush objectKleur = new SolidColorBrush(Colors.Red);
+        private SolidColorBrush kleur;
         private Ellipse roodObject;
         private int xStepSize, yStepSize;
         private Canvas canvas;
@@ -30,35 +32,31 @@ namespace ProjectChallenge
             roodObject.Width = Width;
             roodObject.Height = Height;
             roodObject.Margin = new Thickness(X, Y, 0, 0);
-            roodObject.Fill = new SolidColorBrush(Colors.Red);
+            kleur = ObjectKleur;
+            roodObject.Fill = kleur;
+        }
+        public override SolidColorBrush Kleur
+        {
+            get { return kleur; }
+            set { kleur = value; }
+        }
+        public override SolidColorBrush ObjectKleur
+        {
+            get { return objectKleur; }
         }
 
         public override void DisplayOn(Canvas drawingCanvas)
         {
             canvas.Children.Add(roodObject);
         }
-
-        public void Move()
-        {
-          
-            if ((X > 480) || (X < 0))
-            {
-                xStepSize = -xStepSize;
-            }
-            if ((Y > 240) || (Y < 0))
-            {
-                yStepSize = -yStepSize;
-            }
-            X += xStepSize;
-            Y += yStepSize;
-        }
+        
             
-        protected override void UpdateElement()
+        public override void UpdateElement()
         {
             roodObject.Margin = new Thickness(X, Y, 0, 0);
             roodObject.Width = Width;
             roodObject.Height = Height;
-            roodObject.Fill = new SolidColorBrush(Colors.Red);
+            roodObject.Fill = kleur;
         }
     }
 }
