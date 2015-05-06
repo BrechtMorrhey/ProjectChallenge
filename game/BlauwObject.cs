@@ -9,6 +9,7 @@ using System.Windows.Shapes;
 
 namespace ProjectChallenge
 {
+    // Author: Timo Biesmans
     public class BlauwObject : Sprite
     {
         private Rectangle blauwObject;
@@ -38,9 +39,9 @@ namespace ProjectChallenge
             canvas.Children.Add(blauwObject);
         }
 
-        public void Move()
+        public override void Move()
         {
-          
+
             if ((X > 480) || (X < 0))
             {
                 xStepSize = -xStepSize;
@@ -52,7 +53,7 @@ namespace ProjectChallenge
             X += xStepSize;
             Y += yStepSize;
         }
-            
+
         protected override void UpdateElement()
         {
             blauwObject.Margin = new Thickness(X, Y, 0, 0);
