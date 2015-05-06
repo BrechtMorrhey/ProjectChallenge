@@ -23,20 +23,23 @@ namespace ProjectChallenge
     {
         private string bestandsNaam;
         private AlleGebruikers alleGebruikers;
+        private MainWindow mainWindow;
 
         public MainVragenWindow()
         {
             InitializeComponent();
         }
 
-        public MainVragenWindow(Leerling leerling)
+        public MainVragenWindow(Leerling leerling, MainWindow mainWindow)
         {
             InitializeComponent();
+            this.mainWindow = mainWindow;
         }
-        public MainVragenWindow(Leerkracht leerkracht, AlleGebruikers allegebruikers)
+        public MainVragenWindow(Leerkracht leerkracht, AlleGebruikers allegebruikers, MainWindow mainWindow)
         {
             InitializeComponent();
             this.alleGebruikers = allegebruikers;
+            this.mainWindow = mainWindow;
         }
 
         private void opstellenButton_Click(object sender, RoutedEventArgs e)
@@ -81,7 +84,25 @@ namespace ProjectChallenge
             w.Show();
         }
 
-        private void NieuweKlas_Click()
+        private void GameButton_Click(object sender, RoutedEventArgs e)
+        {
+            Game game = new Game();
+            game.Show();
+            this.Hide();
+        }
+
+        private void ExitButton_Click(object sender, RoutedEventArgs e)
+        {
+            System.Environment.Exit(0);
+        }
+
+        private void LogUitButton_Click(object sender, RoutedEventArgs e)
+        {
+            mainWindow.Show();
+            this.Close();
+        }
+
+        private void NieuweKlasButton_Click(object sender, RoutedEventArgs e)
         {
             Window nieuweKlasWindow = new login.maakKlasWindow(alleGebruikers);
             nieuweKlasWindow.Show();

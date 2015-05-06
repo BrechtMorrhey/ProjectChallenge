@@ -39,25 +39,21 @@ namespace ProjectChallenge
                 if( gebruiker.GeefGebruikersType() == "leerling")
                 {
                     Leerling leerling = (Leerling) gebruiker;
-                    menuWindow = new MainVragenWindow(leerling);
+                    menuWindow = new MainVragenWindow(leerling, Main);
                 }
                 else 
                 {
                     Leerkracht leerkracht = (Leerkracht)gebruiker;
-                    menuWindow = new MainVragenWindow(leerkracht, alleGebruikers);
+                    menuWindow = new MainVragenWindow(leerkracht, alleGebruikers, Main);
                 }
 
-                //w.Show();
+                menuWindow.Show();
+                this.Close();
             }
             else
             {
                 MessageBox.Show("Foute login");
-
-                // ENKEL VOOR TESTDOELEINDEN
-
-                MainVragenWindow w = new MainVragenWindow();
-                w.Show();
-                // VERWIJDER UIT UITEINDELIJK PROJECT
+                
             }
         }
 
@@ -95,6 +91,17 @@ namespace ProjectChallenge
         {
             mainWindow.Show();
             this.Close();
+        }
+
+        public MainWindow Main
+        {
+            get
+            {
+                return mainWindow;
+            }
+            set
+            {
+            }
         }
     }
 }

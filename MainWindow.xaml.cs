@@ -44,10 +44,9 @@ namespace ProjectChallenge
             login.Show();
         }
 
-        private void gameButton_Click(object sender, RoutedEventArgs e)
+        private void exitButton_Click(object sender, RoutedEventArgs e)
         {
-            Game w = new Game();
-            w.Show();
+            System.Environment.Exit(0);
         }
     }
 }
