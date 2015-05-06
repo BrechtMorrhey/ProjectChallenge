@@ -214,6 +214,9 @@ namespace ProjectChallenge
                         minButton.IsEnabled = false;
                         antwoordTextBox.IsEnabled = true;
                         meerkeuzeListBox.IsEnabled = false;
+                        GenereerOpgaveButton.Visibility = Visibility.Hidden;
+                        getal1TextBox.Visibility = Visibility.Hidden;
+                        getal2TextBox.Visibility = Visibility.Hidden;
                         break;
                     case 1: //meerkeuze
                         antwoordLabel.Visibility = Visibility.Hidden;
@@ -226,6 +229,9 @@ namespace ProjectChallenge
                         minButton.IsEnabled = true;
                         antwoordTextBox.IsEnabled = false;
                         meerkeuzeListBox.IsEnabled = true;
+                        GenereerOpgaveButton.Visibility = Visibility.Hidden;
+                        getal1TextBox.Visibility = Visibility.Hidden;
+                        getal2TextBox.Visibility = Visibility.Hidden;
                         break;
                     case 2: //wiskunde
                         antwoordLabel.Visibility = Visibility.Visible;
@@ -238,6 +244,9 @@ namespace ProjectChallenge
                         minButton.IsEnabled = false;
                         antwoordTextBox.IsEnabled = true;
                         meerkeuzeListBox.IsEnabled = false;
+                        GenereerOpgaveButton.Visibility = Visibility.Visible;
+                        getal1TextBox.Visibility = Visibility.Visible;
+                        getal2TextBox.Visibility = Visibility.Visible;
                         break;
                 }
             
@@ -381,6 +390,12 @@ namespace ProjectChallenge
 
             
             
+        }
+
+        private void GenereerOpgaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            wiskundigeVraag vraag = new wiskundigeVraag();
+            opgaveTextBox.Text = vraag.Opgave;
         }
 
         

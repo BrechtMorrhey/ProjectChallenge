@@ -8,7 +8,7 @@ namespace ProjectChallenge
 {
     class wiskundigeVraag : Vraag
     {
-
+        
         private string opgave, antwoord, ingevuld, bewerking;
         //private bool isIngevuld, isJuist;
         private int getal1, getal2;
@@ -41,7 +41,7 @@ namespace ProjectChallenge
             int index = random.Next(0, 3);
             BewaarBewerking(index);
 
-            string[] opgave = new string[3];
+            string[] opgave = new string[4];
             opgave[0] = "" + getal1 + " + " + getal2;
             opgave[1] = "" + getal1 + " - " + getal2;
             opgave[2] = "" + getal1 + " * " + getal2;
@@ -126,7 +126,22 @@ namespace ProjectChallenge
         // bereken antwoord
         public void BerekenAntwoord(int getal1 , int getal2, string bewerking)
         {
-           
+            if (bewerking == "+")
+            {
+                antwoord =Convert.ToString(getal1 + getal2);
+            }
+            else if(bewerking == "-")
+            {
+                antwoord = Convert.ToString(getal1 - getal2);
+            }
+            else if (bewerking == "*")
+            {
+                antwoord = Convert.ToString(getal1 * getal2);
+            }
+            else if (bewerking == "/")
+            {
+                antwoord =Convert.ToString( getal1 / getal2);
+            }
 
         }
 

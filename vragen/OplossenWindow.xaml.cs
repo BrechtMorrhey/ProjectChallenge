@@ -238,5 +238,10 @@ namespace ProjectChallenge
             //}
             //opgaveTextBlock.Text = vragenLijst[counter].Opgave; //zet eerste vraag klaar
         }
+
+        private void invulTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
