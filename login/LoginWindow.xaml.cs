@@ -35,7 +35,7 @@ namespace ProjectChallenge
             MainVragenWindow menuWindow;
             if (loginOk)
             {
-                MessageBox.Show("Login OK");
+                MessageBox.Show("Login OK","OK !");
                 if( gebruiker.GeefGebruikersType() == "leerling")
                 {
                     Leerling leerling = (Leerling) gebruiker;
