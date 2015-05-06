@@ -14,7 +14,7 @@ namespace ProjectChallenge
         private List<Leerling> leerlingen;
         private List<Leerkracht> leerkrachten;
         private List<string> klassen;
-        private string aceDirPath, aceGebruikersPath, leerlingPath, leerkrachtPath, klassenPath;
+        private string programmaDirPath, aceGebruikersPath, leerlingPath, leerkrachtPath, klassenPath;
         private StreamWriter opslaanStudent = null;
         private StreamWriter opslaanLeerkracht = null;
         private StreamWriter writeKlassenStream = null;
@@ -26,8 +26,8 @@ namespace ProjectChallenge
         //  methoden
         public AlleGebruikers()
         {
-            aceDirPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "ace");
-            aceGebruikersPath = aceDirPath + "\\aceGebruikers";
+            programmaDirPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Challenger");
+            aceGebruikersPath = programmaDirPath + "\\aceGebruikers";
             leerlingPath = aceGebruikersPath + "\\leerlingen.txt";
             leerkrachtPath = aceGebruikersPath + "\\leerkrachten.txt";
             klassenPath = aceGebruikersPath + "\\klassen.txt";
@@ -36,9 +36,9 @@ namespace ProjectChallenge
             leerkrachten = new List<Leerkracht>();
             klassen = new List<string>();
             
-            if (!Directory.Exists(aceDirPath))
+            if (!Directory.Exists(programmaDirPath))
             {
-                Directory.CreateDirectory(aceDirPath);    
+                Directory.CreateDirectory(programmaDirPath);    
             }
 
             if (!Directory.Exists(aceGebruikersPath))
