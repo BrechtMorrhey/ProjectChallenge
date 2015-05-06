@@ -75,6 +75,12 @@
     <Compile Include="login\RegistratieWindow.xaml.cs">
       <DependentUpon>RegistratieWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="vragen\ScoreLeerlingWindow.xaml.cs">
+      <DependentUpon>ScoreLeerlingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="vragen\OverzichtScoresWindow.xaml.cs">
+      <DependentUpon>OverzichtScoresWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="vragen\AanpassenWindow.xaml.cs">
       <DependentUpon>AanpassenWindow.xaml</DependentUpon>
     </Compile>
@@ -146,6 +152,14 @@
     <Page Include="login\RegistratieWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="vragen\ScoreLeerlingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="vragen\OverzichtScoresWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="vragen\AanpassenWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -26,11 +26,13 @@ namespace ProjectChallenge
         private string passwoord;
         private string klas;
         private AlleGebruikers allegebruikers;
-        public RegistratieWindow(AlleGebruikers allegebruikers)
+        private MainWindow mainWindow;
+        public RegistratieWindow(AlleGebruikers allegebruikers, MainWindow mainWindow)
         {
             InitializeComponent();
             this.allegebruikers = allegebruikers;
             klasComboBox.ItemsSource = allegebruikers.Klassen;
+            this.mainWindow = mainWindow;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -59,14 +61,20 @@ namespace ProjectChallenge
         {
             if (soortRegistratieComboBox.SelectedItem == leerlingItem)
             {
-                klasLabel.Visibility = Visibility.Hidden;
-                klasComboBox.Visibility = Visibility.Hidden;
-            }
-            else
-            {
                 klasLabel.Visibility = Visibility.Visible;
                 klasComboBox.Visibility = Visibility.Visible;
             }
+            else
+            {
+                klasLabel.Visibility = Visibility.Hidden;
+                klasComboBox.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void terugButton_Click(object sender, RoutedEventArgs e)
+        {
+            mainWindow.Show();
+            this.Close();
         }
     }
 }
