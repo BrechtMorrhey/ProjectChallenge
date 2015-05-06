@@ -212,6 +212,7 @@ namespace ProjectChallenge
             catch (OnbekendVraagTypeException exception)
             {
                 MessageBox.Show(exception.Message + "/n Bestand is mogelijk corrupt, programma zal nu afsluiten");
+                this.Close();
             }
             finally
             {
