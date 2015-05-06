@@ -24,22 +24,28 @@ namespace ProjectChallenge
         private string bestandsNaam;
         private AlleGebruikers alleGebruikers;
         private MainWindow mainWindow;
-
+        private string programmaDirPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Challenger");
+        private string vragenlijstenDirPath;
         public MainVragenWindow()
         {
             InitializeComponent();
+            vragenlijstenDirPath = programmaDirPath + "\\Vragenlijsten";
+            if (!(System.IO.Directory.Exists(vragenlijstenDirPath)))
+            {
+                System.IO.Directory.CreateDirectory(vragenlijstenDirPath);
+            }
         }
 
         public MainVragenWindow(Leerling leerling, MainWindow mainWindow)
+            :this()
         {
-            InitializeComponent();
             this.mainWindow = mainWindow;
             gameButton.Visibility = Visibility.Visible;
             oplossenButton.Visibility = Visibility.Visible;
         }
         public MainVragenWindow(Leerkracht leerkracht, AlleGebruikers allegebruikers, MainWindow mainWindow)
+            :this()
         {
-            InitializeComponent();
             this.alleGebruikers = allegebruikers;
             this.mainWindow = mainWindow;
             aanpassenButton.Visibility = Visibility.Visible;
@@ -52,7 +58,7 @@ namespace ProjectChallenge
         {
             SaveFileDialog dialog = new SaveFileDialog();
             // initial directory 
-            dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); ;
+            dialog.InitialDirectory = vragenlijstenDirPath;
             // only .txt files
             dialog.Filter = "Text files (*.txt)|*.txt;";
             dialog.ShowDialog();
@@ -68,14 +74,14 @@ namespace ProjectChallenge
         {
             OpenFileDialog dialog = new OpenFileDialog();
             // initial directory 
-            dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); ;
+            dialog.InitialDirectory = vragenlijstenDirPath ;
             // only .txt files
             dialog.Filter = "Text files (*.txt)|*.txt;";
             dialog.ShowDialog();
             bestandsNaam = dialog.FileName;
             if (bestandsNaam != null && bestandsNaam != "")
             {
-                Window w = new OplossenWindow(bestandsNaam);
+                Window w = new OplossenWindow(bestandsNaam, this);
                 w.Show();
             }
         }
@@ -84,7 +90,7 @@ namespace ProjectChallenge
         {
             OpenFileDialog dialog = new OpenFileDialog();
             // initial directory 
-            dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); ;
+            dialog.InitialDirectory = vragenlijstenDirPath;
             // only .txt files
             dialog.Filter = "Text files (*.txt)|*.txt;";
             dialog.ShowDialog();

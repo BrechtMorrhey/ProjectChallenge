@@ -30,10 +30,12 @@ namespace ProjectChallenge
         double textBoxHeight;
         bool nieuweLijst;
         MainVragenWindow menuWindow;
-              
+        private string programmaDirPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Challenger");
+        private string vragenlijstenDirPath;     
         public AanpassenWindow(string bestandsNaam, bool nieuweLijst, MainVragenWindow menuWindow)
         {
             InitializeComponent();
+            vragenlijstenDirPath = programmaDirPath + "\\Vragenlijsten";
             this.bestandsNaam = bestandsNaam;
             this.nieuweLijst = nieuweLijst;
             this.menuWindow = menuWindow;
@@ -81,6 +83,7 @@ namespace ProjectChallenge
         {
             VoegVraagToe();
             SaveFileDialog dialog = new SaveFileDialog();
+            dialog.InitialDirectory = vragenlijstenDirPath;
             dialog.ShowDialog();
             bestandsNaam = dialog.FileName;
             if (bestandsNaam != null && bestandsNaam != "")
@@ -137,8 +140,6 @@ namespace ProjectChallenge
                 }
             }            
         }
-
-
 
         private void LaadVraag()
         {
@@ -271,9 +272,12 @@ namespace ProjectChallenge
             }
         }
 
+        private void Window_Closed(object sender, RoutedEventArgs e)
+        {
+            menuWindow.Show();
+        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
             // BELANGRIJK
             typeVraagComboBox.SelectedIndex = 0;
             // als ge dit in XAML probeert te doen krijgt ge een NullReferenceException in uw InitializeComponent 
@@ -387,7 +391,6 @@ namespace ProjectChallenge
 
         private void terugButton_Click(object sender, RoutedEventArgs e)
         {
-            menuWindow.Show();
             this.Close();
         }
 
