@@ -92,8 +92,9 @@ namespace ProjectChallenge
             X += xStepSize;
             Y += yStepSize;
         }
-        public void Move(List<GameObject> gameObjecten, out GameObject botser)
+        public void Move(ref List<GameObject> gameObjecten, out GameObject botser)
         {
+            gameObjecten.Remove(this);  // zodat dit object niet met zichzelf wordt vergeleken
             this.Move();
             bool overlap;            
             this.Overlapping(gameObjecten, out overlap, out botser);

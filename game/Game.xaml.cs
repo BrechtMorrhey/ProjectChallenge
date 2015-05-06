@@ -80,18 +80,19 @@ namespace ProjectChallenge
                 botsingLijst.Add(gameObject);
             }
 
-            if (botsingLijst.Count > 1)
-            {
-                while (botsingLijst.Count > 0)
+            while (botsingLijst.Count > 1)
                 {
                     GameObject botser;
-                    botsingLijst[0].Move(botsingLijst, out botser);
+                    botsingLijst[0].Move(ref botsingLijst, out botser);
                     if (botser != null)
                     {
                         botsingLijst.Remove(botser); // vermijd onnodig telwerk
                     }
-                    botsingLijst.RemoveAt(0);
+                    //botsingLijst.RemoveAt(0); // gebeurt in .Move()
                 }
+            if (botsingLijst.Count == 1)
+            {
+                botsingLijst[0].Move(); //beweeg het eventueel overblijvend object
             }
            
         }
