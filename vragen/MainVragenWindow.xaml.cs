@@ -45,6 +45,10 @@ namespace ProjectChallenge
         private void opstellenButton_Click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog dialog = new SaveFileDialog();
+            // initial directory 
+            dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); ;
+            // only .txt files
+            dialog.Filter = "Text files (*.txt)|*.txt;";
             dialog.ShowDialog();
             bestandsNaam = dialog.FileName;
             if (bestandsNaam != null && bestandsNaam != "")
@@ -57,6 +61,10 @@ namespace ProjectChallenge
         private void oplossenButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
+            // initial directory 
+            dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); ;
+            // only .txt files
+            dialog.Filter = "Text files (*.txt)|*.txt;";
             dialog.ShowDialog();
             bestandsNaam = dialog.FileName;
             if (bestandsNaam != null && bestandsNaam != "")
@@ -69,6 +77,10 @@ namespace ProjectChallenge
         private void aanpassenButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
+            // initial directory 
+            dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments); ;
+            // only .txt files
+            dialog.Filter = "Text files (*.txt)|*.txt;";
             dialog.ShowDialog();
             bestandsNaam = dialog.FileName;
             if (bestandsNaam != null && bestandsNaam!="")

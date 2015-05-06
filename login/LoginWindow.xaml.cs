@@ -1,4 +1,4 @@
-﻿ using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -52,8 +52,7 @@ namespace ProjectChallenge
             }
             else
             {
-                MessageBox.Show("Foute login");
-                
+                MessageBox.Show("Foute login", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
