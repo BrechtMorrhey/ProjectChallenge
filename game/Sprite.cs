@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 
 namespace ProjectChallenge
 {
+    // Author: Timo Biesmans
     public abstract class Sprite
     {
         int x, y, width, height;
@@ -17,7 +17,7 @@ namespace ProjectChallenge
             get { return x; }
             set { x = value; UpdateElement(); }
         }
-        
+
         public int Y
         {
             get { return y; }
@@ -35,6 +35,7 @@ namespace ProjectChallenge
             set { height = value; UpdateElement(); }
         }
 
+        public abstract void Move();
         public abstract void DisplayOn(Canvas drawingCanvas);
         protected abstract void UpdateElement();
 
