@@ -22,22 +22,23 @@ namespace ProjectChallenge
     {
         private string bestandsNaam;
         private List<Vraag> vragenLijst;
-
-        public ScoreWindow(List<Vraag> vragenLijst, string bestandsNaam)
+        private Leerling gebruiker;
+        public ScoreWindow(Leerling gebruiker, List<Vraag> vragenLijst, string bestandsNaam)
         {
             InitializeComponent();
             this.bestandsNaam = bestandsNaam;
             this.vragenLijst = vragenLijst;
+            this.gebruiker = gebruiker;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
             String userId, voorNaam, achterNaam, klas;
-            userId = "userId";
-            voorNaam = "voorNaam";
-            achterNaam = "achterNaam";
-            klas = "klas";
+            userId = gebruiker.ID;
+            voorNaam = gebruiker.Voornaam;
+            achterNaam = gebruiker.Naam;
+            klas = gebruiker.Klas;
 
 
             int score = vragenLijst.Count;  //bereken maximum score
