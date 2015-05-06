@@ -96,13 +96,13 @@ namespace ProjectChallenge
                 int rechterrandA = this.X + this.Width / 2;
                 int linkerrandB = botsingObject.X - botsingObject.Width / 2;
                 int rechterrandB = botsingObject.X - botsingObject.Width / 2;
-                bool horizontaleOverlap = rechterrandA >= linkerrandB && linkerrandA <= rechterrandB;
+                bool horizontaleOverlap = (rechterrandA >= linkerrandB && linkerrandA <= rechterrandB);
 
                 int onderrandA = this.Y - this.Height / 2;
                 int bovenrandA = this.Y + this.Height / 2;
                 int onderrandB = botsingObject.Y - this.Height / 2;
                 int bovenrandB = botsingObject.Y + this.Height / 2;
-                bool vertikaleOverlap = bovenrandA >= onderrandB && onderrandA < bovenrandB;
+                bool vertikaleOverlap = (bovenrandA >= onderrandB && onderrandA <= bovenrandB);
 
                 if (horizontaleOverlap && vertikaleOverlap)
                 {
@@ -115,8 +115,8 @@ namespace ProjectChallenge
 
                     //verander kleur
                     
-                    this.Leven = !(this.GetType() == botsingObject.GetType());
-                    botsingObject.Leven = !(this.GetType() == botsingObject.GetType());
+                    //this.Leven = !(this.GetType() == botsingObject.GetType());
+                    //botsingObject.Leven = !(this.GetType() == botsingObject.GetType());
                     
                     if (!(this.GetType() == botsingObject.GetType()) && this.Leven && botsingObject.Leven)
                     {
