@@ -65,12 +65,12 @@ namespace ProjectChallenge
                 }
                 catch (FileNotFoundException)
                 {
-                    MessageBox.Show("Bestand " + file + " niet gevonden.");
+                    MessageBox.Show("Bestand " + file + " niet gevonden.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
                     this.Close();
                 }
                 catch (ArgumentException)
                 {
-                    MessageBox.Show("Argument Exception bij inlezen bestand " + file);
+                    MessageBox.Show("Argument Exception bij inlezen bestand " + file , "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
                     this.Close();
                 }
                 finally
