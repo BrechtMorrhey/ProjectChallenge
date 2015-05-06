@@ -51,7 +51,7 @@ namespace ProjectChallenge
                 this.Close();
             }
             else
-            {
+            { 
                 MessageBox.Show("Foute login", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

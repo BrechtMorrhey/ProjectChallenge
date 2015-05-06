@@ -10,13 +10,13 @@ using System.Windows.Shapes;
 
 namespace ProjectChallenge
 {
-    public abstract class GameObject :iBeweegbaar
+    public abstract class GameObject : iBeweegbaar
     {
         private static SolidColorBrush doodKleur = new SolidColorBrush(Colors.Black);
         private bool leven;
         private int x, y, width, height;
         private int xStepSize, yStepSize;
-        private Canvas canvas;        
+        private Canvas canvas;
 
         public GameObject(Canvas drawingCanvas)
         {
@@ -26,9 +26,9 @@ namespace ProjectChallenge
             height = 10;
             xStepSize = 1;
             yStepSize = 1;
-            leven = true;            
-            x = randomNumber.Next(1, (int)(canvas.Width-width));
-            y = randomNumber.Next(1, (int)(canvas.Height-height));            
+            leven = true;
+            x = randomNumber.Next(1, (int)(canvas.Width - width));
+            y = randomNumber.Next(1, (int)(canvas.Height - height));
         }
 
         public abstract Shape objectShape { get; }
@@ -37,7 +37,7 @@ namespace ProjectChallenge
             get { return x; }
             set { x = value; UpdateElement(); }
         }
-        
+
         public int Y
         {
             get { return y; }
@@ -65,8 +65,9 @@ namespace ProjectChallenge
         }
         public bool Leven
         {
-            get{return leven;}
-            set {
+            get { return leven; }
+            set
+            {
                 if (value)
                 {
                     this.Kleur = this.ObjectKleur;
@@ -75,7 +76,8 @@ namespace ProjectChallenge
                 {
                     this.Kleur = GameObject.doodKleur;
                 }
-                leven = value; }
+                leven = value;
+            }
         }
         //methods
         public void Move()
@@ -92,6 +94,29 @@ namespace ProjectChallenge
             X += xStepSize;
             Y += yStepSize;
         }
+        public void Move(ref List<GameObject> gameObjecten, out GameObject botser)
+        {
+            gameObjecten.Remove(this);  // zodat dit object niet met zichzelf wordt vergeleken
+            this.Move();
+            bool overlap;            
+            this.Overlapping(gameObjecten, out overlap, out botser);
+            if (overlap)//normale botsing
+            {
+                Game.VeranderKleuren(this, botser);
+                xStepSize = -xStepSize;
+                yStepSize = -yStepSize;
+                this.Move();
+                botser.xStepSize = -botser.xStepSize;
+                botser.yStepSize = -botser.yStepSize;
+                botser.Move();
+            }
+            int i = 0;
+            while (this.Overlapping(gameObjecten) && i<100) //objecten geraken niet uit mekaars oppervlakte of drieweg botsing
+            {
+                this.Move();
+                i++;
+            }            
+        }
 
         public bool Overlapping(List<GameObject> gameObjecten)
         {
@@ -107,80 +132,42 @@ namespace ProjectChallenge
                 int onderrandA = this.Y;
                 int bovenrandA = this.Y + this.Height;
                 int onderrandB = item.Y;
-                int bovenrandB = item.Y + this.Height;
+                int bovenrandB = item.Y + item.Height;
                 bool vertikaleOverlap = (bovenrandA >= onderrandB && onderrandA <= bovenrandB);
-
-                overlap = (horizontaleOverlap && vertikaleOverlap)|| overlap;               
+                overlap = (horizontaleOverlap && vertikaleOverlap)|| overlap;   //verander overlap naar true, kan niet terug naar false veranderen                
             }
             return overlap;
         }
-        
-        public void DetecteerBotsing(List<GameObject> botsingObjecten)
+        public void Overlapping(List<GameObject> gameObjecten, out bool overlap, out GameObject botser)
         {
-            botsingObjecten.Remove(this);  //doe het object zelf weg uit de lijst
-
-            List<GameObject> botsingLokaleLijst = new List<GameObject>();
-            foreach (GameObject item in botsingObjecten) //copy by value
+            overlap = false;
+            botser = null;
+            int i = 0;
+            while (!overlap && i < gameObjecten.Count)
             {
-                botsingLokaleLijst.Add(item);
-            }
-
-            bool botsing = false;
-            while(botsingLokaleLijst.Count > 0  && !botsing) // stop de loop na een botsing zodat het object zelf niet kan blijven vasthangen
-            {
-                // http://stackoverflow.com/questions/13513932/algorithm-to-detect-overlapping-periods
-                //A is gameobject en B is botsingObject
                 int linkerrandA = this.X;
                 int rechterrandA = this.X + this.Width;
-                int linkerrandB = botsingLokaleLijst[0].X;
-                int rechterrandB = botsingLokaleLijst[0].X + botsingLokaleLijst[0].Width;
+                int linkerrandB = gameObjecten[i].X;
+                int rechterrandB = gameObjecten[i].X + gameObjecten[i].Width;
                 bool horizontaleOverlap = (rechterrandA >= linkerrandB && linkerrandA <= rechterrandB);
 
                 int onderrandA = this.Y;
                 int bovenrandA = this.Y + this.Height;
-                int onderrandB = botsingLokaleLijst[0].Y;
-                int bovenrandB = botsingLokaleLijst[0].Y + this.Height;
+                int onderrandB = gameObjecten[i].Y;
+                int bovenrandB = gameObjecten[i].Y + gameObjecten[i].Height;
                 bool vertikaleOverlap = (bovenrandA >= onderrandB && onderrandA <= bovenrandB);
-                botsing = horizontaleOverlap && vertikaleOverlap;
-
-                if (botsing)
-                {
-                    //botsing
-                    //laat we de andere kant uitbewegen
-                    this.xStepSize = -this.xStepSize;
-                    this.yStepSize = -this.yStepSize;
-                    botsingLokaleLijst[0].xStepSize = -botsingLokaleLijst[0].xStepSize;
-                    botsingLokaleLijst[0].yStepSize = -botsingLokaleLijst[0].yStepSize;
-
-                    //verander kleur
-
-                    //this.Leven = !(this.GetType() == botsingObject.GetType());
-                    //botsingObject.Leven = !(this.GetType() == botsingObject.GetType());
-
-                    if (!(this.GetType() == botsingLokaleLijst[0].GetType()) && this.Leven && botsingLokaleLijst[0].Leven)
-                    {
-                        this.Leven = false;
-                        botsingLokaleLijst[0].Leven = false;
-                    }
-                    else if ((this.GetType() == botsingLokaleLijst[0].GetType()) && (this.Leven || botsingLokaleLijst[0].Leven))
-                    {
-                        this.Leven = true;
-                        botsingLokaleLijst[0].Leven = true;
-                    }
-
-                    botsingObjecten.Remove(botsingLokaleLijst[0]); //vermijd dat bij driedubbele botsing de twee laatste bollen in elkaar blijven hangen
-                }
-                botsingLokaleLijst.Remove(botsingLokaleLijst[0]); 
+                overlap = (horizontaleOverlap && vertikaleOverlap) || overlap;   //verander overlap naar true, kan niet terug naar false veranderen
+                i++;
+            }
+            if (overlap)
+            {
+                botser = gameObjecten[i - 1];
             }
         }
-
-
         public void DisplayOn(Canvas drawingCanvas)
         {
             drawingCanvas.Children.Add(this.objectShape);
-        }        
+        }
         public abstract void UpdateElement();
-        
-
     }
 }

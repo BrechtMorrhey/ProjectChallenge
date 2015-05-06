@@ -39,6 +39,7 @@ namespace ProjectChallenge
         {
             get { return objectKleur; }
         }
+
         public override void UpdateElement()
         {
             roodObject.Margin = new Thickness(X, Y, 0, 0);

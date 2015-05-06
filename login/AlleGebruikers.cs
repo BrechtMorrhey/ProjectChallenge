@@ -86,6 +86,10 @@ namespace ProjectChallenge
             }
             catch (FileNotFoundException)
             {
+                if (readKlassenStream != null)
+                {
+                    readKlassenStream.Close();
+                }
                 File.CreateText(klassenPath);
                 klassen.Add("testKlas");
             }

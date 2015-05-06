@@ -9,16 +9,18 @@ using System.Windows.Shapes;
 
 namespace ProjectChallenge
 {
+    // Author: Timo Biesmans
     public class BlauwObject : GameObject
     {
         private static SolidColorBrush objectKleur = new SolidColorBrush(Colors.Blue);
         private SolidColorBrush kleur;
-        private Rectangle blauwObject;        
-       
+        private Rectangle blauwObject;
 
-        public BlauwObject(Canvas drawingCanvas):base(drawingCanvas)
+
+        public BlauwObject(Canvas drawingCanvas)
+            : base(drawingCanvas)
         {
-            blauwObject = new Rectangle();                     
+            blauwObject = new Rectangle();
             blauwObject.Width = Width;
             blauwObject.Height = Height;
             blauwObject.Margin = new Thickness(X, Y, 0, 0);
@@ -38,9 +40,6 @@ namespace ProjectChallenge
         {
             get { return objectKleur; }
         }
-
-        
-
         public override void UpdateElement()
         {
             blauwObject.Margin = new Thickness(X, Y, 0, 0);
@@ -50,3 +49,4 @@ namespace ProjectChallenge
         }
     }
 }
+
