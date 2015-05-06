@@ -25,7 +25,7 @@ namespace ProjectChallenge
         public MainWindow()
         {
             InitializeComponent();
-
+            // akki test
             alleGebruikers = new AlleGebruikers();
             
         }
@@ -42,6 +42,12 @@ namespace ProjectChallenge
             LoginWindow login = new LoginWindow(alleGebruikers);
             Hide();
             login.Show();
+        }
+
+        private void gameButton_Click(object sender, RoutedEventArgs e)
+        {
+            Game w = new Game();
+            w.Show();
         }
     }
 }
