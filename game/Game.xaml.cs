@@ -22,11 +22,7 @@ namespace ProjectChallenge
     /// </summary>
     public partial class Game : Window
     {
-        private RoodObject roodObject;
-        private BlauwObject blauwObject;
-
-        private List<RoodObject> bolletjes = new List<RoodObject>();
-        private List<BlauwObject> vierkantjes = new List<BlauwObject>();
+        private List<GameObject> gameObjecten = new List<GameObject>();
         private DispatcherTimer animationTimer;
 
         public Game()
@@ -40,34 +36,35 @@ namespace ProjectChallenge
 
         private void roodButton_Click(object sender, RoutedEventArgs e)
         {
+            RoodObject roodObject;
             roodObject = new RoodObject(gameCanvas);
-            bolletjes.Add(roodObject);
+            gameObjecten.Add(roodObject);
             roodObject.DisplayOn(gameCanvas);
         }
 
         private void blauwButton_Click(object sender, RoutedEventArgs e)
         {
+            BlauwObject blauwObject;
             blauwObject = new BlauwObject(gameCanvas);
-            vierkantjes.Add(blauwObject);
+            gameObjecten.Add(blauwObject);
             blauwObject.DisplayOn(gameCanvas);
         }
 
         private void animationTimer_Tick(object sender, EventArgs e)
         {
-            //if (roodObject != null)
-            //{
-            //    roodObject.Move();
-            //}
-            foreach (RoodObject bolletje in bolletjes)
+            List<GameObject> botsingLijst = new List<GameObject>();
+            foreach (GameObject gameObject in gameObjecten)
             {
-                bolletje.Move(); 
+                gameObject.Move();                
+                botsingLijst.Add(gameObject);
             }
-
-
-            foreach (BlauwObject vierkantje in vierkantjes)
+                        
+            while(botsingLijst.Count>0)
             {
-                vierkantje.Move();
+                botsingLijst[0].DetecteerBotsing(botsingLijst);
+                //botsingLijst.Remove(botsingLijst[0]);    dit wordt in DetecteerBotsing gedaan            
             }
+           
         }
       }
     }
