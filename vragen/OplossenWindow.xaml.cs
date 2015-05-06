@@ -23,13 +23,17 @@ namespace ProjectChallenge
         private List<Vraag> vragenLijst;
         private int counter;
         private string bestandsNaam;
+        private MainVragenWindow menuWindow;
+        private string programmaDirPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Challenger");
+        private string vragenlijstenDirPath;
         
-        
-        public OplossenWindow(string bestandsNaam)
+        public OplossenWindow(string bestandsNaam, MainVragenWindow menuWindow)
         {
+            InitializeComponent();
             this.bestandsNaam = bestandsNaam;
-            InitializeComponent();                     
-                    }
+            vragenlijstenDirPath = programmaDirPath + "\\Vragenlijsten";
+            this.menuWindow = menuWindow;
+        }
 
         private void vorigeButton_Click(object sender, RoutedEventArgs e)
         {
@@ -138,6 +142,11 @@ namespace ProjectChallenge
                     }
                     break;          
             }
+        }
+
+        private void Window_Closed(object sender, RoutedEventArgs e)
+        {
+            menuWindow.Show();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
