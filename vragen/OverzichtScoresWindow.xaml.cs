@@ -32,13 +32,13 @@ namespace ProjectChallenge
             }
             else
             {
-                MessageBox.Show("Gelieve eerst een userId in te geven");
+                MessageBox.Show("Gelieve eerst een userId in te geven", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void klasButton_Click(object sender, RoutedEventArgs e)
         {
-            
+           
         }
 
         private void alleButton_Click(object sender, RoutedEventArgs e)
@@ -49,7 +49,15 @@ namespace ProjectChallenge
 
         private void scoreKlasButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (scoreKlasTextBox.Text != "" && scoreKlasTextBox.Text != null)
+            {
+                Window w = new ScoreKlasWindow(scoreKlasTextBox.Text);
+                w.Show();
+            }
+            else
+            {
+                MessageBox.Show("Gelieve eerst een klasId in te geven", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
