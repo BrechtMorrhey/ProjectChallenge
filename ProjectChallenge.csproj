@@ -58,7 +58,8 @@
       <DependentUpon>Game.xaml</DependentUpon>
     </Compile>
     <Compile Include="game\RoodObject.cs" />
-    <Compile Include="game\Sprite.cs" />
+    <Compile Include="game\GameObject.cs" />
+    <Compile Include="iBeweegbaar.cs" />
     <Compile Include="login\AlleGebruikers.cs" />
     <Compile Include="login\Leerkracht.cs" />
     <Compile Include="login\Leerling.cs" />

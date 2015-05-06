@@ -9,28 +9,38 @@ using System.Windows.Shapes;
 
 namespace ProjectChallenge
 {
-    public class BlauwObject : Sprite
+    public class BlauwObject : GameObject
     {
-        private Rectangle blauwObject;
-        private int xStepSize, yStepSize;
+        private static SolidColorBrush objectKleur = new SolidColorBrush(Colors.Blue);
+        private SolidColorBrush kleur;
+        private Rectangle blauwObject;        
         private Canvas canvas;
         private Random randomNumber = new Random();
 
-        public BlauwObject(Canvas drawingCanvas)
+        public BlauwObject(Canvas drawingCanvas) :base()
         {
             blauwObject = new Rectangle();
             canvas = drawingCanvas;
             X = randomNumber.Next(0, 497);
             Y = randomNumber.Next(0, 248);
             Width = 10;
-            Height = 10;
-            xStepSize = 1;
-            yStepSize = 1;
+            Height = 10;            
 
             blauwObject.Width = Width;
             blauwObject.Height = Height;
             blauwObject.Margin = new Thickness(X, Y, 0, 0);
-            blauwObject.Fill = new SolidColorBrush(Colors.Blue);
+            kleur = ObjectKleur;
+            blauwObject.Fill = kleur;
+        }
+
+        public override SolidColorBrush Kleur
+        {
+            get { return kleur; }
+            set { kleur = value; }
+        }
+        public override SolidColorBrush ObjectKleur
+        {
+            get { return objectKleur; }
         }
 
         public override void DisplayOn(Canvas drawingCanvas)
@@ -38,27 +48,12 @@ namespace ProjectChallenge
             canvas.Children.Add(blauwObject);
         }
 
-        public void Move()
-        {
-          
-            if ((X > 480) || (X < 0))
-            {
-                xStepSize = -xStepSize;
-            }
-            if ((Y > 240) || (Y < 0))
-            {
-                yStepSize = -yStepSize;
-            }
-            X += xStepSize;
-            Y += yStepSize;
-        }
-            
-        protected override void UpdateElement()
+        public override void UpdateElement()
         {
             blauwObject.Margin = new Thickness(X, Y, 0, 0);
             blauwObject.Width = Width;
             blauwObject.Height = Height;
-            blauwObject.Fill = new SolidColorBrush(Colors.Blue);
+            blauwObject.Fill = kleur;
         }
     }
 }
