@@ -21,15 +21,15 @@ namespace ProjectChallenge
  
         }
 
-        //public wiskundigeVraag(int min, int max)
-        //{
-        //    GenereerOpgave(min, max);
-        //}
+        public wiskundigeVraag(int min, int max)
+        {
+            GenereerOpgave(min, max);
+        }
 
-        //public wiskundigeVraag(int min, int max, string bewerking)
-        //{
-        //    GenereerOpgave(min, max, bewerking);
-        //}
+        public wiskundigeVraag(int min, int max, string bewerking)
+        {
+            GenereerOpgave(min, max, bewerking);
+        }
 
 
         //Genereeropgave op 3 manieren
@@ -91,63 +91,60 @@ namespace ProjectChallenge
 
         }
 
-        //public void GenereerOpgave(int min, int max)
-        //{
-        //    Random random = new Random();
-        //    getal1 = random.Next(min, max);
-        //    getal2 = random.Next(min, max);
-        //    int index = random.Next(0, 3);
-        //    BewaarBewerking(index);
+        public void GenereerOpgave(int min, int max)
+        {
+            Random random = new Random();
+            getal1 = random.Next(min, max);
+            getal2 = random.Next(min, max);
+            int index = random.Next(0, 3);
+            BewaarBewerking(index);
 
-        //    string[] opgave = new string[4];
-        //    opgave[0] = "" + getal1 + " + " + getal2;
-        //    opgave[1] = "" + getal1 + " - " + getal2;
-        //    opgave[2] = "" + getal1 + " * " + getal2;
-        //    opgave[3] = "" + getal1 + " / " + getal2;
+            string[] opgave = new string[4];
+            opgave[0] = "" + getal1 + " + " + getal2;
+            opgave[1] = "" + getal1 + " - " + getal2;
+            opgave[2] = "" + getal1 + " * " + getal2;
+            opgave[3] = "" + getal1 + " / " + getal2;
 
-        //    this.opgave = opgave[index];
+            this.opgave = opgave[index];
 
-        //}
+        }
 
-        //public void GenereerOpgave(int min, int max, string bewerking)
-        //{
-        //    Random random = new Random();
-        //    getal1 = random.Next(min, max);
-        //    getal2 = random.Next(min, max);
+        public void GenereerOpgave(int min, int max, string bewerking)
+        {
+            Random random = new Random();
+            getal1 = random.Next(min, max);
+            getal2 = random.Next(min, max);
 
-        //    int index = BerekenIndex(bewerking);
-        //    BewaarBewerking(index);
+            int index = BerekenIndex(bewerking);
+            BewaarBewerking(index);
 
-        //    string[] opgave = new string[4];
-        //    opgave[0] = "" + getal1 + " + " + getal2;
-        //    opgave[1] = "" + getal1 + " - " + getal2;
-        //    opgave[2] = "" + getal1 + " * " + getal2;
-        //    opgave[3] = "" + getal1 + " / " + getal2;
+            string[] opgave = new string[4];
+            opgave[0] = "" + getal1 + " + " + getal2;
+            opgave[1] = "" + getal1 + " - " + getal2;
+            opgave[2] = "" + getal1 + " * " + getal2;
+            opgave[3] = "" + getal1 + " / " + getal2;
 
-        //    this.opgave = opgave[index];
+            this.opgave = opgave[index];
 
-        //}
-
-       
-       
+        }
 
         // index berekenen indien de bewerking door de leerkracht word opgegeven
-        //public int BerekenIndex(string bewerking) 
-        //{
-        //    int index = -1;
-        //    switch(bewerking)
-        //    {
-        //        case "+": index = 0;
-        //            break;
-        //        case "-": index = 1;
-        //            break;
-        //        case "*": index = 2;
-        //            break;
-        //        case "/": index = 3;
-        //            break;
-        //    }               
-        //    return index;
-        //}
+        public int BerekenIndex(string bewerking) 
+        {
+            int index = -1;
+            switch(bewerking)
+            {
+                case "+": index = 0;
+                    break;
+                case "-": index = 1;
+                    break;
+                case "*": index = 2;
+                    break;
+                case "/": index = 3;
+                    break;
+            }               
+            return index;
+        }
 
        
 

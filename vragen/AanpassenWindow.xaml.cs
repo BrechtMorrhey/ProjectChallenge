@@ -394,9 +394,28 @@ namespace ProjectChallenge
 
         private void GenereerOpgaveButton_Click(object sender, RoutedEventArgs e)
         {
-            wiskundigeVraag vraag = new wiskundigeVraag();
-            opgaveTextBox.Text = vraag.Opgave;
-            antwoordTextBox.Text = vraag.Antwoord;
+            int n;
+            if (int.TryParse(getal1TextBox.Text, out n) && int.TryParse(getal2TextBox.Text, out n) && bewerkingTextBox.Text != string.Empty)
+            {
+                wiskundigeVraag vraag = new wiskundigeVraag(int.Parse(getal1TextBox.Text), int.Parse(getal2TextBox.Text), bewerkingTextBox.Text);
+                opgaveTextBox.Text = vraag.Opgave;
+                antwoordTextBox.Text = vraag.Antwoord;
+            }
+
+            else if (bewerkingTextBox.Text == string.Empty)
+            {
+                wiskundigeVraag vraag = new wiskundigeVraag(int.Parse(getal1TextBox.Text), int.Parse(getal2TextBox.Text));
+                opgaveTextBox.Text = vraag.Opgave;
+                antwoordTextBox.Text = vraag.Antwoord;
+            }
+
+            else
+            {
+                wiskundigeVraag vraag = new wiskundigeVraag();
+                opgaveTextBox.Text = vraag.Opgave;
+                antwoordTextBox.Text = vraag.Antwoord;
+            }
+           
         }
 
         
