@@ -75,6 +75,13 @@
     <Compile Include="login\RegistratieWindow.xaml.cs">
       <DependentUpon>RegistratieWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OnbekendVraagTypeException.cs" />
+    <Compile Include="vragen\ScoreAlleWindow.xaml.cs">
+      <DependentUpon>ScoreAlleWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="vragen\ScoreKlasWindow.xaml.cs">
+      <DependentUpon>ScoreKlasWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="vragen\ScoreLeerlingWindow.xaml.cs">
       <DependentUpon>ScoreLeerlingWindow.xaml</DependentUpon>
     </Compile>
@@ -152,6 +159,14 @@
     <Page Include="login\RegistratieWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="vragen\ScoreAlleWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="vragen\ScoreKlasWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="vragen\ScoreLeerlingWindow.xaml">
       <SubType>Designer</SubType>
