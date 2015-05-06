@@ -24,10 +24,10 @@ namespace ProjectChallenge
             InitializeComponent();
             foreach (GameObject gameObject in gameObjecten)
             {
-                if (gameObject.GetType() == typeOf(RoodObject))
-                {
+                //if (gameObject.GetType() == typeOf(RoodObject))
+                //{
 
-                }             
+                //}             
                     
                 
             }
