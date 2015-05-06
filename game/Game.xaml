@@ -1,13 +1,17 @@
 ﻿<Window x:Class="ProjectChallenge.Game"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Cyberspace Invader" Height="361.878" Width="530">
+       Title=" Beloningsspel" Height="361.878" Width="530">
     <Grid>
+        <!-- Author: Timo Biesmans -->
         <Canvas HorizontalAlignment="Left" Height="248" Margin="10,10,0,0"
                 VerticalAlignment="Top" Width="495"
                 Name="gameCanvas"
                 Background="Gold" ClipToBounds="True"/>
-        <Button x:Name="roodButton" Content="Rood" HorizontalAlignment="Left" Margin="10,275,0,0" VerticalAlignment="Top" Width="125" Click="roodButton_Click" Height="36" Background="#FFFF8888"/>
-        <Button x:Name="blauwButton" Content="Blauw" HorizontalAlignment="Left" Margin="380,275,0,0" VerticalAlignment="Top" Width="125" Click="blauwButton_Click" Height="36" Background="#FFABCFFF"/>
+        <Button x:Name="roodButton" Content="Rood" HorizontalAlignment="Left" Margin="10,275,0,0" 
+                VerticalAlignment="Top" Width="125" Click="roodButton_Click" Height="36" Background="#FFFF8888"/>
+        <Button x:Name="blauwButton" Content="Blauw" HorizontalAlignment="Left" Margin="380,275,0,0"
+                VerticalAlignment="Top" Width="125" Click="blauwButton_Click" Height="36" Background="#FFABCFFF"/>
     </Grid>
 </Window>
+

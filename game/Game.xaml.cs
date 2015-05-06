@@ -17,21 +17,19 @@ using System.Windows.Threading;
 namespace ProjectChallenge
 {
     /// <summary>
-    /// Interaction logic for Game.xaml
-    /// versie 3
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
+   
+    // Author: Timo Biesmans
     public partial class Game : Window
     {
-        private RoodObject roodObject;
-        private BlauwObject blauwObject;
-
-        private List<RoodObject> bolletjes = new List<RoodObject>();
-        private List<BlauwObject> vierkantjes = new List<BlauwObject>();
+        private List<Sprite> sprites = new List<Sprite>();
         private DispatcherTimer animationTimer;
 
         public Game()
         {
             InitializeComponent();
+
             animationTimer = new DispatcherTimer();
             animationTimer.Interval = TimeSpan.FromMilliseconds(4);
             animationTimer.Tick += animationTimer_Tick;
@@ -40,35 +38,27 @@ namespace ProjectChallenge
 
         private void roodButton_Click(object sender, RoutedEventArgs e)
         {
+            RoodObject roodObject;
             roodObject = new RoodObject(gameCanvas);
-            bolletjes.Add(roodObject);
+            sprites.Add(roodObject);
             roodObject.DisplayOn(gameCanvas);
         }
 
         private void blauwButton_Click(object sender, RoutedEventArgs e)
         {
+            BlauwObject blauwObject;
             blauwObject = new BlauwObject(gameCanvas);
-            vierkantjes.Add(blauwObject);
+            sprites.Add(blauwObject);
             blauwObject.DisplayOn(gameCanvas);
         }
 
         private void animationTimer_Tick(object sender, EventArgs e)
         {
-            //if (roodObject != null)
-            //{
-            //    roodObject.Move();
-            //}
-            foreach (RoodObject bolletje in bolletjes)
-            {
-                bolletje.Move(); 
-            }
 
-
-            foreach (BlauwObject vierkantje in vierkantjes)
+            foreach (Sprite sprite in sprites)
             {
-                vierkantje.Move();
+                sprite.Move();
             }
         }
-      }
     }
-
+}
