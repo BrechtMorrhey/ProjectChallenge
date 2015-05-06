@@ -104,7 +104,7 @@ namespace ProjectChallenge
 
         private void NieuweKlasButton_Click(object sender, RoutedEventArgs e)
         {
-            Window nieuweKlasWindow = new login.maakKlasWindow(alleGebruikers);
+            Window nieuweKlasWindow = new login.maakKlasWindow(alleGebruikers, this);
             nieuweKlasWindow.Show();
             this.Hide();
         }
