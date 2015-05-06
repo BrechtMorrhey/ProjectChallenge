@@ -119,56 +119,58 @@ namespace ProjectChallenge
         {
             botsingObjecten.Remove(this);  //doe het object zelf weg uit de lijst
 
-            List<GameObject> botsingLijst = new List<GameObject>();
+            List<GameObject> botsingLokaleLijst = new List<GameObject>();
             foreach (GameObject item in botsingObjecten) //copy by value
             {
-                botsingLijst.Add(item);
+                botsingLokaleLijst.Add(item);
             }
 
-            while(botsingLijst.Count > 0)
+            bool botsing = false;
+            while(botsingLokaleLijst.Count > 0  && !botsing) // stop de loop na een botsing zodat het object zelf niet kan blijven vasthangen
             {
                 // http://stackoverflow.com/questions/13513932/algorithm-to-detect-overlapping-periods
                 //A is gameobject en B is botsingObject
                 int linkerrandA = this.X;
                 int rechterrandA = this.X + this.Width;
-                int linkerrandB = botsingLijst[0].X;
-                int rechterrandB = botsingLijst[0].X + botsingLijst[0].Width;
+                int linkerrandB = botsingLokaleLijst[0].X;
+                int rechterrandB = botsingLokaleLijst[0].X + botsingLokaleLijst[0].Width;
                 bool horizontaleOverlap = (rechterrandA >= linkerrandB && linkerrandA <= rechterrandB);
 
                 int onderrandA = this.Y;
                 int bovenrandA = this.Y + this.Height;
-                int onderrandB = botsingLijst[0].Y;
-                int bovenrandB = botsingLijst[0].Y + this.Height;
+                int onderrandB = botsingLokaleLijst[0].Y;
+                int bovenrandB = botsingLokaleLijst[0].Y + this.Height;
                 bool vertikaleOverlap = (bovenrandA >= onderrandB && onderrandA <= bovenrandB);
+                botsing = horizontaleOverlap && vertikaleOverlap;
 
-                if (horizontaleOverlap && vertikaleOverlap)
+                if (botsing)
                 {
                     //botsing
                     //laat we de andere kant uitbewegen
                     this.xStepSize = -this.xStepSize;
                     this.yStepSize = -this.yStepSize;
-                    botsingLijst[0].xStepSize = -botsingLijst[0].xStepSize;
-                    botsingLijst[0].yStepSize = -botsingLijst[0].yStepSize;
+                    botsingLokaleLijst[0].xStepSize = -botsingLokaleLijst[0].xStepSize;
+                    botsingLokaleLijst[0].yStepSize = -botsingLokaleLijst[0].yStepSize;
 
                     //verander kleur
 
                     //this.Leven = !(this.GetType() == botsingObject.GetType());
                     //botsingObject.Leven = !(this.GetType() == botsingObject.GetType());
 
-                    if (!(this.GetType() == botsingLijst[0].GetType()) && this.Leven && botsingLijst[0].Leven)
+                    if (!(this.GetType() == botsingLokaleLijst[0].GetType()) && this.Leven && botsingLokaleLijst[0].Leven)
                     {
                         this.Leven = false;
-                        botsingLijst[0].Leven = false;
+                        botsingLokaleLijst[0].Leven = false;
                     }
-                    else if ((this.GetType() == botsingLijst[0].GetType()) && (this.Leven || botsingLijst[0].Leven))
+                    else if ((this.GetType() == botsingLokaleLijst[0].GetType()) && (this.Leven || botsingLokaleLijst[0].Leven))
                     {
                         this.Leven = true;
-                        botsingLijst[0].Leven = true;
+                        botsingLokaleLijst[0].Leven = true;
                     }
 
-                    botsingObjecten.Remove(botsingLijst[0]); //vermijd dat bij driedubbele botsing de twee laatste bollen in elkaar blijven hangen
+                    botsingObjecten.Remove(botsingLokaleLijst[0]); //vermijd dat bij driedubbele botsing de twee laatste bollen in elkaar blijven hangen
                 }
-                botsingLijst.Remove(botsingLijst[0]);
+                botsingLokaleLijst.Remove(botsingLokaleLijst[0]); 
             }
         }
 
