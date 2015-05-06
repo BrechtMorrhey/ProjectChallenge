@@ -164,73 +164,10 @@ namespace ProjectChallenge
                 botser = gameObjecten[i - 1];
             }
         }
-        
-        public void DetecteerBotsing(List<GameObject> botsingObjecten)
-        {
-            botsingObjecten.Remove(this);  //doe het object zelf weg uit de lijst
-
-            List<GameObject> botsingLokaleLijst = new List<GameObject>();
-            foreach (GameObject item in botsingObjecten) //copy by value
-            {
-                botsingLokaleLijst.Add(item);
-            }
-
-            bool botsing = false;
-            while(botsingLokaleLijst.Count > 0  && !botsing) // stop de loop na een botsing zodat het object zelf niet kan blijven vasthangen
-            {
-                // http://stackoverflow.com/questions/13513932/algorithm-to-detect-overlapping-periods
-                //A is gameobject en B is botsingObject
-                int linkerrandA = this.X;
-                int rechterrandA = this.X + this.Width;
-                int linkerrandB = botsingLokaleLijst[0].X;
-                int rechterrandB = botsingLokaleLijst[0].X + botsingLokaleLijst[0].Width;
-                bool horizontaleOverlap = (rechterrandA >= linkerrandB && linkerrandA <= rechterrandB);
-
-                int onderrandA = this.Y;
-                int bovenrandA = this.Y + this.Height;
-                int onderrandB = botsingLokaleLijst[0].Y;
-                int bovenrandB = botsingLokaleLijst[0].Y + this.Height;
-                bool vertikaleOverlap = (bovenrandA >= onderrandB && onderrandA <= bovenrandB);
-                botsing = horizontaleOverlap && vertikaleOverlap;
-
-                if (botsing)
-                {
-                    //botsing
-                    //laat we de andere kant uitbewegen
-                    this.xStepSize = -this.xStepSize;
-                    this.yStepSize = -this.yStepSize;
-                    botsingLokaleLijst[0].xStepSize = -botsingLokaleLijst[0].xStepSize;
-                    botsingLokaleLijst[0].yStepSize = -botsingLokaleLijst[0].yStepSize;
-
-                    //verander kleur
-
-                    //this.Leven = !(this.GetType() == botsingObject.GetType());
-                    //botsingObject.Leven = !(this.GetType() == botsingObject.GetType());
-
-                    if (!(this.GetType() == botsingLokaleLijst[0].GetType()) && this.Leven && botsingLokaleLijst[0].Leven)
-                    {
-                        this.Leven = false;
-                        botsingLokaleLijst[0].Leven = false;
-                    }
-                    else if ((this.GetType() == botsingLokaleLijst[0].GetType()) && (this.Leven || botsingLokaleLijst[0].Leven))
-                    {
-                        this.Leven = true;
-                        botsingLokaleLijst[0].Leven = true;
-                    }
-
-                    botsingObjecten.Remove(botsingLokaleLijst[0]); //vermijd dat bij driedubbele botsing de twee laatste bollen in elkaar blijven hangen
-                }
-                botsingLokaleLijst.Remove(botsingLokaleLijst[0]); 
-            }
-        }
-
-
         public void DisplayOn(Canvas drawingCanvas)
         {
             drawingCanvas.Children.Add(this.objectShape);
         }        
         public abstract void UpdateElement();
-        
-
     }
 }
