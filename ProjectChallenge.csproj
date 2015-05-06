@@ -100,9 +100,6 @@
     <Compile Include="vragen\OplossenWindow.xaml.cs">
       <DependentUpon>OplossenWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="vragen\OpstellenWindow.xaml.cs">
-      <DependentUpon>OpstellenWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="vragen\ScoreWindow.xaml.cs">
       <DependentUpon>ScoreWindow.xaml</DependentUpon>
     </Compile>
@@ -186,10 +183,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="vragen\OplossenWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="vragen\OpstellenWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -59,7 +59,7 @@ namespace ProjectChallenge
         private bool Login()
         {
             string gebruikerId = idTextBox.Text;
-            string gebruikerPassword = passwordTextBox.Text;
+            string gebruikerPassword = passwordPasswordBox.Password;
 
             foreach (Leerling student in alleGebruikers.Leerlingen)
             {

@@ -32,6 +32,7 @@ namespace ProjectChallenge.login
         {
             string klas = nieuweKlasTextBox.Text;
             alleGebruikers.SlaKlasOp(klas);
+            MessageBox.Show("Klas aangemaakt !!!", "Klas aangemaakt", MessageBoxButton.OK);
         }
 
         private void terugButton_Click(object sender, RoutedEventArgs e)

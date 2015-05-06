@@ -29,12 +29,14 @@ namespace ProjectChallenge
         double textBoxWidth;
         double textBoxHeight;
         bool nieuweLijst;
+        MainVragenWindow menuWindow;
               
-        public AanpassenWindow(string bestandsNaam, bool nieuweLijst)
+        public AanpassenWindow(string bestandsNaam, bool nieuweLijst, MainVragenWindow menuWindow)
         {
             InitializeComponent();
             this.bestandsNaam = bestandsNaam;
             this.nieuweLijst = nieuweLijst;
+            this.menuWindow = menuWindow;
         }
 
         private void volgendeButton_Click(object sender, RoutedEventArgs e)
@@ -383,9 +385,13 @@ namespace ProjectChallenge
             
         }
 
-        
+        private void terugButton_Click(object sender, RoutedEventArgs e)
+        {
+            menuWindow.Show();
+            this.Close();
+        }
 
-        
+       
         
     }
 }

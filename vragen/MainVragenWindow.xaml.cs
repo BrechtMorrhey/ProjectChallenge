@@ -59,7 +59,7 @@ namespace ProjectChallenge
             bestandsNaam = dialog.FileName;
             if (bestandsNaam != null && bestandsNaam != "")
             {
-                Window w = new AanpassenWindow(bestandsNaam, true);
+                Window w = new AanpassenWindow(bestandsNaam, true, this);
                 w.Show();
             }
         }
@@ -91,15 +91,17 @@ namespace ProjectChallenge
             bestandsNaam = dialog.FileName;
             if (bestandsNaam != null && bestandsNaam!="")
             {
-                Window w = new AanpassenWindow(bestandsNaam, false);
+                Window w = new AanpassenWindow(bestandsNaam, false, this);
                 w.Show();
+                this.Hide();
             }
         }
 
         private void scoreButton_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new OverzichtScoresWindow();
+            Window w = new OverzichtScoresWindow(this);
             w.Show();
+            this.Hide();
         }
 
         private void GameButton_Click(object sender, RoutedEventArgs e)
