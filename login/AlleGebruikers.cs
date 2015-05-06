@@ -95,21 +95,10 @@ namespace ProjectChallenge
             }
             finally
             {
-<<<<<<< HEAD
-                readKlassenStream = File.OpenText(klassenPath);
-                LeesKlassenIn();
-                readKlassenStream.Close();
-            }
-            
-            if (klassen.Count == 0)
-            {
-                SlaKlasOp("testKlas");
-=======
                 if (readKlassenStream != null)
                 {
                     readKlassenStream.Close();
                 }
->>>>>>> origin/stijn
             }
         }
 
@@ -169,12 +158,21 @@ namespace ProjectChallenge
 
         public void LeesKlassenIn()
         {
-            klassen.Add("testKlas");
+            bool testKlasAanwezig = false;
 
             string regel = readKlassenStream.ReadLine();
             while (regel != null)
             {
+                klassen.Add(regel);
+                if (regel.CompareTo("testKlas") == 0)
+                {
+                    testKlasAanwezig = true;
+                }
                 regel = readKlassenStream.ReadLine();
+            }
+            if (!testKlasAanwezig)
+            {
+                klassen.Add("testKlas");
             }
         }
 

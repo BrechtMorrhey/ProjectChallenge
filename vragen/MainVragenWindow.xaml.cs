@@ -34,12 +34,18 @@ namespace ProjectChallenge
         {
             InitializeComponent();
             this.mainWindow = mainWindow;
+            gameButton.Visibility = Visibility.Visible;
+            oplossenButton.Visibility = Visibility.Visible;
         }
         public MainVragenWindow(Leerkracht leerkracht, AlleGebruikers allegebruikers, MainWindow mainWindow)
         {
             InitializeComponent();
             this.alleGebruikers = allegebruikers;
             this.mainWindow = mainWindow;
+            aanpassenButton.Visibility = Visibility.Visible;
+            nieuweKlasButton.Visibility = Visibility.Visible;
+            opstellenButton.Visibility = Visibility.Visible;
+            scoreButton.Visibility = Visibility.Visible;
         }
 
         private void opstellenButton_Click(object sender, RoutedEventArgs e)
@@ -53,7 +59,7 @@ namespace ProjectChallenge
             bestandsNaam = dialog.FileName;
             if (bestandsNaam != null && bestandsNaam != "")
             {
-                Window w = new AanpassenWindow(bestandsNaam, true);
+                Window w = new AanpassenWindow(bestandsNaam, true, this);
                 w.Show();
             }
         }
@@ -85,15 +91,17 @@ namespace ProjectChallenge
             bestandsNaam = dialog.FileName;
             if (bestandsNaam != null && bestandsNaam!="")
             {
-                Window w = new AanpassenWindow(bestandsNaam, false);
+                Window w = new AanpassenWindow(bestandsNaam, false, this);
                 w.Show();
+                this.Hide();
             }
         }
 
         private void scoreButton_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new OverzichtScoresWindow();
+            Window w = new OverzichtScoresWindow(this);
             w.Show();
+            this.Hide();
         }
 
         private void GameButton_Click(object sender, RoutedEventArgs e)

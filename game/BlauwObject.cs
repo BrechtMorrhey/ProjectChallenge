@@ -12,46 +12,33 @@ namespace ProjectChallenge
     // Author: Timo Biesmans
     public class BlauwObject : Sprite
     {
-        private Rectangle blauwObject;
-        private int xStepSize, yStepSize;
-        private Canvas canvas;
-        private Random randomNumber = new Random();
 
-        public BlauwObject(Canvas drawingCanvas)
+        private static SolidColorBrush objectKleur = new SolidColorBrush(Colors.Blue);
+        private SolidColorBrush kleur;
+        private Rectangle blauwObject;        
+       
+
+        public BlauwObject(Canvas drawingCanvas):base(drawingCanvas)
         {
-            blauwObject = new Rectangle();
-            canvas = drawingCanvas;
-            X = randomNumber.Next(0, 497);
-            Y = randomNumber.Next(0, 248);
-            Width = 10;
-            Height = 10;
-            xStepSize = 1;
-            yStepSize = 1;
-
+            blauwObject = new Rectangle();                     
             blauwObject.Width = Width;
             blauwObject.Height = Height;
             blauwObject.Margin = new Thickness(X, Y, 0, 0);
             blauwObject.Fill = new SolidColorBrush(Colors.Blue);
         }
 
-        public override void DisplayOn(Canvas drawingCanvas)
+        public override Shape objectShape
+        {
+            get { return blauwObject; }
+        }
+        public override SolidColorBrush Kleur
+        {
+            get { return kleur; }
+            set { kleur = value; }
+        }
+        public override SolidColorBrush ObjectKleur
         {
             canvas.Children.Add(blauwObject);
-        }
-
-        public override void Move()
-        {
-
-            if ((X > 480) || (X < 0))
-            {
-                xStepSize = -xStepSize;
-            }
-            if ((Y > 240) || (Y < 0))
-            {
-                yStepSize = -yStepSize;
-            }
-            X += xStepSize;
-            Y += yStepSize;
         }
 
         protected override void UpdateElement()

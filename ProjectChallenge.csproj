@@ -53,6 +53,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="game\GameScore.xaml.cs">
+      <DependentUpon>GameScore.xaml</DependentUpon>
+    </Compile>
     <Compile Include="game\BlauwObject.cs" />
     <Compile Include="game\Game.xaml.cs">
       <DependentUpon>Game.xaml</DependentUpon>
@@ -100,9 +103,6 @@
     <Compile Include="vragen\OplossenWindow.xaml.cs">
       <DependentUpon>OplossenWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="vragen\OpstellenWindow.xaml.cs">
-      <DependentUpon>OpstellenWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="vragen\ScoreWindow.xaml.cs">
       <DependentUpon>ScoreWindow.xaml</DependentUpon>
     </Compile>
@@ -141,6 +141,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="game\GameScore.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="game\Game.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -186,10 +190,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="vragen\OplossenWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="vragen\OpstellenWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

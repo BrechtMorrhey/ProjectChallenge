@@ -35,7 +35,7 @@ namespace ProjectChallenge
             MainVragenWindow menuWindow;
             if (loginOk)
             {
-                MessageBox.Show("Login OK");
+                MessageBox.Show("Login OK","OK !");
                 if( gebruiker.GeefGebruikersType() == "leerling")
                 {
                     Leerling leerling = (Leerling) gebruiker;
@@ -59,7 +59,7 @@ namespace ProjectChallenge
         private bool Login()
         {
             string gebruikerId = idTextBox.Text;
-            string gebruikerPassword = passwordTextBox.Text;
+            string gebruikerPassword = passwordPasswordBox.Password;
 
             foreach (Leerling student in alleGebruikers.Leerlingen)
             {

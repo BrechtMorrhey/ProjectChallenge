@@ -30,6 +30,7 @@ namespace ProjectChallenge
         public RegistratieWindow(AlleGebruikers allegebruikers, MainWindow mainWindow)
         {
             InitializeComponent();
+            datumDatePicker.SelectedDate = DateTime.Now;
             this.allegebruikers = allegebruikers;
             klasComboBox.ItemsSource = allegebruikers.Klassen;
             klasComboBox.SelectedValue = "testKlas";
@@ -43,19 +44,27 @@ namespace ProjectChallenge
             passwoord = passwoordPasswordBox.Password;
             geboorteDatum = datumDatePicker.Text;
             klas = klasComboBox.SelectedItem.ToString();
+            if ((naam!="")&&(voornaam!="")&&(passwoord!="")&&(geboorteDatum!="")&&
+                ((soortRegistratieComboBox.SelectedItem==leerlingItem)||(soortRegistratieComboBox.SelectedItem==leerkrachtItem)))
+            {
+                if (soortRegistratieComboBox.SelectedItem == leerlingItem)
+                {
+                    Leerling student = new Leerling(naam, voornaam, geboorteDatum, passwoord, klas, allegebruikers);
+                    student.SlaOp();
+                    MessageBox.Show(string.Format("Student:\t\t{0}\nWachtwoord:\t{1}", student.ID, student.Paswoord), "Opgeslagen");
+                }
+                else if (soortRegistratieComboBox.SelectedItem == leerkrachtItem)
+                {
+                    Leerkracht leerkracht = new Leerkracht(naam, voornaam, geboorteDatum, passwoord, allegebruikers);
+                    leerkracht.SlaOp();
+                    MessageBox.Show(string.Format("Leerkracht:\t{0}\nWachtwoord:\t{1}", leerkracht.ID, leerkracht.Paswoord), "Opgeslagen");
+                } 
+            }
+            else
+            {
+                MessageBox.Show("Ongeldige registratie", "FOUT !!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
-            if (soortRegistratieComboBox.SelectedItem == leerlingItem)
-            {
-                Leerling student = new Leerling(naam, voornaam, geboorteDatum, passwoord, klas, allegebruikers);
-                student.SlaOp();
-                MessageBox.Show(string.Format("student:\t\t{0}\npasswoord:\t{1}\nOpgeslagen", student.ID, student.Paswoord));
-            }
-            else if (soortRegistratieComboBox.SelectedItem == leerkrachtItem)
-            {
-                Leerkracht leerkracht = new Leerkracht(naam, voornaam, geboorteDatum, passwoord, allegebruikers);
-                leerkracht.SlaOp();
-                MessageBox.Show(string.Format("leerkracht:\t{0}\npasswoord:\t{1}\nOpgeslagen", leerkracht.ID, leerkracht.Paswoord));
-            }
         }
 
         private void soortRegistratieComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

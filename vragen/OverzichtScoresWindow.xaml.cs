@@ -19,9 +19,11 @@ namespace ProjectChallenge
     /// </summary>
     public partial class OverzichtScoresWindow : Window
     {
-        public OverzichtScoresWindow()
+        private MainVragenWindow menuWindow;
+        public OverzichtScoresWindow(MainVragenWindow menuWindow)
         {
             InitializeComponent();
+            this.menuWindow = menuWindow;
         }
         private void userIdButton_Click(object sender, RoutedEventArgs e)
         {
@@ -58,6 +60,12 @@ namespace ProjectChallenge
             {
                 MessageBox.Show("Gelieve eerst een klasId in te geven", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void terugButton_Click(object sender, RoutedEventArgs e)
+        {
+            menuWindow.Show();
+            this.Close();
         }
     }
 }

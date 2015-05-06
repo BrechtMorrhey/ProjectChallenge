@@ -40,7 +40,12 @@ namespace ProjectChallenge
         {
             RoodObject roodObject;
             roodObject = new RoodObject(gameCanvas);
-            sprites.Add(roodObject);
+
+            while (roodObject.Overlapping(gameObjecten))
+            {
+                roodObject = new RoodObject(gameCanvas);
+            }
+            gameObjecten.Add(roodObject);
             roodObject.DisplayOn(gameCanvas);
         }
 
@@ -48,7 +53,12 @@ namespace ProjectChallenge
         {
             BlauwObject blauwObject;
             blauwObject = new BlauwObject(gameCanvas);
-            sprites.Add(blauwObject);
+
+            while (blauwObject.Overlapping(gameObjecten))
+            {
+                blauwObject = new BlauwObject(gameCanvas);
+            }
+            gameObjecten.Add(blauwObject);
             blauwObject.DisplayOn(gameCanvas);
         }
 
@@ -60,5 +70,12 @@ namespace ProjectChallenge
                 sprite.Move();
             }
         }
+
+        private void scoreButton_Click(object sender, RoutedEventArgs e)
+        {
+            Window w = new GameScore(gameObjecten);
+            w.Show();
+        }
+      }
     }
 }
