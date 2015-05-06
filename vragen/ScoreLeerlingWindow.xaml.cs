@@ -26,7 +26,10 @@ namespace ProjectChallenge
         {
             this.userId = userId;
             InitializeComponent();
+        }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
             string path = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/challenge scores";
             if (!Directory.Exists(path))
             {
@@ -39,12 +42,12 @@ namespace ProjectChallenge
             // zoek alle scores met die userId
             foreach (string file in files)
             {
-                filename=System.IO.Path.GetFileName(file);
-                if(userId==filename.Split('_')[1])
+                filename = System.IO.Path.GetFileName(file);
+                if (userId == filename.Split('_')[1])
                 {
                     userFiles.Add(file);
                 }
-		 	}
+            }
 
             string score;
             string vraag;
@@ -57,17 +60,17 @@ namespace ProjectChallenge
                     filename = System.IO.Path.GetFileName(file);
                     vraag = filename.Split('_')[3];
                     inputStream.ReadLine(); //sla de eerste lijn over
-                    score=inputStream.ReadLine().Split(':')[2];
+                    score = inputStream.ReadLine().Split(':')[2];
                     scoresListBox.Items.Add(vraag + "\t" + score);
                 }
                 catch (FileNotFoundException)
                 {
-                    MessageBox.Show("Bestand "+file+" niet gevonden.");
+                    MessageBox.Show("Bestand " + file + " niet gevonden.");
                     this.Close();
                 }
                 catch (ArgumentException)
                 {
-                    MessageBox.Show("Argument Exception bij inlezen bestand " +file);
+                    MessageBox.Show("Argument Exception bij inlezen bestand " + file);
                     this.Close();
                 }
                 finally

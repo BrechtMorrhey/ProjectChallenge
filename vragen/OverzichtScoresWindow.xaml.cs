@@ -35,5 +35,21 @@ namespace ProjectChallenge
                 MessageBox.Show("Gelieve eerst een userId in te geven");
             }
         }
+
+        private void klasButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void alleButton_Click(object sender, RoutedEventArgs e)
+        {
+            Window w = new ScoreAlleWindow();
+            w.Show();
+        }
+
+        private void scoreKlasButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
