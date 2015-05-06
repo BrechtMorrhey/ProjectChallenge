@@ -57,7 +57,7 @@ namespace ProjectChallenge
 
             // sla de score van de student op
 
-            string path = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/challenge scores/";
+            string path = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Challenger\\challenge scores\\";
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
