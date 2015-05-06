@@ -40,11 +40,6 @@ namespace ProjectChallenge
             get { return objectKleur; }
         }
 
-        public override void DisplayOn(Canvas drawingCanvas)
-        {
-            canvas.Children.Add(roodObject);
-        }
-
         public override void UpdateElement()
         {
             roodObject.Margin = new Thickness(X, Y, 0, 0);

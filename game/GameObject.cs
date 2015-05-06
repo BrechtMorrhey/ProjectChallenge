@@ -10,13 +10,13 @@ using System.Windows.Shapes;
 
 namespace ProjectChallenge
 {
-    public abstract class GameObject :iBeweegbaar
+    public abstract class GameObject : iBeweegbaar
     {
         private static SolidColorBrush doodKleur = new SolidColorBrush(Colors.Black);
         private bool leven;
         private int x, y, width, height;
         private int xStepSize, yStepSize;
-        private Canvas canvas;        
+        private Canvas canvas;
 
         public GameObject(Canvas drawingCanvas)
         {
@@ -26,9 +26,9 @@ namespace ProjectChallenge
             height = 10;
             xStepSize = 1;
             yStepSize = 1;
-            leven = true;            
-            x = randomNumber.Next(1, (int)(canvas.Width-width));
-            y = randomNumber.Next(1, (int)(canvas.Height-height));            
+            leven = true;
+            x = randomNumber.Next(1, (int)(canvas.Width - width));
+            y = randomNumber.Next(1, (int)(canvas.Height - height));
         }
 
         public abstract Shape objectShape { get; }
@@ -37,7 +37,7 @@ namespace ProjectChallenge
             get { return x; }
             set { x = value; UpdateElement(); }
         }
-        
+
         public int Y
         {
             get { return y; }
@@ -65,8 +65,9 @@ namespace ProjectChallenge
         }
         public bool Leven
         {
-            get{return leven;}
-            set {
+            get { return leven; }
+            set
+            {
                 if (value)
                 {
                     this.Kleur = this.ObjectKleur;
@@ -75,7 +76,8 @@ namespace ProjectChallenge
                 {
                     this.Kleur = GameObject.doodKleur;
                 }
-                leven = value; }
+                leven = value;
+            }
         }
         //methods
         public void Move()
@@ -110,11 +112,11 @@ namespace ProjectChallenge
                 int bovenrandB = item.Y + this.Height;
                 bool vertikaleOverlap = (bovenrandA >= onderrandB && onderrandA <= bovenrandB);
 
-                overlap = (horizontaleOverlap && vertikaleOverlap)|| overlap;               
+                overlap = (horizontaleOverlap && vertikaleOverlap) || overlap;
             }
             return overlap;
         }
-        
+
         public void DetecteerBotsing(List<GameObject> botsingObjecten)
         {
             botsingObjecten.Remove(this);  //doe het object zelf weg uit de lijst
@@ -126,7 +128,7 @@ namespace ProjectChallenge
             }
 
             bool botsing = false;
-            while(botsingLokaleLijst.Count > 0  && !botsing) // stop de loop na een botsing zodat het object zelf niet kan blijven vasthangen
+            while (botsingLokaleLijst.Count > 0 && !botsing) // stop de loop na een botsing zodat het object zelf niet kan blijven vasthangen
             {
                 // http://stackoverflow.com/questions/13513932/algorithm-to-detect-overlapping-periods
                 //A is gameobject en B is botsingObject
@@ -170,7 +172,7 @@ namespace ProjectChallenge
 
                     botsingObjecten.Remove(botsingLokaleLijst[0]); //vermijd dat bij driedubbele botsing de twee laatste bollen in elkaar blijven hangen
                 }
-                botsingLokaleLijst.Remove(botsingLokaleLijst[0]); 
+                botsingLokaleLijst.Remove(botsingLokaleLijst[0]);
             }
         }
 
@@ -178,9 +180,9 @@ namespace ProjectChallenge
         public void DisplayOn(Canvas drawingCanvas)
         {
             drawingCanvas.Children.Add(this.objectShape);
-        }        
+        }
         public abstract void UpdateElement();
-        
+
 
     }
 }
