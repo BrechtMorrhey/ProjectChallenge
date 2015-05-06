@@ -85,10 +85,15 @@ namespace ProjectChallenge
             }
             catch (FileNotFoundException)
             {
+                if (readKlassenStream != null)
+                {
+                    readKlassenStream.Close();
+                }
                 File.CreateText(klassenPath);
             }
             finally
             {
+                readKlassenStream = File.OpenText(klassenPath);
                 LeesKlassenIn();
                 readKlassenStream.Close();
             }
@@ -158,7 +163,6 @@ namespace ProjectChallenge
             string regel = readKlassenStream.ReadLine();
             while (regel != null)
             {
-                klassen.Add(regel);
                 regel = readKlassenStream.ReadLine();
             }
         }
