@@ -137,5 +137,12 @@ namespace ProjectChallenge
             this.Hide();
         }
 
+        public AlleGebruikers Gebruikers
+        {
+            get
+            {
+                return alleGebruikers;
+            }
+        }
     }
 }

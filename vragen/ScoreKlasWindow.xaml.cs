@@ -30,14 +30,23 @@ namespace ProjectChallenge
             InitializeComponent();
             this.menuWindow = menuWindow;
             this.vorigWindow = vorigWindow;
+            klasLabel.Content = klas + ":";
         }
 
         private void scoresListBoxItem_Click(object sender, RoutedEventArgs e)
         {
             string userId = ((string)((Button)(sender)).Content).Split(':')[0];
-            Window w = new ScoreLeerlingWindow(userId, this, menuWindow);
+            Leerling gebruiker = null;
+            foreach (Leerling leerling in menuWindow.Gebruikers.Leerlingen)
+            {
+                if (userId == leerling.ID)
+                {
+                    gebruiker = leerling;
+                }
+            }
+            Window w = new ScoreLeerlingWindow(gebruiker, this, menuWindow);
             w.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

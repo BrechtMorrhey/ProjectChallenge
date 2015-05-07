@@ -25,12 +25,14 @@ namespace ProjectChallenge
         private MainVragenWindow menuWindow;
         private Window vorigWindow;
 
-        public ScoreLeerlingWindow(string userId, Window vorigWindow, MainVragenWindow menuWindow)
-        {
-            this.userId = userId;
+        public ScoreLeerlingWindow(Leerling leerling, Window vorigWindow, MainVragenWindow menuWindow)
+        { 
             InitializeComponent();
             this.menuWindow = menuWindow;
             this.vorigWindow = vorigWindow;
+            this.userId = leerling.ID;
+            klasEnLeerlingLabel.Content = leerling.Voornaam + " " + leerling.Naam + "\n" + leerling.Klas;
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -98,7 +100,7 @@ namespace ProjectChallenge
         private void scoresListBoxItem_Click(object sender, RoutedEventArgs e)
         {
             string bestandsNaam = bestandsNaamDictionary[(Button)sender];
-            Window w = new ScoreVraagWindow(bestandsNaam);
+            Window w = new ScoreVraagWindow(bestandsNaam, this, menuWindow);
             w.Show();
             this.Hide();
         }

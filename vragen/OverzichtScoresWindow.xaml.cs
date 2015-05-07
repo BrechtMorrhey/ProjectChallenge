@@ -30,7 +30,15 @@ namespace ProjectChallenge
         {
             if (userIdTextBox.Text != "" && userIdTextBox.Text != null)
             {
-                Window w = new ScoreLeerlingWindow(userIdTextBox.Text, this, menuWindow);
+                Leerling gebruiker = null;
+                foreach (Leerling leerling in menuWindow.Gebruikers.Leerlingen)
+                {
+                    if(userIdTextBox.Text == leerling.ID)
+                    {
+                        gebruiker = leerling;
+                    }
+                }
+                Window w = new ScoreLeerlingWindow(gebruiker, this, menuWindow);
                 w.Show();
                 this.Hide();
             }

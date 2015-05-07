@@ -21,11 +21,15 @@ namespace ProjectChallenge
     public partial class ScoreVraagWindow : Window
     {
         private string bestandNaam;
+        private MainVragenWindow menuWindow;
+        private Window vorigWindow;
 
-        public ScoreVraagWindow(string bestandNaam)
+        public ScoreVraagWindow(string bestandNaam, Window vorigWindow, MainVragenWindow menuWindow)
         {
             InitializeComponent();
             this.bestandNaam = bestandNaam;
+            this.vorigWindow = vorigWindow;
+            this.menuWindow = menuWindow;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -41,6 +45,8 @@ namespace ProjectChallenge
                 string voorNaam = line.Split(',')[0];
                 string naam = line.Split(',')[1];
 
+                klasEnLeerlingLabel.Content = voorNaam + " " + naam + "\n" + klas + "\n" + filename.Split('_')[3];
+
                 while (line != null && j < 10000)
                 {
                     scoresListBox.Items.Add(line);
@@ -51,12 +57,12 @@ namespace ProjectChallenge
             catch (FileNotFoundException)
             {
                 MessageBox.Show("Bestand " + bestandNaam + " niet gevonden.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
-                this.Close();
+                this.NaarMenu();
             }
             catch (ArgumentException)
             {
                 MessageBox.Show("Argument Exception bij inlezen bestand " + bestandNaam, "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
-                this.Close();
+                this.NaarMenu();
             }
             finally
             {
@@ -66,10 +72,27 @@ namespace ProjectChallenge
                 }
                 if (j >= 10000)
                 {
-                    MessageBox.Show("Bestand te groot, programma sluit nu af");
-                    this.Close();
+                    MessageBox.Show("Bestand te groot, terug naar menu");
+                    this.NaarMenu();
                 }
             }
+        }
+
+        private void terugButton_Click(object sender, RoutedEventArgs e)
+        {
+            vorigWindow.Show();
+            this.Close();
+        }
+
+        private void menuButton_Click(object sender, RoutedEventArgs e)
+        {
+            NaarMenu();
+        }
+
+        private void NaarMenu()
+        {
+            menuWindow.Show();
+            this.Close();
         }
     }
 }

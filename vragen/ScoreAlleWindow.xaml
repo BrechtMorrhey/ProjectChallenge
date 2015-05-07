@@ -4,11 +4,12 @@
         Title="ScoreAlleWindow" Height="401" Width="558" Loaded="Window_Loaded"
         WindowStyle="None">
     <Grid>
-        <TextBlock x:Name="voornaamTextBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30" Width="72"><Run Language="en-gb" Text=""/></TextBlock>
+        <TextBlock x:Name="voornaamTextBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30" Width="72"/>
         <TextBlock x:Name="achterNaamTextBlock" HorizontalAlignment="Left" Margin="117,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30" Width="84"/>
         <TextBlock x:Name="klasTextBlock" HorizontalAlignment="Left" Margin="490,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30"/>
         <ListBox x:Name="scoresListBox" HorizontalAlignment="Left" Height="315" Margin="10,70,0,0" VerticalAlignment="Top" Width="531"/>
         <Button x:Name="menuButton" Content="Terug&#xD;&#xA;naar menu" HorizontalAlignment="Left" Margin="466,17,0,0" VerticalAlignment="Top" Width="75" Height="35" HorizontalContentAlignment="Center" Click="menuButton_Click"/>
         <Button x:Name="terugButton" Content="terug" HorizontalAlignment="Left" Margin="369,17,0,0" VerticalAlignment="Top" Width="75" Height="35" Click="terugButton_Click"/>
+        <Label Content="Alle Klassen:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,13,0,0" Height="42" FontSize="20" Width="141"/>
     </Grid>
 </Window>
