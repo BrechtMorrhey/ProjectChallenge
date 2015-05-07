@@ -1,7 +1,8 @@
 ﻿<Window x:Class="ProjectChallenge.ScoreAlleWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="ScoreAlleWindow" Height="401" Width="558" Loaded="Window_Loaded">
+        Title="ScoreAlleWindow" Height="401" Width="558" Loaded="Window_Loaded"
+        WindowStyle="None">
     <Grid>
         <TextBlock x:Name="voornaamTextBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30" Width="72"><Run Language="en-gb" Text=""/></TextBlock>
         <TextBlock x:Name="achterNaamTextBlock" HorizontalAlignment="Left" Margin="117,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30" Width="84"/>
