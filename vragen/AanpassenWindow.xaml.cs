@@ -391,6 +391,7 @@ namespace ProjectChallenge
 
         private void terugButton_Click(object sender, RoutedEventArgs e)
         {
+            
             this.Close();
         }
 
