@@ -21,23 +21,28 @@ namespace ProjectChallenge
     public partial class ScoreKlasWindow : Window
     {
         string klas;
+        private MainVragenWindow menuWindow;
+        private Window vorigWindow;
 
-        public ScoreKlasWindow(string klas)
+        public ScoreKlasWindow(string klas, Window vorigWindow, MainVragenWindow menuWindow)
         {
             this.klas=klas;            
-            InitializeComponent();            
+            InitializeComponent();
+            this.menuWindow = menuWindow;
+            this.vorigWindow = vorigWindow;
         }
 
         private void scoresListBoxItem_Click(object sender, RoutedEventArgs e)
         {
             string userId = ((string)((Button)(sender)).Content).Split(':')[0];
-            Window w = new ScoreLeerlingWindow(userId);
+            Window w = new ScoreLeerlingWindow(userId, this, menuWindow);
             w.Show();
+            this.Close();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            string path = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/challenge scores";
+            string path = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Challenger\\challenge scores";
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
@@ -96,27 +101,27 @@ namespace ProjectChallenge
                 catch (FileNotFoundException)
                 {
                     MessageBox.Show("Bestand " + file + " niet gevonden.");
-                    this.Close();
+                    this.NaarMenu();
                 }
                 catch (ArgumentException)
                 {
                     MessageBox.Show("Argument Exception bij inlezen bestand " + file);
-                    this.Close();
+                    this.NaarMenu();
                 }
                 catch (FormatException)
                 {
                     MessageBox.Show("Kan score in " + file + " bij vraag " + vraag + " niet omzetten");
-                    this.Close();
+                    this.NaarMenu();
                 }
                 catch (OverflowException)
                 {
                     MessageBox.Show("Score in " + file + " bij vraag " + vraag + " is te groot");
-                    this.Close();
+                    this.NaarMenu();
                 }
                 catch (KeyNotFoundException)
                 {
-                    MessageBox.Show("KeyNotFoundException, de bestanden zijn mogelijk aangepast tijdens het inladen, programma zal nu afsluiten");
-                    this.Close();
+                    MessageBox.Show("KeyNotFoundException, de bestanden zijn mogelijk aangepast tijdens het inladen, programma keert terug naar menu");
+                    this.NaarMenu();
                 }
                 finally
                 {
@@ -135,6 +140,23 @@ namespace ProjectChallenge
                 scoresListBox.Items.Add(b);
             }
             //http://stackoverflow.com/questions/141088/what-is-the-best-way-to-iterate-over-a-dictionary-in-c
+        }
+
+        private void terugButton_Click(object sender, RoutedEventArgs e)
+        {
+            vorigWindow.Show();
+            this.Close();
+        }
+
+        private void menuButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.NaarMenu();
+        }
+
+        private void NaarMenu()
+        {
+            menuWindow.Show();
+            this.Close();
         }
     }
 }

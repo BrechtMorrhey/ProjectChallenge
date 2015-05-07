@@ -25,12 +25,14 @@ namespace ProjectChallenge
             InitializeComponent();
             this.menuWindow = menuWindow;
         }
+        
         private void userIdButton_Click(object sender, RoutedEventArgs e)
         {
             if (userIdTextBox.Text != "" && userIdTextBox.Text != null)
             {
-                Window w = new ScoreLeerlingWindow(userIdTextBox.Text);
+                Window w = new ScoreLeerlingWindow(userIdTextBox.Text, this, menuWindow);
                 w.Show();
+                this.Hide();
             }
             else
             {
@@ -38,23 +40,20 @@ namespace ProjectChallenge
             }
         }
 
-        private void klasButton_Click(object sender, RoutedEventArgs e)
-        {
-           
-        }
-
         private void alleButton_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new ScoreAlleWindow();
+            Window w = new ScoreAlleWindow(this, menuWindow);
             w.Show();
+            this.Hide();
         }
 
         private void scoreKlasButton_Click(object sender, RoutedEventArgs e)
         {
             if (scoreKlasTextBox.Text != "" && scoreKlasTextBox.Text != null)
             {
-                Window w = new ScoreKlasWindow(scoreKlasTextBox.Text);
+                Window w = new ScoreKlasWindow(scoreKlasTextBox.Text, this, menuWindow);
                 w.Show();
+                this.Hide();
             }
             else
             {

@@ -98,6 +98,12 @@ namespace ProjectChallenge
             this.Close();
         }
 
+        private void menuButton_Click(object sender, RoutedEventArgs e)
+        {
+            menuWindow.Show();
+            this.Close();
+        }
+
 
     }
 }

@@ -22,16 +22,20 @@ namespace ProjectChallenge
     {
         private string userId;
         private Dictionary<Button, string> bestandsNaamDictionary;
+        private MainVragenWindow menuWindow;
+        private Window vorigWindow;
 
-        public ScoreLeerlingWindow(string userId)
+        public ScoreLeerlingWindow(string userId, Window vorigWindow, MainVragenWindow menuWindow)
         {
             this.userId = userId;
             InitializeComponent();
+            this.menuWindow = menuWindow;
+            this.vorigWindow = vorigWindow;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            string path = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/challenge scores";
+            string path = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Challenger\\challenge scores";
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
@@ -73,12 +77,12 @@ namespace ProjectChallenge
                 catch (FileNotFoundException)
                 {
                     MessageBox.Show("Bestand " + file + " niet gevonden.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
-                    this.Close();
+                    this.NaarMenu();
                 }
                 catch (ArgumentException)
                 {
                     MessageBox.Show("Argument Exception bij inlezen bestand " + file , "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
-                    this.Close();
+                    this.NaarMenu();
                 }
                 finally
                 {
@@ -95,7 +99,24 @@ namespace ProjectChallenge
         {
             string bestandsNaam = bestandsNaamDictionary[(Button)sender];
             Window w = new ScoreVraagWindow(bestandsNaam);
-            w.Show();            
+            w.Show();
+            this.Hide();
+        }
+        private void terugButton_Click(object sender, RoutedEventArgs e)
+        {
+            vorigWindow.Show();
+            this.Close();
+        }
+
+        private void menuButton_Click(object sender, RoutedEventArgs e)
+        {
+            NaarMenu();
+        }
+
+        private void NaarMenu()
+        {
+            menuWindow.Show();
+            this.Close();
         }
     }
 }

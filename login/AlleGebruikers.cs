@@ -27,7 +27,7 @@ namespace ProjectChallenge
         public AlleGebruikers()
         {
             programmaDirPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Challenger");
-            aceGebruikersPath = programmaDirPath + "\\aceGebruikers";
+            aceGebruikersPath = programmaDirPath + "\\Gebruikers";
             leerlingPath = aceGebruikersPath + "\\leerlingen.txt";
             leerkrachtPath = aceGebruikersPath + "\\leerkrachten.txt";
             klassenPath = aceGebruikersPath + "\\klassen.txt";
