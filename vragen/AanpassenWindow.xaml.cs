@@ -272,10 +272,7 @@ namespace ProjectChallenge
             }
         }
 
-        private void Window_Closed(object sender, RoutedEventArgs e)
-        {
-            menuWindow.Show();
-        }
+        
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             // BELANGRIJK
@@ -393,6 +390,11 @@ namespace ProjectChallenge
         {
             
             this.Close();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            menuWindow.Show();
         }
 
        
