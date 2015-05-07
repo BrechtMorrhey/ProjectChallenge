@@ -20,17 +20,22 @@ namespace ProjectChallenge
     /// </summary>
     public partial class ScoreWindow : Window
     {
+        private MainVragenWindow menuWindow;
         private string bestandsNaam;
+        private int verdiendeMinuten;
         private List<Vraag> vragenLijst;
         private Leerling gebruiker;
-        public ScoreWindow(Leerling gebruiker, List<Vraag> vragenLijst, string bestandsNaam)
+        
+        public ScoreWindow(MainVragenWindow menuWindow, Leerling gebruiker, List<Vraag> vragenLijst, string bestandsNaam)
         {
             InitializeComponent();
             this.bestandsNaam = bestandsNaam;
             this.vragenLijst = vragenLijst;
             this.gebruiker = gebruiker;
-        }
+            this.menuWindow = menuWindow;
 
+        }
+            
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
@@ -39,12 +44,20 @@ namespace ProjectChallenge
             voorNaam = gebruiker.Voornaam;
             achterNaam = gebruiker.Naam;
             klas = gebruiker.Klas;
-
+            string juistOfFout;
 
             int score = vragenLijst.Count;  //bereken maximum score
             foreach (Vraag vraag in vragenLijst)
             {
-                scoreListBox.Items.Add(vraag.IsJuist + "\t" + vraag.Antwoord + "\t" + vraag.Ingevuld);
+                if (vraag.IsJuist)
+                {
+                    juistOfFout = "juist";
+                }
+                else
+                {
+                    juistOfFout = "Fout";
+                }
+                scoreListBox.Items.Add(juistOfFout + "\t" + vraag.Antwoord + "\t" + vraag.Ingevuld);
                 if (!vraag.IsJuist)
                 {
                     score--;
@@ -57,7 +70,7 @@ namespace ProjectChallenge
 
             // sla de score van de student op
 
-            string path = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/challenge scores/";
+            string path = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Challenger\\challenge scores\\";
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
@@ -67,6 +80,8 @@ namespace ProjectChallenge
             outputStream.WriteLine(voorNaam + ", " + achterNaam);
             // zet de score vanboven om makkelijker te kunnen inlezen
             outputStream.WriteLine("Score: " + score + "/" + vragenLijst.Count + "\t Percentage: " + ((double)score / vragenLijst.Count) * 100 + "%");
+            // zet de score om in game tijd
+            verdiendeMinuten = (int)Math.Round(((double)score / vragenLijst.Count) * 10);
             // sla de specifieke antwoorden op
             foreach (Vraag vraag in vragenLijst)
             {
@@ -74,6 +89,19 @@ namespace ProjectChallenge
             }
             outputStream.Close();
             
+        }
+
+        private void gameButton_Click(object sender, RoutedEventArgs e)
+        {
+            Window w = new Game(menuWindow, verdiendeMinuten);
+            w.Show();
+            this.Close();
+        }
+
+        private void menuButton_Click(object sender, RoutedEventArgs e)
+        {
+            menuWindow.Show();
+            this.Close();
         }
 
 

@@ -1,7 +1,8 @@
 ﻿<Window x:Class="ProjectChallenge.Game"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-       Title=" Beloningsspel" Height="361.878" Width="530">
+       Title=" Beloningsspel" Height="335.012" Width="530" Closed="Window_Closed"
+        WindowStyle="None">
     <Grid>
         <Canvas HorizontalAlignment="Left" Height="250" Margin="10,10,0,0"
                 VerticalAlignment="Top" Width="495"
