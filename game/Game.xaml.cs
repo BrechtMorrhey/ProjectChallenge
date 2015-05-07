@@ -24,8 +24,9 @@ namespace ProjectChallenge
     public partial class Game : Window
     {
         private List<GameObject> gameObjecten = new List<GameObject>();
-        private DispatcherTimer animationTimer, gameTijd;
+        private DispatcherTimer animationTimer, klok;
         private MainVragenWindow menuWindow;
+        private int secondsLeft;
 
         public Game(MainVragenWindow menuWindow)
         {
@@ -38,18 +39,29 @@ namespace ProjectChallenge
         }
         public Game(MainVragenWindow menuWindow, int minuten):this(menuWindow)
         {
-            gameTijd = new DispatcherTimer();
-            gameTijd.Interval = TimeSpan.FromMinutes(minuten);
-            gameTijd.Tick += gameTijd_Tick;
-            gameTijd.IsEnabled = true;
+
+            klok = new DispatcherTimer();
+            klok.Interval = TimeSpan.FromSeconds(1);
+            klok.Tick += klok_Tick;
+            klok.Start();            
+
+            secondsLeft = minuten * 60;
+
+            klokTextBox.Text = "tijd:\n" + secondsLeft + " sec";
         }
 
-        private void gameTijd_Tick(object sender, EventArgs e)
+        void klok_Tick(object sender, EventArgs e)
         {
-            this.Close();
-            MessageBox.Show("Tijd is om! Verdien meer tijd door beter te scoren");
-            Window w = new GameScore(gameObjecten);
-            w.Show();            
+            secondsLeft -= 1;
+            klokTextBox.Text = "tijd:\n" + secondsLeft + " sec";
+
+            if (secondsLeft <= 0)
+            {
+                this.Close();
+                MessageBox.Show("Tijd is om! Verdien meer tijd door beter te scoren");
+                Window w = new GameScore(gameObjecten, menuWindow);
+                w.Show();
+            }
         }
 
         public static void VeranderKleuren(GameObject a, GameObject b)
@@ -117,7 +129,7 @@ namespace ProjectChallenge
 
         private void scoreButton_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new GameScore(gameObjecten);
+            Window w = new GameScore(gameObjecten, menuWindow);
             w.Show();
         }
 
@@ -130,9 +142,9 @@ namespace ProjectChallenge
         private void Window_Closed(object sender, EventArgs e)
         {
             animationTimer.Stop();  // https://social.msdn.microsoft.com/Forums/en-US/992b4aa3-f066-4ccf-8c14-aec871eccdb6/how-to-properly-close-dispose-a-wpf-window?forum=wpf
-            if (gameTijd != null)
+            if (klok != null)
             {
-                gameTijd.Stop();
+                klok.Stop();
             }
         }
     }

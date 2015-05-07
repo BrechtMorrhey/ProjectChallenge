@@ -19,7 +19,8 @@ namespace ProjectChallenge
     public partial class GameScore : Window
     {
         private int scoreRood, scoreBlauw;
-        public GameScore(List<GameObject> gameObjecten)
+        private MainVragenWindow menuWindow;
+        public GameScore(List<GameObject> gameObjecten, MainVragenWindow menuWindow)
         {
             InitializeComponent();
             scoreRood = 0;
@@ -35,9 +36,21 @@ namespace ProjectChallenge
                     scoreBlauw++;
                 }
             }
+            this.menuWindow = menuWindow;
 
             scoreBlauwTextBlock.Text = Convert.ToString(scoreBlauw);
             scoreRoodTextBlock.Text = Convert.ToString(scoreRood);
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            menuWindow.Show();
+        }
+
+        private void naarMenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+        
     }
 }
