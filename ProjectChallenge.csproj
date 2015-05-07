@@ -103,6 +103,9 @@
     <Compile Include="vragen\OplossenWindow.xaml.cs">
       <DependentUpon>OplossenWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="vragen\ScoreVraagWindow.xaml.cs">
+      <DependentUpon>ScoreVraagWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="vragen\ScoreWindow.xaml.cs">
       <DependentUpon>ScoreWindow.xaml</DependentUpon>
     </Compile>
@@ -192,6 +195,10 @@
     <Page Include="vragen\OplossenWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="vragen\ScoreVraagWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="vragen\ScoreWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

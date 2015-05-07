@@ -1,0 +1,12 @@
+﻿<Window x:Class="ProjectChallenge.vragen.ScoreVraagWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ScoreVraagWindow" Height="401" Width="558" >
+    <Grid>
+        <TextBlock x:Name="voornaamTextBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30" Width="72"><Run Language="en-gb" Text=""/></TextBlock>
+        <TextBlock x:Name="achterNaamTextBlock" HorizontalAlignment="Left" Margin="117,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30" Width="84"/>
+        <TextBlock x:Name="klasTextBlock" HorizontalAlignment="Left" Margin="490,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30"/>
+        <ListBox x:Name="scoresListBox" HorizontalAlignment="Left" Height="315" Margin="10,45,0,0" VerticalAlignment="Top" Width="530"/>
+
+    </Grid>
+</Window>
