@@ -21,7 +21,7 @@ namespace ProjectChallenge
     public partial class ScoreLeerlingWindow : Window
     {
         private string userId;
-        private Dictionary<Button, string> bestandsNaamDictionary
+        private Dictionary<Button, string> bestandsNaamDictionary;
 
         public ScoreLeerlingWindow(string userId)
         {
@@ -93,8 +93,9 @@ namespace ProjectChallenge
 
         private void scoresListBoxItem_Click(object sender, RoutedEventArgs e)
         {
-            string bestandsNaam = bestandsNaamDictionary(sender);
-            Window w = new ScoreVraagWindow(sender.Content.Split(':')[0]);
+            string bestandsNaam = bestandsNaamDictionary[(Button)sender];
+            Window w = new ScoreVraagWindow(bestandsNaam);
+            w.Show();            
         }
     }
 }

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
 
-namespace ProjectChallenge.vragen
+namespace ProjectChallenge
 {
     /// <summary>
     /// Interaction logic for ScoreVraagWindow.xaml
@@ -21,7 +21,7 @@ namespace ProjectChallenge.vragen
     public partial class ScoreVraagWindow : Window
     {
         private string bestandNaam;
-        
+
         public ScoreVraagWindow(string bestandNaam)
         {
             InitializeComponent();
@@ -40,7 +40,7 @@ namespace ProjectChallenge.vragen
                 string line = inputStream.ReadLine();
                 string voorNaam = line.Split(',')[0];
                 string naam = line.Split(',')[1];
-                
+
                 while (line != null && j < 10000)
                 {
                     scoresListBox.Items.Add(line);
