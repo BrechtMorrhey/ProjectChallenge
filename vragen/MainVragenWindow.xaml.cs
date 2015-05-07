@@ -41,7 +41,7 @@ namespace ProjectChallenge
             :this()
         {
             this.mainWindow = mainWindow;
-            gameButton.Visibility = Visibility.Visible;
+            bekijkScoreButton.Visibility = Visibility.Visible;
             oplossenButton.Visibility = Visibility.Visible;
             gebruiker = leerling;
         }
@@ -114,12 +114,12 @@ namespace ProjectChallenge
             this.Hide();
         }
 
-        private void GameButton_Click(object sender, RoutedEventArgs e)
-        {
-            Game game = new Game(this);
-            game.Show();
-            this.Hide();
-        }
+        //private void GameButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Game game = new Game(this);
+        //    game.Show();
+        //    this.Hide();
+        //}
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
@@ -145,6 +145,14 @@ namespace ProjectChallenge
             {
                 return alleGebruikers;
             }
+        }
+
+        private void bekijkScoreButton_Click(object sender, RoutedEventArgs e)
+        {
+            ScoreLeerlingWindow window = new ScoreLeerlingWindow(gebruiker, this);
+            window.klasButton.Visibility = Visibility.Hidden;
+            window.Show();
+            this.Hide();
         }
     }
 }

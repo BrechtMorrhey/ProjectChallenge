@@ -8,7 +8,7 @@
         <Button x:Name="opstellenButton" Content="Stel vragen op" HorizontalAlignment="Left" Margin="187,40,0,0" VerticalAlignment="Top" Width="115" Height="35" Visibility="Hidden" Click="opstellenButton_Click"/>
         <Button x:Name="aanpassenButton" Content="Pas vragen aan" HorizontalAlignment="Left" Margin="187,85,0,0" VerticalAlignment="Top" Width="115" Height="35" Visibility="Hidden" Click="aanpassenButton_Click"/>
         <Button x:Name="scoreButton" Content="Bekijk scores" HorizontalAlignment="Left" Margin="40,85,0,0" VerticalAlignment="Top" Width="115" Height="35" Visibility="Hidden" Click="scoreButton_Click"/>
-        <Button x:Name="gameButton" Content="game" HorizontalAlignment="Left" Margin="187,40,0,0" VerticalAlignment="Top" Width="115" Height="80" Visibility="Hidden" Click="GameButton_Click"/>
+        <Button x:Name="bekijkScoreButton" Content="Bekijk score" HorizontalAlignment="Left" Margin="187,40,0,0" VerticalAlignment="Top" Width="115" Height="80" Visibility="Hidden" Click="bekijkScoreButton_Click"/>
         <Button x:Name="exitButton" Content="Sluit af" HorizontalAlignment="Left" Margin="187,149,0,0" VerticalAlignment="Top" Width="115" Height="80" Visibility="Visible" Click="ExitButton_Click"/>
         <Button x:Name="nieuweKlasButton" Content="nieuwe klas" HorizontalAlignment="Left" Margin="40,40,0,0" VerticalAlignment="Top" Width="115" Height="35" Visibility="Hidden" Click="NieuweKlasButton_Click"/>
         <Button x:Name="logUitButton" Content="Log uit" HorizontalAlignment="Left" Margin="40,149,0,0" VerticalAlignment="Top" Width="115" Height="80" Visibility="Visible" Click="LogUitButton_Click"/>
