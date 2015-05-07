@@ -20,11 +20,11 @@ namespace ProjectChallenge
     /// Interaction logic for MainWindow.xaml
     /// </summary>
    
-    // Author: Timo Biesmans
+    // Author: Timo Biesmans, Brecht Morrhey
     public partial class Game : Window
     {
         private List<GameObject> gameObjecten = new List<GameObject>();
-        private DispatcherTimer animationTimer;
+        private DispatcherTimer animationTimer, gameTijd;
         private MainVragenWindow menuWindow;
 
         public Game(MainVragenWindow menuWindow)
@@ -35,6 +35,21 @@ namespace ProjectChallenge
             animationTimer.Interval = TimeSpan.FromMilliseconds(4);
             animationTimer.Tick += animationTimer_Tick;
             animationTimer.IsEnabled = true;
+        }
+        public Game(MainVragenWindow menuWindow, int minuten):this(menuWindow)
+        {
+            gameTijd = new DispatcherTimer();
+            gameTijd.Interval = TimeSpan.FromMinutes(minuten);
+            gameTijd.Tick += gameTijd_Tick;
+            gameTijd.IsEnabled = true;
+        }
+
+        private void gameTijd_Tick(object sender, EventArgs e)
+        {
+            this.Close();
+            MessageBox.Show("Tijd is om! Verdien meer tijd door beter te scoren");
+            Window w = new GameScore(gameObjecten);
+            w.Show();            
         }
 
         public static void VeranderKleuren(GameObject a, GameObject b)
@@ -110,6 +125,15 @@ namespace ProjectChallenge
         {
             menuWindow.Show();
             this.Close();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            animationTimer.Stop();  // https://social.msdn.microsoft.com/Forums/en-US/992b4aa3-f066-4ccf-8c14-aec871eccdb6/how-to-properly-close-dispose-a-wpf-window?forum=wpf
+            if (gameTijd != null)
+            {
+                gameTijd.Stop();
+            }
         }
     }
 }
