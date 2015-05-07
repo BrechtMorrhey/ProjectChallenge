@@ -33,6 +33,7 @@ namespace ProjectChallenge
             this.vragenLijst = vragenLijst;
             this.gebruiker = gebruiker;
             this.menuWindow = menuWindow;
+
         }
             
         private void Window_Loaded(object sender, RoutedEventArgs e)

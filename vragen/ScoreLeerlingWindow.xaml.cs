@@ -20,7 +20,8 @@ namespace ProjectChallenge
     /// </summary>
     public partial class ScoreLeerlingWindow : Window
     {
-        string userId;
+        private string userId;
+        private Dictionary<Button, string> bestandsNaamDictionary;
 
         public ScoreLeerlingWindow(string userId)
         {
@@ -51,7 +52,9 @@ namespace ProjectChallenge
 
             string score;
             string vraag;
+            Button b;
             StreamReader inputStream = null;
+            bestandsNaamDictionary = new Dictionary<Button, string>();
             foreach (string file in userFiles)
             {
                 try
@@ -61,7 +64,11 @@ namespace ProjectChallenge
                     vraag = filename.Split('_')[3];
                     inputStream.ReadLine(); //sla de eerste lijn over
                     score = inputStream.ReadLine().Split(':')[2];
-                    scoresListBox.Items.Add(vraag + "\t" + score);
+                    b = new Button();
+                    b.Click += scoresListBoxItem_Click;
+                    b.Content=(vraag + ":\t" + score);
+                    scoresListBox.Items.Add(b);
+                    bestandsNaamDictionary.Add(b, file);
                 }
                 catch (FileNotFoundException)
                 {
@@ -82,6 +89,13 @@ namespace ProjectChallenge
                 }
             }
           
+        }
+
+        private void scoresListBoxItem_Click(object sender, RoutedEventArgs e)
+        {
+            string bestandsNaam = bestandsNaamDictionary[(Button)sender];
+            Window w = new ScoreVraagWindow(bestandsNaam);
+            w.Show();            
         }
     }
 }
