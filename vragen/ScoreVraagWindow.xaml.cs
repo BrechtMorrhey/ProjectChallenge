@@ -78,7 +78,7 @@ namespace ProjectChallenge
             }
         }
 
-        private void terugButton_Click(object sender, RoutedEventArgs e)
+        private void leerlingButton_Click(object sender, RoutedEventArgs e)
         {
             vorigWindow.Show();
             this.Close();

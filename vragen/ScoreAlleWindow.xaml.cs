@@ -32,7 +32,7 @@ namespace ProjectChallenge
         private void scoresListBoxItem_Click(object sender, RoutedEventArgs e)
         {
             string klas = ((string)((Button)(sender)).Content).Split(':')[0];
-            Window w = new ScoreKlasWindow(klas, this, menuWindow);
+            Window w = new ScoreKlasWindow(klas, menuWindow);
             w.Show();
             this.Hide();
         }
@@ -137,7 +137,7 @@ namespace ProjectChallenge
             this.NaarMenu();
         }
 
-        private void terugButton_Click(object sender, RoutedEventArgs e)
+        private void overzichtButton_Click(object sender, RoutedEventArgs e)
         {
             vorigWindow.Show();
             this.Close();

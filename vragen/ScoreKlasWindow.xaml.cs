@@ -22,14 +22,14 @@ namespace ProjectChallenge
     {
         string klas;
         private MainVragenWindow menuWindow;
-        private Window vorigWindow;
+//        private Window vorigWindow;
 
-        public ScoreKlasWindow(string klas, Window vorigWindow, MainVragenWindow menuWindow)
+        public ScoreKlasWindow(string klas,/* Window vorigWindow,*/ MainVragenWindow menuWindow)
         {
             this.klas=klas;            
             InitializeComponent();
             this.menuWindow = menuWindow;
-            this.vorigWindow = vorigWindow;
+//            this.vorigWindow = vorigWindow;
             klasLabel.Content = klas + ":";
         }
 
@@ -44,7 +44,7 @@ namespace ProjectChallenge
                     gebruiker = leerling;
                 }
             }
-            Window w = new ScoreLeerlingWindow(gebruiker, this, menuWindow);
+            Window w = new ScoreLeerlingWindow(gebruiker, menuWindow);
             w.Show();
             this.Hide();
         }
@@ -151,9 +151,10 @@ namespace ProjectChallenge
             //http://stackoverflow.com/questions/141088/what-is-the-best-way-to-iterate-over-a-dictionary-in-c
         }
 
-        private void terugButton_Click(object sender, RoutedEventArgs e)
+        private void klassenButton_Click(object sender, RoutedEventArgs e)
         {
-            vorigWindow.Show();
+            ScoreAlleWindow klassen = new ScoreAlleWindow(new OverzichtScoresWindow(menuWindow), menuWindow);
+            klassen.Show();
             this.Close();
         }
 

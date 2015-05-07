@@ -21,22 +21,24 @@ namespace ProjectChallenge
     public partial class ScoreLeerlingWindow : Window
     {
         private string userId;
+        private Leerling leerling;
         private Dictionary<Button, string> bestandsNaamDictionary;
         private MainVragenWindow menuWindow;
-        private Window vorigWindow;
+//        private Window vorigWindow;
 
-        public ScoreLeerlingWindow(Leerling leerling, Window vorigWindow, MainVragenWindow menuWindow)
+        public ScoreLeerlingWindow(Leerling leerling, /*Window vorigWindow,*/ MainVragenWindow menuWindow)
         { 
             InitializeComponent();
             this.menuWindow = menuWindow;
-            this.vorigWindow = vorigWindow;
+//            this.vorigWindow = vorigWindow;
             this.userId = leerling.ID;
-            klasEnLeerlingLabel.Content = leerling.Voornaam + " " + leerling.Naam + "\n" + leerling.Klas;
+            this.leerling = leerling;
 
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            klasEnLeerlingLabel.Content = leerling.Voornaam + " " + leerling.Naam + "\n" + leerling.Klas;
             string path = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Challenger\\challenge scores";
             if (!Directory.Exists(path))
             {
@@ -104,9 +106,10 @@ namespace ProjectChallenge
             w.Show();
             this.Hide();
         }
-        private void terugButton_Click(object sender, RoutedEventArgs e)
+        private void klasButton_Click(object sender, RoutedEventArgs e)
         {
-            vorigWindow.Show();
+            ScoreKlasWindow klas = new ScoreKlasWindow(leerling.Klas, menuWindow);
+            klas.Show();
             this.Close();
         }
 

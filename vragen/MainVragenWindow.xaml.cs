@@ -69,6 +69,7 @@ namespace ProjectChallenge
             {
                 Window w = new AanpassenWindow(bestandsNaam, true, this);
                 w.Show();
+                this.Hide();
             }
         }
 
@@ -85,6 +86,7 @@ namespace ProjectChallenge
             {
                 Window w = new OplossenWindow(bestandsNaam, gebruiker, this);
                 w.Show();
+                this.Hide();
             }
         }
              

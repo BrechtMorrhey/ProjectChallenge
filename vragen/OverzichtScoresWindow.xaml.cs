@@ -38,7 +38,7 @@ namespace ProjectChallenge
                         gebruiker = leerling;
                     }
                 }
-                Window w = new ScoreLeerlingWindow(gebruiker, this, menuWindow);
+                Window w = new ScoreLeerlingWindow(gebruiker, menuWindow);
                 w.Show();
                 this.Hide();
             }
@@ -59,7 +59,7 @@ namespace ProjectChallenge
         {
             if (scoreKlasTextBox.Text != "" && scoreKlasTextBox.Text != null)
             {
-                Window w = new ScoreKlasWindow(scoreKlasTextBox.Text, this, menuWindow);
+                Window w = new ScoreKlasWindow(scoreKlasTextBox.Text, menuWindow);
                 w.Show();
                 this.Hide();
             }
