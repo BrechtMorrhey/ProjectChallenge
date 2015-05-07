@@ -61,7 +61,7 @@ namespace ProjectChallenge
             }
 
             Dictionary<string, double> leerlingScores = new Dictionary<string, double>();
-            foreach (string item in leerlingenLijst)
+            foreach (string item in leerlingenLijst)    //initialiseer Dictionary
             {
                 leerlingScores.Add(item, 0);
             }
@@ -90,7 +90,7 @@ namespace ProjectChallenge
                         {
                             score = (score + leerlingScores[userId]) / 2;
                         }
-                        leerlingScores[userId] = score;
+                        leerlingScores[userId] = score; //ken aan elk userId de juiste score toe
                     }
                 }
                 catch (FileNotFoundException)
