@@ -42,11 +42,15 @@ namespace ProjectChallenge
                 if (userId == leerling.ID)
                 {
                     gebruiker = leerling;
+                    Window w = new ScoreLeerlingWindow(gebruiker, menuWindow);
+                    w.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    MessageBox.Show("Foutief Bestand", "FOUT", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-            Window w = new ScoreLeerlingWindow(gebruiker, menuWindow);
-            w.Show();
-            this.Hide();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
