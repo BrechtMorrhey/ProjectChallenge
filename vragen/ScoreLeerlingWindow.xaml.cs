@@ -49,13 +49,21 @@ namespace ProjectChallenge
             string filename;
 
             // zoek alle scores met die userId
-            foreach (string file in files)
+            try
             {
-                filename = System.IO.Path.GetFileName(file);
-                if (userId == filename.Split('_')[1])
+                foreach (string file in files)
                 {
-                    userFiles.Add(file);
+                    filename = System.IO.Path.GetFileName(file);
+                    if (userId == filename.Split('_')[1])
+                    {
+                        userFiles.Add(file);
+                    }
                 }
+            }
+            catch (IndexOutOfRangeException)
+            {
+                MessageBox.Show("Index Out of Range Exception in " + file + ". Bestand is mogelijk corrupt");
+                this.NaarMenu();
             }
 
             string score;
@@ -86,6 +94,11 @@ namespace ProjectChallenge
                 catch (ArgumentException)
                 {
                     MessageBox.Show("Argument Exception bij inlezen bestand " + file , "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                    this.NaarMenu();
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    MessageBox.Show("Index Out of Range Exception in " + file + ". Bestand is mogelijk corrupt");
                     this.NaarMenu();
                 }
                 finally

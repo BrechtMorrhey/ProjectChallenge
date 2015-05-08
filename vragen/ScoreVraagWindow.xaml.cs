@@ -64,6 +64,11 @@ namespace ProjectChallenge
                 MessageBox.Show("Argument Exception bij inlezen bestand " + bestandNaam, "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
                 this.NaarMenu();
             }
+            catch (IndexOutOfRangeException)
+            {
+                MessageBox.Show("Index Out of Range Exception in " + file + ". Bestand is mogelijk corrupt");
+                this.NaarMenu();
+            }
             finally
             {
                 if (inputStream != null)

@@ -61,17 +61,25 @@ namespace ProjectChallenge
             string filename, userId;
 
             // maak een lijst van alle leerlingen
-            foreach (string file in files)
+            try
             {
-                filename = System.IO.Path.GetFileName(file);
-                if (klas == filename.Split('_')[0])
+                foreach (string file in files)
                 {
-                    userId = filename.Split('_')[1];
-                    if (!leerlingenLijst.Contains(userId))
+                    filename = System.IO.Path.GetFileName(file);
+                    if (klas == filename.Split('_')[0])
                     {
-                        leerlingenLijst.Add(userId);
+                        userId = filename.Split('_')[1];
+                        if (!leerlingenLijst.Contains(userId))
+                        {
+                            leerlingenLijst.Add(userId);
+                        }
                     }
                 }
+            }
+            catch (IndexOutOfRangeException)
+            {
+                MessageBox.Show("Index Out of Range Exception in " + file + ". Bestand is mogelijk corrupt");
+                this.NaarMenu();
             }
 
             Dictionary<string, double> leerlingScores = new Dictionary<string, double>();
@@ -130,6 +138,11 @@ namespace ProjectChallenge
                 catch (KeyNotFoundException)
                 {
                     MessageBox.Show("KeyNotFoundException, de bestanden zijn mogelijk aangepast tijdens het inladen, programma keert terug naar menu");
+                    this.NaarMenu();
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    MessageBox.Show("Index Out of Range Exception in " + file + ". Bestand is mogelijk corrupt");
                     this.NaarMenu();
                 }
                 finally

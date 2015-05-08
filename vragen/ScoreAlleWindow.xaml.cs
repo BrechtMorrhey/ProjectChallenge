@@ -114,6 +114,10 @@ namespace ProjectChallenge
                 catch (BestandTeGrootException exception)
                 {
                     MessageBox.Show(exception.Message);
+                catch (IndexOutOfRangeException)
+                {
+                    MessageBox.Show("Index Out of Range Exception in " + file + ". Bestand is mogelijk corrupt");
+		}
                     this.NaarMenu();
                 }
                 finally
