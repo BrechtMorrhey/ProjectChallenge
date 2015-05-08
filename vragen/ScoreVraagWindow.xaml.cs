@@ -66,7 +66,7 @@ namespace ProjectChallenge
             }
             catch (IndexOutOfRangeException)
             {
-                MessageBox.Show("Index Out of Range Exception in " + file + ". Bestand is mogelijk corrupt");
+                MessageBox.Show("Index Out of Range Exception in " + bestandNaam + ". Bestand is mogelijk corrupt");
                 this.NaarMenu();
             }
             finally

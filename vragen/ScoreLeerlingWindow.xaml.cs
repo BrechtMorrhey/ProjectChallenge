@@ -24,13 +24,13 @@ namespace ProjectChallenge
         private Leerling leerling;
         private Dictionary<Button, string> bestandsNaamDictionary;
         private MainVragenWindow menuWindow;
-//        private Window vorigWindow;
+        //        private Window vorigWindow;
 
         public ScoreLeerlingWindow(Leerling leerling, /*Window vorigWindow,*/ MainVragenWindow menuWindow)
-        { 
+        {
             InitializeComponent();
             this.menuWindow = menuWindow;
-//            this.vorigWindow = vorigWindow;
+            //            this.vorigWindow = vorigWindow;
             this.userId = leerling.ID;
             this.leerling = leerling;
 
@@ -49,22 +49,26 @@ namespace ProjectChallenge
             string filename;
 
             // zoek alle scores met die userId
-            try
+
+            foreach (string file in files)
             {
-                foreach (string file in files)
+                try
                 {
+
                     filename = System.IO.Path.GetFileName(file);
                     if (userId == filename.Split('_')[1])
                     {
                         userFiles.Add(file);
                     }
                 }
+                catch (IndexOutOfRangeException)
+                {
+                    MessageBox.Show("Index Out of Range Exception in " + file + ". Bestand is mogelijk corrupt");
+                    this.NaarMenu();
+                }
             }
-            catch (IndexOutOfRangeException)
-            {
-                MessageBox.Show("Index Out of Range Exception in " + file + ". Bestand is mogelijk corrupt");
-                this.NaarMenu();
-            }
+
+
 
             string score;
             string vraag;
@@ -82,7 +86,7 @@ namespace ProjectChallenge
                     score = inputStream.ReadLine().Split(':')[2];
                     b = new Button();
                     b.Click += scoresListBoxItem_Click;
-                    b.Content=(vraag + ":\t" + score);
+                    b.Content = (vraag + ":\t" + score);
                     scoresListBox.Items.Add(b);
                     bestandsNaamDictionary.Add(b, file);
                 }
@@ -93,7 +97,7 @@ namespace ProjectChallenge
                 }
                 catch (ArgumentException)
                 {
-                    MessageBox.Show("Argument Exception bij inlezen bestand " + file , "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Argument Exception bij inlezen bestand " + file, "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
                     this.NaarMenu();
                 }
                 catch (IndexOutOfRangeException)
@@ -109,7 +113,7 @@ namespace ProjectChallenge
                     }
                 }
             }
-          
+
         }
 
         private void scoresListBoxItem_Click(object sender, RoutedEventArgs e)

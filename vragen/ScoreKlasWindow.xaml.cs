@@ -22,14 +22,14 @@ namespace ProjectChallenge
     {
         string klas;
         private MainVragenWindow menuWindow;
-//        private Window vorigWindow;
+        //        private Window vorigWindow;
 
         public ScoreKlasWindow(string klas,/* Window vorigWindow,*/ MainVragenWindow menuWindow)
         {
-            this.klas=klas;            
+            this.klas = klas;
             InitializeComponent();
             this.menuWindow = menuWindow;
-//            this.vorigWindow = vorigWindow;
+            //            this.vorigWindow = vorigWindow;
             klasLabel.Content = klas + ":";
         }
 
@@ -61,9 +61,10 @@ namespace ProjectChallenge
             string filename, userId;
 
             // maak een lijst van alle leerlingen
-            try
+
+            foreach (string file in files)
             {
-                foreach (string file in files)
+                try
                 {
                     filename = System.IO.Path.GetFileName(file);
                     if (klas == filename.Split('_')[0])
@@ -75,12 +76,13 @@ namespace ProjectChallenge
                         }
                     }
                 }
+                catch (IndexOutOfRangeException)
+                {
+                    MessageBox.Show("Index Out of Range Exception in " + file + ". Bestand is mogelijk corrupt");
+                    this.NaarMenu();
+                }
             }
-            catch (IndexOutOfRangeException)
-            {
-                MessageBox.Show("Index Out of Range Exception in " + file + ". Bestand is mogelijk corrupt");
-                this.NaarMenu();
-            }
+
 
             Dictionary<string, double> leerlingScores = new Dictionary<string, double>();
             foreach (string item in leerlingenLijst)    //initialiseer Dictionary
