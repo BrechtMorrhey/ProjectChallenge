@@ -44,7 +44,7 @@ namespace ProjectChallenge
             voorNaam = gebruiker.Voornaam;
             achterNaam = gebruiker.Naam;
             klas = gebruiker.Klas;
-            string juistOfFout;
+            string juistOfFout, juistOfFout2;
 
             int score = vragenLijst.Count;  //bereken maximum score
             foreach (Vraag vraag in vragenLijst)
@@ -85,7 +85,15 @@ namespace ProjectChallenge
             // sla de specifieke antwoorden op
             foreach (Vraag vraag in vragenLijst)
             {
-                outputStream.WriteLine(vraag.IsJuist + "," + vraag.Antwoord + "," + vraag.Ingevuld);
+                if (vraag.IsJuist)
+                {
+                    juistOfFout2 = "juist";
+                }
+                else
+                {
+                    juistOfFout2 = "Fout";
+                }
+                outputStream.WriteLine(juistOfFout2 + "," + vraag.Antwoord + "," + vraag.Ingevuld);
             }
             outputStream.Close();
             

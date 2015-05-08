@@ -23,7 +23,7 @@ namespace ProjectChallenge
                 geboorteDatum = "0" + geboorteDatum;
             }
             base.geboorteDatum = geboorteDatum;
-            string idCijfer = Convert.ToString(allegebruikers.Leerlingen.Count() + 1);
+            string idCijfer = Convert.ToString(allegebruikers.Leerkrachten.Count() + 1);
             base.id = "l" + naam.Substring(0, 1) + voornaam.Substring(0, 1) + idCijfer.PadLeft(3,'0');
             this.alleGebruikers = allegebruikers;
         }
