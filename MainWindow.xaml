@@ -5,21 +5,31 @@
         WindowStyle="None"
         >
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                <GradientStop Color="#FFFCFCFC" Offset="0.133"/>
+                <GradientStop Color="#FFE8CE71" Offset="0.313"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        
+        <Image Margin="39,96,41.667,72"  Source="Pictures\uil.jpg" Stretch="Fill"/>
+
+
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top"
-                   Margin="106,110,105.667,0" 
+                   Margin="10,10,9.667,0" 
                    TextWrapping="Wrap" TextAlignment="Center"
-                   FontSize="35"
+                   FontSize="50"
                    Text="Challenger"
-                   Height="53" Width="307"/>
-        <Button Name="loginButton" Content="Login" 
+                   Height="86" Width="499" RenderTransformOrigin="0.48,0.934"/>
+        <Button x:Name="loginButton" Content="Login" 
                 HorizontalAlignment="Left" VerticalAlignment="Top" 
-                Margin="106,216,0,0"
-                Width="100" Height="35" Click="loginButton_Click"/>
-        <Button Name="registratieButton" Content="Registratie" 
+                Margin="39,228,0,0"
+                Width="100" Height="35" Click="loginButton_Click" RenderTransformOrigin="0.5,0.5" BorderThickness="1"/>
+        <Button x:Name="registratieButton" Content="Registratie" 
                 HorizontalAlignment="Left" VerticalAlignment="Top"
-                Margin="313,216,0,0" 
+                Margin="210,228,0,0" 
                 Width="100" Height="35" Click="registratieButton_Click"/>
-        <Button x:Name="exitButton" Content="Sluit af" HorizontalAlignment="Left" Margin="216,50,0,0" VerticalAlignment="Top" Width="75" Click="exitButton_Click"/>
+        <Button x:Name="exitButton" Content="Sluit af" HorizontalAlignment="Left" Margin="377,229,0,0" VerticalAlignment="Top" Width="100" Click="exitButton_Click" Height="34"/>
 
 
     </Grid>

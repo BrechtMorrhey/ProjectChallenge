@@ -4,6 +4,12 @@
         Title="MainWindow" Height="276" Width="354.333"
         WindowStyle="None">
     <Grid>
+        <Grid.Background>
+            <RadialGradientBrush>
+                <GradientStop Color="White" Offset="0.38"/>
+                <GradientStop Color="#FFE8CE71" Offset="1"/>
+            </RadialGradientBrush>
+        </Grid.Background>
         <Button x:Name="oplossenButton" Content="Los vragen op" HorizontalAlignment="Left" Margin="40,40,0,0" VerticalAlignment="Top" Width="115" Height="80" Visibility="Hidden" Click="oplossenButton_Click"/>
         <Button x:Name="opstellenButton" Content="Stel vragen op" HorizontalAlignment="Left" Margin="187,40,0,0" VerticalAlignment="Top" Width="115" Height="35" Visibility="Hidden" Click="opstellenButton_Click"/>
         <Button x:Name="aanpassenButton" Content="Pas vragen aan" HorizontalAlignment="Left" Margin="187,85,0,0" VerticalAlignment="Top" Width="115" Height="35" Visibility="Hidden" Click="aanpassenButton_Click"/>

@@ -21,6 +21,7 @@ namespace ProjectChallenge
     /// </summary>
     public partial class MainWindow : Window
     {
+        
         AlleGebruikers alleGebruikers;
         public MainWindow()
         {
@@ -49,5 +50,6 @@ namespace ProjectChallenge
         {
             System.Environment.Exit(0);
         }
+        
     }
 }
