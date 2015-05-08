@@ -13,7 +13,7 @@
         <Button Name="nieuweKlasButton" Content="Maak klas aan" HorizontalAlignment="Left" Margin="169,131,0,0" VerticalAlignment="Top" Width="116" Height="50" Click="nieuweKlasButton_Click"/>
         <TextBox Name="nieuweKlasTextBox" HorizontalAlignment="Left" Height="60" Margin="10,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="275"/>
         <Button x:Name="nieuweKlasButton_Copy" Content="Terug" HorizontalAlignment="Left" Margin="10,131,0,0" VerticalAlignment="Top" Width="117" Height="50" Click="terugButton_Click"/>
-        <Label Content="Maak nieuwe klas:" HorizontalContentAlignment="Center" FontFamily="Comic Sans MS" FontSize="25" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="275" Height="44"/>
+        <Label Content="Maak nieuwe klas:" HorizontalContentAlignment="Center" FontSize="30" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="275" Height="44"/>
 
     </Grid>
 </Window>

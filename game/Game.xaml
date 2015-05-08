@@ -4,10 +4,23 @@
        Title=" Beloningsspel" Height="335.012" Width="530" Closed="Window_Closed"
         WindowStyle="None">
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="White" Offset="0"/>
+                <GradientStop Color="#FFE8CE71" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Canvas HorizontalAlignment="Left" Height="250" Margin="10,10,0,0"
                 VerticalAlignment="Top" Width="495"
-                Name="gameCanvas"
-                Background="Gold" ClipToBounds="True"/>
+                Name="gameCanvas" ClipToBounds="True">
+            <Canvas.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FFE8CE71" Offset="0.009"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </Canvas.Background>
+        </Canvas>
+
         <Button x:Name="roodButton" Content="Rood" HorizontalAlignment="Left" Margin="10,275,0,0" VerticalAlignment="Top" Width="125" Click="roodButton_Click" Height="36" Background="#FFFF8888"/>
         <Button x:Name="blauwButton" Content="Blauw" HorizontalAlignment="Left" Margin="380,275,0,0" VerticalAlignment="Top" Width="125" Click="blauwButton_Click" Height="36" Background="#FFABCFFF"/>
         <Button x:Name="scoreButton" Content="Score" HorizontalAlignment="Left" Margin="149,275,0,0" VerticalAlignment="Top" Width="75" Click="scoreButton_Click" Height="36"/>

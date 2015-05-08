@@ -27,7 +27,7 @@
         </ComboBox>
         <ComboBox Name="klasComboBox" HorizontalAlignment="Left" Margin="152,288,0,0" VerticalAlignment="Top" Height="23" Width="120" />
         <Button Name="terugButton" Content="Terug" HorizontalAlignment="Left" Height="23" Margin="21,334,0,0" VerticalAlignment="Top" Width="75" Click="terugButton_Click"/>
-        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" FontSize="35" FontStyle="Italic" FontFamily="Comic Sans MS" Text="Registreer !" TextAlignment="Center" VerticalAlignment="Top" Height="56" Width="287"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" FontSize="40" FontStyle="Italic"  Text="Registreer " TextAlignment="Center" VerticalAlignment="Top" Height="56" Width="287"/>
 
     </Grid>
 </Window>

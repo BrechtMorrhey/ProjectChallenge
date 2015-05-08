@@ -4,6 +4,12 @@
         Title="ScoreVraagWindow" Height="417.364" Width="559.637" Loaded="Window_Loaded"
         WindowStyle="None">
     <Grid Margin="0,0,-0.333,0.333">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFE8CE71" Offset="0"/>
+                <GradientStop Color="White" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <TextBlock x:Name="klasTextBlock" HorizontalAlignment="Left" Margin="490,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30"/>
         <ListBox x:Name="scoresListBox" Height="315" Margin="10,85,10,0" VerticalAlignment="Top"/>
         <Button x:Name="menuButton" Content="Terug&#xA;naar menu" HorizontalAlignment="Left" Margin="465,17,0,0" VerticalAlignment="Top" Width="75" Height="35" HorizontalContentAlignment="Center" Click="menuButton_Click"/>

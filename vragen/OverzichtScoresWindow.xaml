@@ -1,7 +1,7 @@
 ﻿<Window x:Class="ProjectChallenge.OverzichtScoresWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="OverzichtScoresWindow" Height="355.001" Width="287.334"
+        Title="OverzichtScoresWindow" Height="349.668" Width="287.334"
         WindowStyle="None">
     <Grid Margin="0,0,-7,0">
         <Grid.Background>
@@ -10,13 +10,14 @@
                 <GradientStop Color="#FFE8CE71" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Label x:Name="userIdLabel" Content="Geef userId in" HorizontalAlignment="Left" Margin="80,87,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="userIdTextBox" HorizontalAlignment="Left" Height="23" Margin="80,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="userIdButton" Content="Scores van leerling" HorizontalAlignment="Left" Margin="80,141,0,0" VerticalAlignment="Top" Height="25" Width="120" Click="userIdButton_Click" />
+        <Label x:Name="userIdLabel" Content="Geef userId in" HorizontalAlignment="Left" Margin="80,74,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="userIdTextBox" HorizontalAlignment="Left" Height="23" Margin="80,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="userIdButton" Content="Scores van leerling" HorizontalAlignment="Left" Margin="80,133,0,0" VerticalAlignment="Top" Height="25" Width="120" Click="userIdButton_Click" />
         <Button x:Name="alleButton" Content="Alle Scores" HorizontalAlignment="Left" Margin="24,290,0,0" VerticalAlignment="Top" Width="109" Click="alleButton_Click" Height="30"/>
-        <Label Content="Geef Klas in" HorizontalAlignment="Left" Margin="80,179,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="scoreKlasButton" Content="Scores van Klas" HorizontalAlignment="Left" Margin="80,233,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.439,-0.016" Click="scoreKlasButton_Click" Height="25"/>
-        <TextBox x:Name="scoreKlasTextBox" HorizontalAlignment="Left" Height="23" Margin="80,205,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Geef Klas in" HorizontalAlignment="Left" Margin="80,173,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="scoreKlasButton" Content="Scores van Klas" HorizontalAlignment="Left" Margin="80,232,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.439,-0.016" Click="scoreKlasButton_Click" Height="25"/>
+        <TextBox x:Name="scoreKlasTextBox" HorizontalAlignment="Left" Height="23" Margin="80,204,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Button x:Name="terugButton" Content="Terug" HorizontalAlignment="Left" Margin="147,290,0,0" VerticalAlignment="Top" Width="109" Click="terugButton_Click" Height="30"/>
+        <TextBlock HorizontalAlignment="Left" Margin="10,10,0,0" TextAlignment="Center" FontSize="35" Text="Score's zoeken" VerticalAlignment="Top" Height="59" Width="268"/>
     </Grid>
 </Window>

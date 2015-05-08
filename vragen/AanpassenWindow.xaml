@@ -4,6 +4,12 @@
         Title="AanpassenWindow" Height="404.35" Width="668" Loaded="Window_Loaded" Closed="Window_Closed"
         WindowStyle="None">
     <Grid>
+        <Grid.Background>
+            <RadialGradientBrush>
+                <GradientStop Color="#FFF7F6F4" Offset="0.203"/>
+                <GradientStop Color="#FFE8CE71" Offset="1"/>
+            </RadialGradientBrush>
+        </Grid.Background>
 
         <ComboBox x:Name="typeVraagComboBox" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="typeVraagComboBox_SelectionChanged" >
             <ListBoxItem Content="Basis Vraag"/>

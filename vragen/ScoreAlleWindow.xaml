@@ -4,6 +4,12 @@
         Title="ScoreAlleWindow" Height="401" Width="558" Loaded="Window_Loaded"
         WindowStyle="None">
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                <GradientStop Color="#FFE8CE71" Offset="0"/>
+                <GradientStop Color="White" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <TextBlock x:Name="voornaamTextBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30" Width="72"/>
         <TextBlock x:Name="achterNaamTextBlock" HorizontalAlignment="Left" Margin="117,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30" Width="84"/>
         <TextBlock x:Name="klasTextBlock" HorizontalAlignment="Left" Margin="490,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30"/>
