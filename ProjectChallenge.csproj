@@ -53,6 +53,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BestandTeGrootException.cs" />
+    <Compile Include="ScoreLezer.cs" />
+    <Compile Include="vragen\BestandsLezer.cs" />
     <Compile Include="game\GameScore.xaml.cs">
       <DependentUpon>GameScore.xaml</DependentUpon>
     </Compile>

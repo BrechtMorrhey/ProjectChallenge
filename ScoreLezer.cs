@@ -1,0 +1,88 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+
+namespace ProjectChallenge
+{
+    class ScoreLezer : BestandsLezer
+    {
+        public string VoorNaam {
+            get
+            {
+                Reset();
+                string line = VolgendeRegel;                
+                return line.Split(',')[0];
+            }
+        }
+        public string Naam
+        {
+            get
+            {
+                Reset();
+                string line = VolgendeRegel;                
+                return line.Split(',')[1];
+            }
+        }
+        public string Klas
+        {
+            get
+            {
+                string fileName = System.IO.Path.GetFileName(BestandsNaam);
+                return fileName.Split(',')[0];
+            }
+        }
+        public string UserId
+        {
+            get
+            {
+                string fileName = System.IO.Path.GetFileName(BestandsNaam);
+                return fileName.Split(',')[1];
+            }
+        }
+        public string Vraag
+        {
+            get
+            {
+                string fileName = System.IO.Path.GetFileName(BestandsNaam);
+                return fileName.Split(',')[3];
+            }
+        }
+        public double Score
+        {
+            get
+            {
+                Reset();
+                string line = VolgendeRegel;
+                line = VolgendeRegel;
+                return Convert.ToDouble((line.Split(':')[2]).Split('%')[0]); //verwijder procent teken en converteer naar double
+            }
+        }
+        public List<string> Resultaten
+        {
+            get
+            {
+                List<string> resultaten = new List<string>();
+                Reset();
+                string line = VolgendeRegel;
+                line = VolgendeRegel;
+                int j=0;
+                line = VolgendeRegel;
+                while(line != null && j<10000){
+                    resultaten.Add(line);
+                    j++;
+                    line = VolgendeRegel;
+                }
+                if (j >= 10000)
+                {
+                    throw new BestandTeGrootException("Bestand " + System.IO.Path.GetFileName(BestandsNaam) + " is te groot");
+                }
+                return resultaten;
+            }
+        }
+
+    }
+}
