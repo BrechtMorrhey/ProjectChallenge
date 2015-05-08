@@ -112,6 +112,11 @@ namespace ProjectChallenge
                     MessageBox.Show("KeyNotFoundException, de bestanden zijn mogelijk aangepast tijdens het inladen, programma keert terug naar hoofdmenu");
                     this.NaarMenu();
                 }
+                catch (IndexOutOfRangeException)
+                {
+                    MessageBox.Show("Index Out of Range Exception in " + file + ". Bestand is mogelijk corrupt");
+                    this.NaarMenu();
+                }
                 finally
                 {
                     if (inputStream != null)
