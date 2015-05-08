@@ -27,7 +27,7 @@ namespace ProjectChallenge
         private string programmaDirPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Challenger");
         private string vragenlijstenDirPath;
         private Leerling gebruiker;
-        public OplossenWindow(string bestandsNaam,Leerling gebruiker, MainVragenWindow menuWindow)
+        public OplossenWindow(string bestandsNaam, Leerling gebruiker, MainVragenWindow menuWindow)
         {
             InitializeComponent();
             this.bestandsNaam = bestandsNaam;
@@ -46,19 +46,19 @@ namespace ProjectChallenge
             }
         }
 
-        
+
 
         private void volgendeButton_Click(object sender, RoutedEventArgs e)
         {
             SlaVraagOp();
-            if (counter+1 < vragenLijst.Count)
+            if (counter + 1 < vragenLijst.Count)
             {
                 counter++;
                 LaadVraag();
             }
             else
             {
-                MessageBox.Show("Laatste vraag, druk op Klaar om af te sluiten uw score te bekijken");                
+                MessageBox.Show("Laatste vraag, druk op Klaar om af te sluiten uw score te bekijken");
             }
         }
 
@@ -79,17 +79,18 @@ namespace ProjectChallenge
         {
             opgaveTextBlock.Text = vragenLijst[counter].Opgave;
             invulListBox.Items.Clear();
-            switch (vragenLijst[counter].TypeVraag) { 
-                case(VraagType.basis):
+            switch (vragenLijst[counter].TypeVraag)
+            {
+                case (VraagType.basis):
                     invulTextBox.Visibility = Visibility.Visible;
                     invulListBox.Visibility = Visibility.Hidden;
                     invulTextBox.Text = vragenLijst[counter].Ingevuld;
                     break;
-                case(VraagType.meerkeuze):
+                case (VraagType.meerkeuze):
                     invulTextBox.Visibility = Visibility.Hidden;
                     invulListBox.Visibility = Visibility.Visible;
 
-                    List<string> antwoordenLijst=new List<string>();
+                    List<string> antwoordenLijst = new List<string>();
                     foreach (string antwoord in ((MeerkeuzeVraag)vragenLijst[counter]).AntwoordenLijst) // copy by value
                     {
                         antwoordenLijst.Add(antwoord);
@@ -97,11 +98,11 @@ namespace ProjectChallenge
                     Random randomIndex = new Random();
                     int r;
                     RadioButton radioKnop;
-                    while(antwoordenLijst.Count>0)// zet de antwoorden in willekeurige volgorde in de ListBox
+                    while (antwoordenLijst.Count > 0)// zet de antwoorden in willekeurige volgorde in de ListBox
                     {
                         r = randomIndex.Next(0, antwoordenLijst.Count);
                         radioKnop = new RadioButton();
-                        radioKnop.Content = antwoordenLijst[r];                        
+                        radioKnop.Content = antwoordenLijst[r];
                         invulListBox.Items.Add(radioKnop);
                         antwoordenLijst.RemoveAt(r);
                     }
@@ -118,13 +119,13 @@ namespace ProjectChallenge
                         }
                     }
                     break;
-                case(VraagType.wiskunde):
+                case (VraagType.wiskunde):
                     invulTextBox.Visibility = Visibility.Hidden;
                     invulListBox.Visibility = Visibility.Visible;
-                    break;               
+                    break;
             }
         }
-        
+
         public void SlaVraagOp()
         {
             switch (vragenLijst[counter].TypeVraag)
@@ -133,7 +134,7 @@ namespace ProjectChallenge
                 case (VraagType.wiskunde):
                     vragenLijst[counter].Ingevuld = invulTextBox.Text;
                     break;
-                case (VraagType.meerkeuze):                    
+                case (VraagType.meerkeuze):
                     foreach (RadioButton radioKnop in invulListBox.Items)
                     {
                         if ((bool)radioKnop.IsChecked)
@@ -141,7 +142,7 @@ namespace ProjectChallenge
                             vragenLijst[counter].Ingevuld = (string)radioKnop.Content;
                         }
                     }
-                    break;          
+                    break;
             }
         }
 
@@ -213,7 +214,7 @@ namespace ProjectChallenge
                     j++;
                 }
 
-                
+
             }
             catch (FileNotFoundException)
             {
@@ -238,17 +239,22 @@ namespace ProjectChallenge
                 }
             }
 
-            LaadVraag();
-            //StreamReader inputStream = File.OpenText(bestandsNaam);
-            //line = inputStream.ReadLine();
-            //while (line != null)
-            //{
-            //    basisVraag=new BasisVraag(line.Split(',')[0],line.Split(',')[1]);
-            //    vragenLijst.Add(basisVraag);
-            //    line = inputStream.ReadLine();
 
-            //}
-            //opgaveTextBlock.Text = vragenLijst[counter].Opgave; //zet eerste vraag klaar
+
+            // zet de vragen in willekeurige volgorde
+            List<Vraag> hulpLijst = new List<Vraag>();
+            Random randomIndex = new Random();
+            int r;
+            while (vragenLijst.Count > 0)
+            {
+                r = randomIndex.Next(0, vragenLijst.Count);
+                hulpLijst.Add(vragenLijst[r]);
+                vragenLijst.RemoveAt(r);
+            }
+            vragenLijst = hulpLijst;
+
+            LaadVraag();
+
         }
     }
 }
