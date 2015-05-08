@@ -68,17 +68,16 @@ namespace ProjectChallenge
 
             double score;
             string vraag = "";
-            StreamReader inputStream = null;
+            ScoreLezer lezer = new ScoreLezer();
             foreach (string file in files)
             {
                 try
                 {
-                    inputStream = File.OpenText(file);
-                    filename = System.IO.Path.GetFileName(file);
-                    klas = filename.Split('_')[0];
-                    vraag = filename.Split('_')[3];
-                    inputStream.ReadLine(); //sla de eerste lijn over
-                    score = Convert.ToDouble(((inputStream.ReadLine().Split(':')[2]).Split('%')[0])); //verwijder procent teken en converteer naar double
+                    lezer.BestandsNaam = file;
+                    lezer.Initialise();
+                    klas = lezer.Klas;
+                    vraag = lezer.Vraag;
+                    score = lezer.Score;
 
                     //bereken nieuwe gemiddelde score
                     if (klasScores[klas] != 0)
@@ -112,12 +111,14 @@ namespace ProjectChallenge
                     MessageBox.Show("KeyNotFoundException, de bestanden zijn mogelijk aangepast tijdens het inladen, programma keert terug naar hoofdmenu");
                     this.NaarMenu();
                 }
+                catch (BestandTeGrootException exception)
+                {
+                    MessageBox.Show(exception.Message);
+                    this.NaarMenu();
+                }
                 finally
                 {
-                    if (inputStream != null)
-                    {
-                        inputStream.Close();
-                    }
+                    lezer.Close();
                 }
             }
             Button b;

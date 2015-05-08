@@ -10,6 +10,9 @@ namespace ProjectChallenge
 {
     class ScoreLezer : BestandsLezer
     {
+        public ScoreLezer() { }
+        public ScoreLezer(string bestandsNaam):base(bestandsNaam) { }
+
         public string VoorNaam {
             get
             {
@@ -32,7 +35,7 @@ namespace ProjectChallenge
             get
             {
                 string fileName = System.IO.Path.GetFileName(BestandsNaam);
-                return fileName.Split(',')[0];
+                return fileName.Split('_')[0];
             }
         }
         public string UserId
@@ -40,7 +43,7 @@ namespace ProjectChallenge
             get
             {
                 string fileName = System.IO.Path.GetFileName(BestandsNaam);
-                return fileName.Split(',')[1];
+                return fileName.Split('_')[1];
             }
         }
         public string Vraag
@@ -48,7 +51,7 @@ namespace ProjectChallenge
             get
             {
                 string fileName = System.IO.Path.GetFileName(BestandsNaam);
-                return fileName.Split(',')[3];
+                return fileName.Split('_')[3];
             }
         }
         public double Score
@@ -78,7 +81,7 @@ namespace ProjectChallenge
                 }
                 if (j >= 10000)
                 {
-                    throw new BestandTeGrootException("Bestand " + System.IO.Path.GetFileName(BestandsNaam) + " is te groot");
+                    throw new BestandTeGrootException("Bestand " + System.IO.Path.GetFileName(BestandsNaam) + " is te groot.");
                 }
                 return resultaten;
             }

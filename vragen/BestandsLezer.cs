@@ -14,6 +14,7 @@ namespace ProjectChallenge
         private FileStream s;
         private StreamReader inputStream;
 
+        public BestandsLezer() { }
         public BestandsLezer(string bestandsNaam)
         {
             this.bestandsNaam = bestandsNaam;
