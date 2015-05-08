@@ -31,20 +31,26 @@ namespace ProjectChallenge
             if (userIdTextBox.Text != "" && userIdTextBox.Text != null)
             {
                 Leerling gebruiker = null;
+                bool gebruikerGevonden = false;
                 foreach (Leerling leerling in menuWindow.Gebruikers.Leerlingen)
                 {
-                    if(userIdTextBox.Text == leerling.ID)
+                    if (userIdTextBox.Text == leerling.ID)
                     {
                         gebruiker = leerling;
+                        gebruikerGevonden = true;
+                        Window w = new ScoreLeerlingWindow(gebruiker, menuWindow);
+                        w.Show();
+                        this.Hide();
                     }
                 }
-                Window w = new ScoreLeerlingWindow(gebruiker, menuWindow);
-                w.Show();
-                this.Hide();
-            }
+                if (!gebruikerGevonden)
+                {
+                    MessageBox.Show("UserId niet gevonden, probeer opnieuw", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }   
             else
             {
-                MessageBox.Show("Gelieve eerst een userId in te geven", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Gelieve eerst een bestaand userId in te geven", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -59,13 +65,25 @@ namespace ProjectChallenge
         {
             if (scoreKlasTextBox.Text != "" && scoreKlasTextBox.Text != null)
             {
-                Window w = new ScoreKlasWindow(scoreKlasTextBox.Text, menuWindow);
-                w.Show();
-                this.Hide();
+                bool klasGevonden = false;
+                foreach (string klas in menuWindow.Gebruikers.Klassen)
+                {
+                    if (klas == scoreKlasTextBox.Text)
+                    {
+                        klasGevonden = true;
+                        Window w = new ScoreKlasWindow(scoreKlasTextBox.Text, menuWindow);
+                        w.Show();
+                        this.Hide();
+                    }
+                    if (!klasGevonden)
+                    {
+                        MessageBox.Show("KlasId niet gevonden, probeer opnieuw", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
             }
             else
             {
-                MessageBox.Show("Gelieve eerst een klasId in te geven", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Gelieve eerst een bestaand klasId in te geven", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

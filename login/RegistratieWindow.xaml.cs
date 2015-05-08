@@ -37,12 +37,15 @@ namespace ProjectChallenge
             this.mainWindow = mainWindow;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void klasButton_Click(object sender, RoutedEventArgs e)
         {
             naam = naamTextBox.Text;
             voornaam = voornaamTextBox.Text;
             passwoord = passwoordPasswordBox.Password;
-            geboorteDatum = datumDatePicker.Text;
+            if (datumDatePicker.Text.Split('/')[0].Length != 2)
+            {
+                geboorteDatum = "0" + datumDatePicker.Text;
+            }
             klas = klasComboBox.SelectedItem.ToString();
             if ((naam!="")&&(voornaam!="")&&(passwoord!="")&&(geboorteDatum!="")&&
                 ((soortRegistratieComboBox.SelectedItem==leerlingItem)||(soortRegistratieComboBox.SelectedItem==leerkrachtItem)))

@@ -13,14 +13,13 @@ namespace ProjectChallenge
         protected string paswoord;
         protected string naam;
         protected string voornaam;
-        protected /*DateTime*/ string geboorteDatum;
+        protected string geboorteDatum;
 
         //  constructor
-        public Persoon(string naam, string voornaam, /*DateTime*/ string geboorteDatum, string paswoord)
+        public Persoon(string naam, string voornaam,  string paswoord)
         {
             this.naam = naam;
             this.voornaam = voornaam;
-            this.geboorteDatum = geboorteDatum;
             this.paswoord = paswoord;
         }
 
@@ -45,6 +44,17 @@ namespace ProjectChallenge
             }
         }
 
+        public string GeboorteDatum
+        {
+            get
+            {
+                return geboorteDatum;
+            }
+            set
+            {
+                geboorteDatum = value;
+            }
+        }
         public string ID
         {
             get
