@@ -42,6 +42,11 @@ namespace ProjectChallenge
             if (s != null)
             {
             s.Position = 0;
+            inputStream = new StreamReader(s);
+            }
+            else
+            {
+                throw new LezerNotInitialisedException();
             }
         }
         public string BestandsNaam { 

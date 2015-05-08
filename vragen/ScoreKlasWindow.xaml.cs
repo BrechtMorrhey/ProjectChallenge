@@ -92,22 +92,22 @@ namespace ProjectChallenge
 
             double score;
             string vraag = "";
-            string voorNaam, naam, line;
-            StreamReader inputStream = null;
+            string voorNaam, naam;
+            ScoreLezer lezer = new ScoreLezer();
             foreach (string file in files)
             {
                 try
                 {
-                    inputStream = File.OpenText(file);
-                    filename = System.IO.Path.GetFileName(file);
-                    if (klas == filename.Split('_')[0])
+                    lezer.BestandsNaam = file;
+                    lezer.Initialise();
+
+                    if (klas == lezer.Klas)
                     {
-                        userId = filename.Split('_')[1];
-                        vraag = filename.Split('_')[3];
-                        line = inputStream.ReadLine();
-                        voorNaam = line.Split(',')[0];
-                        naam = line.Split(',')[1];
-                        score = Convert.ToDouble(((inputStream.ReadLine().Split(':')[2]).Split('%')[0])); //verwijder procent teken en converteer naar double
+                        userId = lezer.UserId;
+                        vraag = lezer.Vraag;
+                        voorNaam = lezer.VoorNaam;
+                        naam = lezer.Naam;
+                        score = lezer.Score;
 
                         //bereken nieuwe gemiddelde score
                         if (leerlingScores[userId] != 0)
@@ -147,12 +147,14 @@ namespace ProjectChallenge
                     MessageBox.Show("Index Out of Range Exception in " + file + ". Bestand is mogelijk corrupt");
                     this.NaarMenu();
                 }
+                catch (BestandTeGrootException exception)
+                {
+                    MessageBox.Show(exception.Message);
+                    this.NaarMenu();
+                }
                 finally
                 {
-                    if (inputStream != null)
-                    {
-                        inputStream.Close();
-                    }
+                    lezer.Close();
                 }
             }
             Button b;

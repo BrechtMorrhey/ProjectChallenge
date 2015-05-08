@@ -70,23 +70,22 @@ namespace ProjectChallenge
 
 
 
-            string score;
+            double score;
             string vraag;
             Button b;
-            StreamReader inputStream = null;
+            ScoreLezer lezer = new ScoreLezer();
             bestandsNaamDictionary = new Dictionary<Button, string>();
             foreach (string file in userFiles)
             {
                 try
                 {
-                    inputStream = File.OpenText(file);
-                    filename = System.IO.Path.GetFileName(file);
-                    vraag = filename.Split('_')[3];
-                    inputStream.ReadLine(); //sla de eerste lijn over
-                    score = inputStream.ReadLine().Split(':')[2];
+                    lezer.BestandsNaam = file;
+                    lezer.Initialise();
+                    vraag = lezer.Vraag;
+                    score = lezer.Score;
                     b = new Button();
                     b.Click += scoresListBoxItem_Click;
-                    b.Content = (vraag + ":\t" + score);
+                    b.Content = (vraag + ":\t" + score+"%");
                     scoresListBox.Items.Add(b);
                     bestandsNaamDictionary.Add(b, file);
                 }
@@ -105,12 +104,14 @@ namespace ProjectChallenge
                     MessageBox.Show("Index Out of Range Exception in " + file + ". Bestand is mogelijk corrupt");
                     this.NaarMenu();
                 }
+                catch (BestandTeGrootException exception)
+                {
+                    MessageBox.Show(exception.Message);
+                    this.NaarMenu();
+                }
                 finally
                 {
-                    if (inputStream != null)
-                    {
-                        inputStream.Close();
-                    }
+                    lezer.Close();
                 }
             }
 
