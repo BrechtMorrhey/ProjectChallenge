@@ -34,25 +34,24 @@ namespace ProjectChallenge
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            StreamReader inputStream = null;
-            int j = 0;
+            ScoreLezer lezer = new ScoreLezer();
             try
             {
-                inputStream = File.OpenText(bestandNaam);
-                string filename = System.IO.Path.GetFileName(bestandNaam);
-                string klas = filename.Split('_')[0];
-                string line = inputStream.ReadLine();
-                string voorNaam = line.Split(',')[0];
-                string naam = line.Split(',')[1];
+                lezer.BestandsNaam = bestandNaam;
+                lezer.Initialise();
+                string klas = lezer.Klas;
+                string voorNaam = lezer.VoorNaam;
+                string naam = lezer.Naam;
+                string vraag = lezer.Vraag;
 
-                klasEnLeerlingLabel.Content = voorNaam + " " + naam + "\n" + klas + "\n" + filename.Split('_')[3];
-
-                while (line != null && j < 10000)
+                klasEnLeerlingLabel.Content = voorNaam + " " + naam + "\n" + klas + "\n" + lezer.Vraag;
+                List<string> resultaten = lezer.Resultaten;
+                foreach (string resultaat in resultaten)
                 {
-                    scoresListBox.Items.Add(line);
-                    line = inputStream.ReadLine();
-                    j++;
+                    scoresListBox.Items.Add(resultaat);
                 }
+
+
             }
             catch (FileNotFoundException)
             {
@@ -64,17 +63,19 @@ namespace ProjectChallenge
                 MessageBox.Show("Argument Exception bij inlezen bestand " + bestandNaam, "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
                 this.NaarMenu();
             }
+            catch (IndexOutOfRangeException)
+            {
+                MessageBox.Show("Index Out of Range Exception in " + bestandNaam + ". Bestand is mogelijk corrupt");
+                this.NaarMenu();
+            }
+            catch (BestandTeGrootException exception)
+            {
+                MessageBox.Show(exception.Message);
+                this.NaarMenu();
+            }
             finally
             {
-                if (inputStream != null)
-                {
-                    inputStream.Close();
-                }
-                if (j >= 10000)
-                {
-                    MessageBox.Show("Bestand te groot, terug naar menu");
-                    this.NaarMenu();
-                }
+                lezer.Close();
             }
         }
 
