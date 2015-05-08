@@ -77,6 +77,7 @@ namespace ProjectChallenge
                     b.Content=(vraag + ":\t" + score);
                     scoresListBox.Items.Add(b);
                     bestandsNaamDictionary.Add(b, file);
+
                 }
                 catch (FileNotFoundException)
                 {
@@ -95,6 +96,12 @@ namespace ProjectChallenge
                         inputStream.Close();
                     }
                 }
+            }
+            if (bestandsNaamDictionary.Count == 0)
+            {
+                b = new Button();
+                b.Content = "geen resultaten";
+                scoresListBox.Items.Add(b);
             }
           
         }

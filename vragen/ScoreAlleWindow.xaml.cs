@@ -130,6 +130,12 @@ namespace ProjectChallenge
             }
             //http://stackoverflow.com/questions/141088/what-is-the-best-way-to-iterate-over-a-dictionary-in-c
 
+            if (klasScores.Count == 0)
+            {
+                b = new Button();
+                b.Content = "geen klassen met resultaten";
+                scoresListBox.Items.Add(b);
+            }
         }
 
         private void menuButton_Click(object sender, RoutedEventArgs e)
