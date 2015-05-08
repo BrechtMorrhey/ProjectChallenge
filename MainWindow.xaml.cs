@@ -24,6 +24,9 @@ namespace ProjectChallenge
         AlleGebruikers alleGebruikers;
         public MainWindow()
         {
+            //http://stackoverflow.com/questions/1472498/wpf-global-exception-handler
+            AppDomain currentDomain = AppDomain.CurrentDomain;
+            currentDomain.UnhandledException += new UnhandledExceptionEventHandler(UEHandler);
             InitializeComponent();
             this.
             // akki test
@@ -47,6 +50,12 @@ namespace ProjectChallenge
 
         private void exitButton_Click(object sender, RoutedEventArgs e)
         {
+            System.Environment.Exit(0);
+        }
+
+        static void UEHandler(object sender, UnhandledExceptionEventArgs args)
+        {
+            MessageBox.Show("An unhandled exception has occured: " + (sender.ToString())+"/n Program will shutdown");
             System.Environment.Exit(0);
         }
     }
