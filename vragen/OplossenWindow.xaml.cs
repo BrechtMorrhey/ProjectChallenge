@@ -149,7 +149,6 @@ namespace ProjectChallenge
         {
             menuWindow.Show();
         }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             int i;
@@ -213,6 +212,8 @@ namespace ProjectChallenge
                     line = inputStream.ReadLine();
                     j++;
                 }
+
+                
             }
             catch (FileNotFoundException)
             {
