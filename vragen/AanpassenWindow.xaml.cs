@@ -67,7 +67,10 @@ namespace ProjectChallenge
 
         private void opslaanButton_Click(object sender, RoutedEventArgs e)
         {
-            VoegVraagToe();
+            // voeg enkel een vraag toe als er ook data in de vakjes zit
+            if (opgaveTextBox.Text != "")
+                VoegVraagToe();
+
             StreamWriter outputStream = File.CreateText(bestandsNaam);
             foreach (Vraag vraag in vragenLijst)
             {
@@ -79,7 +82,10 @@ namespace ProjectChallenge
 
         private void opslaanAlsButton_Click(object sender, RoutedEventArgs e)
         {
-            VoegVraagToe();
+            // voeg enkel een vraag toe als er ook data in de vakjes zit
+            if (opgaveTextBox.Text != "")
+                VoegVraagToe();
+
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.ShowDialog();
             bestandsNaam = dialog.FileName;
@@ -119,12 +125,11 @@ namespace ProjectChallenge
                     case 2:
                         if (wiskundeVraagTemp == null) // wiskunde vraag werd handmatig ingegeven
                         {
-                            vraag = new wiskundigeVraag(int.Parse(getal1TextBox.Text), int.Parse(getal2TextBox.Text), bewerkingTextBox.Text);
+                            GenerateMathQuestion();
                         }
-                        else // wiskundevraag werd reeds gegenereerd
-                        {
-                            vraag = wiskundeVraagTemp;   
-                        }
+                        vraag = wiskundeVraagTemp;
+                        wiskundeVraagTemp = null;
+                        
                         break;
                 }
                 if (vraag != null)
@@ -202,7 +207,9 @@ namespace ProjectChallenge
                             ((TextBox)meerkeuzeListBox.Items[0]).Foreground = juistBrush;
                             typeVraagComboBox.SelectedIndex = 1;
                             break;
-                        case VraagType.wiskunde: // code voor wiskundevraag
+                        case VraagType.wiskunde: 
+                            antwoordTextBox.Text = vragenLijst[counter].Antwoord;
+                            typeVraagComboBox.SelectedIndex = 2;
                             break;
                     }
             }
@@ -348,6 +355,7 @@ namespace ProjectChallenge
                                 double getal2 = Convert.ToDouble(line.Split(',')[2]);
                                 string bewerking = line.Split(',')[3];
                                 vraag = new wiskundigeVraag(getal1, getal2, bewerking);
+                                wiskundeVraagTemp = (wiskundigeVraag)vraag; // <---------------------------------
                                 break;
                             default: 
                                 throw new OnbekendVraagTypeException("Onbekend Type Vraag voor vraag " + line.Split(',')[1]);
@@ -408,10 +416,25 @@ namespace ProjectChallenge
 
         private void GenereerOpgaveButton_Click(object sender, RoutedEventArgs e)
         {
+            GenerateMathQuestion();
+        }
+
+        private void GenerateMathQuestion()
+        {
             int n;
             if (int.TryParse(getal1TextBox.Text, out n) && int.TryParse(getal2TextBox.Text, out n))
             {
                 wiskundeVraagTemp = new wiskundigeVraag(int.Parse(getal1TextBox.Text), int.Parse(getal2TextBox.Text), bewerkingTextBox.Text);
+                opgaveTextBox.Text = wiskundeVraagTemp.Opgave;
+                antwoordTextBox.Text = wiskundeVraagTemp.Antwoord;
+            }
+            else if (opgaveTextBox.Text != "") // niet nodig om het anwoord te checken, want dit wordt toch automatisch gegenereerd
+            {
+
+                double getal1 = Convert.ToDouble(opgaveTextBox.Text.Split(' ')[0]);
+                double getal2 = Convert.ToDouble(opgaveTextBox.Text.Split(' ')[2]);
+                string bewerking = opgaveTextBox.Text.Split(' ')[1];
+                wiskundeVraagTemp = new wiskundigeVraag(getal1, getal2, bewerking);
                 opgaveTextBox.Text = wiskundeVraagTemp.Opgave;
                 antwoordTextBox.Text = wiskundeVraagTemp.Antwoord;
             }
@@ -421,7 +444,6 @@ namespace ProjectChallenge
                 opgaveTextBox.Text = wiskundeVraagTemp.Opgave;
                 antwoordTextBox.Text = wiskundeVraagTemp.Antwoord;
             }
-           
         }
 
         private void bewerkingTextBox_GotFocus(object sender, RoutedEventArgs e)
