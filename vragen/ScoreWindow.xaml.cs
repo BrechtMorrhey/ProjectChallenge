@@ -25,14 +25,34 @@ namespace ProjectChallenge
         private int verdiendeMinuten;
         private List<Vraag> vragenLijst;
         private Leerling gebruiker;
+        private string moeilijkHeidsGraad;
+        private int tijdPerVraag = 0;
         
-        public ScoreWindow(MainVragenWindow menuWindow, Leerling gebruiker, List<Vraag> vragenLijst, string bestandsNaam)
+        public ScoreWindow(MainVragenWindow menuWindow, Leerling gebruiker, List<Vraag> vragenLijst, string bestandsNaam, int tijd)
         {
             InitializeComponent();
             this.bestandsNaam = bestandsNaam;
             this.vragenLijst = vragenLijst;
             this.gebruiker = gebruiker;
             this.menuWindow = menuWindow;
+            this.tijdPerVraag = tijd;
+            
+            if (tijdPerVraag == 10)
+            {
+                moeilijkHeidsGraad = "Moeilijk";
+            }
+            else if (tijdPerVraag == 20)
+            {
+                moeilijkHeidsGraad = "Gemiddeld";
+            }
+            else if (tijdPerVraag == 30)
+            {
+                moeilijkHeidsGraad = "Makkelijk";
+            }
+            else
+            {
+                moeilijkHeidsGraad = "Oefenen";
+            }
 
         }
             
@@ -75,13 +95,13 @@ namespace ProjectChallenge
             {
                 Directory.CreateDirectory(path);
             }
-            StreamWriter outputStream = File.CreateText(path + klas + "_" + userId + "_Score_" + System.IO.Path.GetFileName(bestandsNaam)); //oppassen voor Directory Not Found Exception
+            StreamWriter outputStream = File.CreateText(path + klas + "_" + userId + "_Score_" + System.IO.Path.GetFileName(bestandsNaam).Split('.')[0] + moeilijkHeidsGraad); //oppassen voor Directory Not Found Exception
             //StreamWriter outputStream = File.CreateText("NaamVoornaam.txt");
             outputStream.WriteLine(voorNaam + ", " + achterNaam);
             // zet de score vanboven om makkelijker te kunnen inlezen
             outputStream.WriteLine("Score: " + score + "/" + vragenLijst.Count + "\t Percentage: " + ((double)score / vragenLijst.Count) * 100 + "%");
             // zet de score om in game tijd
-            verdiendeMinuten = (int)Math.Round(((double)score / vragenLijst.Count) * 10);
+            verdiendeMinuten = (int)Math.Round(((double)score / vragenLijst.Count) * 10 / (tijdPerVraag/10));
             // sla de specifieke antwoorden op
             foreach (Vraag vraag in vragenLijst)
             {

@@ -92,7 +92,7 @@ namespace ProjectChallenge
         }
         private void Klaar()
         {
-            Window w = new ScoreWindow(menuWindow, gebruiker, vragenLijst, bestandsNaam);
+            Window w = new ScoreWindow(menuWindow, gebruiker, vragenLijst, bestandsNaam, juisteTijd);
             w.Show();
             this.Close();
         }
