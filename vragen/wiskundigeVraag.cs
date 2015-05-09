@@ -8,27 +8,32 @@ namespace ProjectChallenge
 {
     class wiskundigeVraag : Vraag
     {
-        
+        public override VraagType TypeVraag { get { return VraagType.wiskunde; } }
         private string opgave, antwoord, ingevuld, bewerking;
         //private bool isIngevuld, isJuist;
-        private int getal1, getal2;
+        private double getal1, getal2;
         
         // constructors
         public wiskundigeVraag()
         {
             GenereerOpgave();
-            BerekenAntwoord(getal1, getal2, bewerking);
- 
-        }
-
-        public wiskundigeVraag(int min, int max)
-        {
-            GenereerOpgave(min, max);
+            BerekenAntwoord();
         }
 
         public wiskundigeVraag(int min, int max, string bewerking)
         {
-            GenereerOpgave(min, max, bewerking);
+            this.bewerking = bewerking;
+            GenereerOpgave(min, max);
+            BerekenAntwoord();
+        }
+
+        public wiskundigeVraag(double getal1, double getal2, string bewerking)
+        {
+            this.getal1 = getal1;
+            this.getal2 = getal2;
+            this.bewerking = bewerking;
+            this.opgave = "" + getal1 + " " + bewerking + " " + getal2;
+            BerekenAntwoord();
         }
 
 
@@ -38,10 +43,19 @@ namespace ProjectChallenge
         public void GenereerOpgave()
         {
             Random random = new Random();
-            getal1 = random.Next(0, 20);
-            getal2 = random.Next(0, 20);
-            int index = random.Next(0, 3);
+            int index = random.Next(0, 4);
             BewaarBewerking(index);
+            getal1 = random.Next(0, 20);
+            // nooit delen door 0
+            if (bewerking == "/")
+            {
+                getal2 = random.Next(1, 20);
+            }
+            else
+            {
+                getal2 = random.Next(0, 20);
+            }
+            
 
             string[] opgave = new string[4];
             opgave[0] = "" + getal1 + " + " + getal2;
@@ -70,7 +84,7 @@ namespace ProjectChallenge
         }
 
         // bereken antwoord
-        public void BerekenAntwoord(int getal1, int getal2, string bewerking)
+        public void BerekenAntwoord()
         {
             if (bewerking == "+")
             {
@@ -86,30 +100,13 @@ namespace ProjectChallenge
             }
             else if (bewerking == "/")
             {
-                antwoord = Convert.ToString(getal1 / getal2);
+                antwoord = Convert.ToString(((int)((getal1 / getal2) * 1000 + 0.5) / 1000.0));
             }
 
         }
 
+
         public void GenereerOpgave(int min, int max)
-        {
-            Random random = new Random();
-            getal1 = random.Next(min, max);
-            getal2 = random.Next(min, max);
-            int index = random.Next(0, 3);
-            BewaarBewerking(index);
-
-            string[] opgave = new string[4];
-            opgave[0] = "" + getal1 + " + " + getal2;
-            opgave[1] = "" + getal1 + " - " + getal2;
-            opgave[2] = "" + getal1 + " * " + getal2;
-            opgave[3] = "" + getal1 + " / " + getal2;
-
-            this.opgave = opgave[index];
-
-        }
-
-        public void GenereerOpgave(int min, int max, string bewerking)
         {
             Random random = new Random();
             getal1 = random.Next(min, max);
@@ -129,29 +126,39 @@ namespace ProjectChallenge
         }
 
         // index berekenen indien de bewerking door de leerkracht word opgegeven
-        public int BerekenIndex(string bewerking) 
+        public int BerekenIndex(string bewerking)
         {
             int index = -1;
-            switch(bewerking)
+            switch (bewerking)
             {
-                case "+": index = 0;
+                case "+": 
+                    index = 0;
                     break;
-                case "-": index = 1;
+                case "-":
+                    index = 1;
                     break;
-                case "*": index = 2;
+                case "*": 
+                    index = 2;
                     break;
-                case "/": index = 3;
+                case "/": 
+                    index = 3;
                     break;
-            }               
+                default:
+                    Random random = new Random(); // bij foute ingave van de bewerking word er een random bewerking gekozen
+                    index = random.Next(0, 4);
+                    break;
+            }
             return index;
         }
 
-       
 
+        public override string ToString()
+        {
+            return "wiskunde," + getal1 + "," + getal2 + "," + bewerking;
+        } 
 
 
         //properties
-
         public override string Opgave
         {
             get

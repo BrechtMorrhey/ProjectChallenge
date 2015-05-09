@@ -29,12 +29,14 @@ namespace ProjectChallenge
         double textBoxWidth;
         double textBoxHeight;
         bool nieuweLijst;
+        private wiskundigeVraag wiskundeVraagTemp; // gebruikt om de wiskundevraag tijdelijk in op te slaan
               
         public AanpassenWindow(string bestandsNaam, bool nieuweLijst)
         {
             InitializeComponent();
             this.bestandsNaam = bestandsNaam;
             this.nieuweLijst = nieuweLijst;
+            this.wiskundeVraagTemp = null;
         }
 
         private void volgendeButton_Click(object sender, RoutedEventArgs e)
@@ -114,7 +116,15 @@ namespace ProjectChallenge
                         }
                         vraag = new MeerkeuzeVraag(opgaveTextBox.Text, antwoordenLijst);
                         break;
-                    case 2: // code voor wiskunde vrag
+                    case 2:
+                        if (wiskundeVraagTemp == null) // wiskunde vraag werd handmatig ingegeven
+                        {
+                            vraag = new wiskundigeVraag(int.Parse(getal1TextBox.Text), int.Parse(getal2TextBox.Text), bewerkingTextBox.Text);
+                        }
+                        else // wiskundevraag werd reeds gegenereerd
+                        {
+                            vraag = wiskundeVraagTemp;   
+                        }
                         break;
                 }
                 if (vraag != null)
@@ -217,6 +227,7 @@ namespace ProjectChallenge
                         GenereerOpgaveButton.Visibility = Visibility.Hidden;
                         getal1TextBox.Visibility = Visibility.Hidden;
                         getal2TextBox.Visibility = Visibility.Hidden;
+                        bewerkingTextBox.Visibility = Visibility.Hidden;
                         break;
                     case 1: //meerkeuze
                         antwoordLabel.Visibility = Visibility.Hidden;
@@ -232,6 +243,7 @@ namespace ProjectChallenge
                         GenereerOpgaveButton.Visibility = Visibility.Hidden;
                         getal1TextBox.Visibility = Visibility.Hidden;
                         getal2TextBox.Visibility = Visibility.Hidden;
+                        bewerkingTextBox.Visibility = Visibility.Hidden;
                         break;
                     case 2: //wiskunde
                         antwoordLabel.Visibility = Visibility.Visible;
@@ -247,6 +259,7 @@ namespace ProjectChallenge
                         GenereerOpgaveButton.Visibility = Visibility.Visible;
                         getal1TextBox.Visibility = Visibility.Visible;
                         getal2TextBox.Visibility = Visibility.Visible;
+                        bewerkingTextBox.Visibility = Visibility.Visible;
                         break;
                 }
             
@@ -331,9 +344,13 @@ namespace ProjectChallenge
                                 //code voor meerkeuze
                                 break;
                             case "wiskunde":
-                                //code voor wiskunde
+                                double getal1 = Convert.ToDouble(line.Split(',')[1]);
+                                double getal2 = Convert.ToDouble(line.Split(',')[2]);
+                                string bewerking = line.Split(',')[3];
+                                vraag = new wiskundigeVraag(getal1, getal2, bewerking);
                                 break;
-                            default: throw new OnbekendVraagTypeException("Onbekend Type Vraag voor vraag " + line.Split(',')[1]);
+                            default: 
+                                throw new OnbekendVraagTypeException("Onbekend Type Vraag voor vraag " + line.Split(',')[1]);
 
                         }
                         if (vraag != null)
@@ -386,37 +403,44 @@ namespace ProjectChallenge
             textBoxHeight = ((TextBox)meerkeuzeListBox.Items[0]).Height;
 
 
-            LaadVraag();
-
-            
-            
+            LaadVraag();   
         }
 
         private void GenereerOpgaveButton_Click(object sender, RoutedEventArgs e)
         {
             int n;
-            if (int.TryParse(getal1TextBox.Text, out n) && int.TryParse(getal2TextBox.Text, out n) && bewerkingTextBox.Text != string.Empty)
+            if (int.TryParse(getal1TextBox.Text, out n) && int.TryParse(getal2TextBox.Text, out n))
             {
-                wiskundigeVraag vraag = new wiskundigeVraag(int.Parse(getal1TextBox.Text), int.Parse(getal2TextBox.Text), bewerkingTextBox.Text);
-                opgaveTextBox.Text = vraag.Opgave;
-                antwoordTextBox.Text = vraag.Antwoord;
+                wiskundeVraagTemp = new wiskundigeVraag(int.Parse(getal1TextBox.Text), int.Parse(getal2TextBox.Text), bewerkingTextBox.Text);
+                opgaveTextBox.Text = wiskundeVraagTemp.Opgave;
+                antwoordTextBox.Text = wiskundeVraagTemp.Antwoord;
             }
-
-            else if (bewerkingTextBox.Text == string.Empty)
-            {
-                wiskundigeVraag vraag = new wiskundigeVraag(int.Parse(getal1TextBox.Text), int.Parse(getal2TextBox.Text));
-                opgaveTextBox.Text = vraag.Opgave;
-                antwoordTextBox.Text = vraag.Antwoord;
-            }
-
             else
             {
-                wiskundigeVraag vraag = new wiskundigeVraag();
-                opgaveTextBox.Text = vraag.Opgave;
-                antwoordTextBox.Text = vraag.Antwoord;
+                wiskundeVraagTemp = new wiskundigeVraag();
+                opgaveTextBox.Text = wiskundeVraagTemp.Opgave;
+                antwoordTextBox.Text = wiskundeVraagTemp.Antwoord;
             }
            
         }
+
+        private void bewerkingTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            bewerkingTextBox.Text = "";
+        }
+
+        private void getal1TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            getal1TextBox.Text = "";
+        }
+
+        private void getal2TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            getal2TextBox.Text = "";
+        }
+
+
+
 
         
 

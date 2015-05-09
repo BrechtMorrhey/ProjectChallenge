@@ -114,9 +114,10 @@ namespace ProjectChallenge
                     }
                     break;
                 case(VraagType.wiskunde):
-                    invulTextBox.Visibility = Visibility.Hidden;
-                    invulListBox.Visibility = Visibility.Visible;
-                    break;               
+                    invulTextBox.Visibility = Visibility.Visible;
+                    invulListBox.Visibility = Visibility.Hidden;
+                    invulTextBox.Text = vragenLijst[counter].Ingevuld;
+                    break;
             }
         }
         
@@ -187,9 +188,14 @@ namespace ProjectChallenge
                             break;
 
                         case "wiskunde":
-                            //code voor wiskunde
+                            double getal1 = Convert.ToDouble(line.Split(',')[1]);
+                            double getal2 = Convert.ToDouble(line.Split(',')[2]);
+                            string bewerking = line.Split(',')[3];
+                            vraag = new wiskundigeVraag(getal1, getal2, bewerking);
                             break;
-                        default: throw new OnbekendVraagTypeException("Onbekend Type Vraag voor vraag " + line.Split(',')[1]);
+
+                        default: 
+                            throw new OnbekendVraagTypeException("Onbekend Type Vraag voor vraag " + line.Split(',')[1]);
                     }
                     if (vraag != null)
                     {
