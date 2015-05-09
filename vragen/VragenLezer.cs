@@ -71,6 +71,11 @@ namespace ProjectChallenge
                 {
                     throw new BestandTeGrootException("Bestand " + System.IO.Path.GetFileName(BestandsNaam) + " is te groot.");
                 }
+                // leeg bestand exception
+                if (regelCounter == 0)
+                {
+                    throw new LeegBestandException("Bestand " + BestandsNaam + " bevat geen geldige vragen.");
+                }
                 return vragenLijst;
             }
         }

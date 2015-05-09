@@ -84,17 +84,25 @@ namespace ProjectChallenge
             bestandsNaam = dialog.FileName;
             if (bestandsNaam != null && bestandsNaam != "")
             {
-                try
-                {
-                    Window w = new OplossenWindow(bestandsNaam, gebruiker, this);
-                    w.Show();
-                    this.Hide();
-                }
-                catch (LeegBestandException exception)
-                {
-                    MessageBox.Show(exception.Message);
-                }
                 
+                OplossenWindow w = new OplossenWindow(bestandsNaam, gebruiker, this);
+
+                // als windowNotClosed op true staat
+                // dan het venster tonen
+                if (w.WindowNotClosed)
+                {
+                    w.Show();
+                    
+                }
+                //  checken of window wel getoond word
+                //  (dit kan door middel van exceptions 
+                //  geclosed, dus niet getoond worden)
+                //  voor we het menu hiden
+
+                if (w.IsActive)
+                {
+                    this.Hide();
+                }        
             }
         }
              
