@@ -131,6 +131,7 @@ namespace ProjectChallenge
         {
             Window w = new GameScore(gameObjecten, menuWindow);
             w.Show();
+            this.Close();
         }
 
         private void TerugButton_Click(object sender, RoutedEventArgs e)
