@@ -31,14 +31,17 @@ namespace ProjectChallenge
         bool nieuweLijst;
         MainVragenWindow menuWindow;
         private string programmaDirPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Challenger");
-        private string vragenlijstenDirPath;     
-        public AanpassenWindow(string bestandsNaam, bool nieuweLijst, MainVragenWindow menuWindow)
-        {
+        private string vragenlijstenDirPath;
+	private wiskundigeVraag wiskundeVraagTemp; // gebruikt om de wiskundevraag tijdelijk in op te slaan     
+        
+	public AanpassenWindow(string bestandsNaam, bool nieuweLijst, MainVragenWindow menuWindow)
+	{
             InitializeComponent();
             vragenlijstenDirPath = programmaDirPath + "\\Vragenlijsten";
             this.bestandsNaam = bestandsNaam;
             this.nieuweLijst = nieuweLijst;
             this.menuWindow = menuWindow;
+            this.wiskundeVraagTemp = null;
         }
 
         private void volgendeButton_Click(object sender, RoutedEventArgs e)
@@ -69,7 +72,10 @@ namespace ProjectChallenge
 
         private void opslaanButton_Click(object sender, RoutedEventArgs e)
         {
-            VoegVraagToe();
+            // voeg enkel een vraag toe als er ook data in de vakjes zit
+            if (opgaveTextBox.Text != "")
+                VoegVraagToe();
+
             StreamWriter outputStream = File.CreateText(bestandsNaam);
             foreach (Vraag vraag in vragenLijst)
             {
@@ -81,7 +87,10 @@ namespace ProjectChallenge
 
         private void opslaanAlsButton_Click(object sender, RoutedEventArgs e)
         {
-            VoegVraagToe();
+            // voeg enkel een vraag toe als er ook data in de vakjes zit
+            if (opgaveTextBox.Text != "")
+                VoegVraagToe();
+
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.InitialDirectory = vragenlijstenDirPath;
             dialog.ShowDialog();
@@ -119,7 +128,14 @@ namespace ProjectChallenge
                         }
                         vraag = new MeerkeuzeVraag(opgaveTextBox.Text, antwoordenLijst);
                         break;
-                    case 2: // code voor wiskunde vrag
+                    case 2:
+                        if (wiskundeVraagTemp == null) // wiskunde vraag werd handmatig ingegeven
+                        {
+                            GenerateMathQuestion();
+                        }
+                        vraag = wiskundeVraagTemp;
+                        wiskundeVraagTemp = null;
+                        
                         break;
                 }
                 if (vraag != null)
@@ -195,7 +211,9 @@ namespace ProjectChallenge
                             ((TextBox)meerkeuzeListBox.Items[0]).Foreground = juistBrush;
                             typeVraagComboBox.SelectedIndex = 1;
                             break;
-                        case VraagType.wiskunde: // code voor wiskundevraag
+                        case VraagType.wiskunde: 
+                            antwoordTextBox.Text = vragenLijst[counter].Antwoord;
+                            typeVraagComboBox.SelectedIndex = 2;
                             break;
                     }
             }
@@ -217,6 +235,10 @@ namespace ProjectChallenge
                         minButton.IsEnabled = false;
                         antwoordTextBox.IsEnabled = true;
                         meerkeuzeListBox.IsEnabled = false;
+                        GenereerOpgaveButton.Visibility = Visibility.Hidden;
+                        getal1TextBox.Visibility = Visibility.Hidden;
+                        getal2TextBox.Visibility = Visibility.Hidden;
+                        bewerkingTextBox.Visibility = Visibility.Hidden;
                         break;
                     case 1: //meerkeuze
                         antwoordLabel.Visibility = Visibility.Hidden;
@@ -229,6 +251,10 @@ namespace ProjectChallenge
                         minButton.IsEnabled = true;
                         antwoordTextBox.IsEnabled = false;
                         meerkeuzeListBox.IsEnabled = true;
+                        GenereerOpgaveButton.Visibility = Visibility.Hidden;
+                        getal1TextBox.Visibility = Visibility.Hidden;
+                        getal2TextBox.Visibility = Visibility.Hidden;
+                        bewerkingTextBox.Visibility = Visibility.Hidden;
                         break;
                     case 2: //wiskunde
                         antwoordLabel.Visibility = Visibility.Visible;
@@ -241,9 +267,12 @@ namespace ProjectChallenge
                         minButton.IsEnabled = false;
                         antwoordTextBox.IsEnabled = true;
                         meerkeuzeListBox.IsEnabled = false;
+                        GenereerOpgaveButton.Visibility = Visibility.Visible;
+                        getal1TextBox.Visibility = Visibility.Visible;
+                        getal2TextBox.Visibility = Visibility.Visible;
+                        bewerkingTextBox.Visibility = Visibility.Visible;
                         break;
                 }
-            
         }
 
         private void plusButton_Click(object sender, RoutedEventArgs e)
@@ -333,16 +362,73 @@ namespace ProjectChallenge
             textBoxHeight = ((TextBox)meerkeuzeListBox.Items[0]).Height;
 
 
-            LaadVraag();
+            LaadVraag();   
+        }
 
-            
-            
+        private void GenereerOpgaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            GenerateMathQuestion();
         }
 
         private void terugButton_Click(object sender, RoutedEventArgs e)
         {
             
             this.Close();
+        }
+
+        private void GenerateMathQuestion()
+        {
+            int n;
+            if (int.TryParse(getal1TextBox.Text, out n) && int.TryParse(getal2TextBox.Text, out n))
+            {
+                wiskundeVraagTemp = new wiskundigeVraag(int.Parse(getal1TextBox.Text), int.Parse(getal2TextBox.Text), bewerkingTextBox.Text);
+                opgaveTextBox.Text = wiskundeVraagTemp.Opgave;
+                antwoordTextBox.Text = wiskundeVraagTemp.Antwoord;
+            }
+            else if (opgaveTextBox.Text != "") // niet nodig om het anwoord te checken, want dit wordt toch automatisch gegenereerd
+            {
+                 ///////////////////////////////////////hier zit de fout ivm handmatige wiskunde vragen die verkeerd ingegeven worden
+                    int m;
+                    if (int.TryParse((opgaveTextBox.Text.Split(' ')[0]), out m) && int.TryParse((opgaveTextBox.Text.Split(' ')[2]), out m))
+                    {
+                        double getal1 = Convert.ToDouble(opgaveTextBox.Text.Split(' ')[0]);
+                        double getal2 = Convert.ToDouble(opgaveTextBox.Text.Split(' ')[2]);
+                        string bewerking = opgaveTextBox.Text.Split(' ')[1];
+                        wiskundeVraagTemp = new wiskundigeVraag(getal1, getal2, bewerking);
+                        opgaveTextBox.Text = wiskundeVraagTemp.Opgave;
+                        antwoordTextBox.Text = wiskundeVraagTemp.Antwoord;
+                    }
+                    else
+                    {
+                        MessageBox.Show("opgave dient in dit formaat ingegeven te worden, 'getal1 + getal2'");
+                    }
+
+              
+                
+                       
+            }
+            else
+
+            {
+                wiskundeVraagTemp = new wiskundigeVraag();
+                opgaveTextBox.Text = wiskundeVraagTemp.Opgave;
+                antwoordTextBox.Text = wiskundeVraagTemp.Antwoord;
+            }
+        }
+
+        private void bewerkingTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            bewerkingTextBox.Text = "";
+        }
+
+        private void getal1TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            getal1TextBox.Text = "";
+        }
+
+        private void getal2TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            getal2TextBox.Text = "";
         }
 
         private void Window_Closed(object sender, EventArgs e)

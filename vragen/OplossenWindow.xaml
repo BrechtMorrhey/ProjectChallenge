@@ -11,7 +11,7 @@
             </LinearGradientBrush>
         </Grid.Background>
         <TextBlock x:Name="opgaveTextBlock" HorizontalAlignment="Left" Margin="51,39,0,0" TextWrapping="Wrap" Text="Fout bij inlezen vragen" VerticalAlignment="Top" Width="372"/>
-        <TextBox x:Name="invulTextBox" HorizontalAlignment="Left" Height="23" Margin="51,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="372"/>
+        <TextBox x:Name="invulTextBox" HorizontalAlignment="Left" Height="23" Margin="51,60,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="372" TextChanged="invulTextBox_TextChanged"/>
         <Button x:Name="volgendeButton" Content="Volgende Vraag" HorizontalAlignment="Left" Margin="51,272,0,0" VerticalAlignment="Top" Width="99" Click="volgendeButton_Click"/>
         <Button x:Name="klaarButton" Content="Klaar" HorizontalAlignment="Left" Margin="250,272,0,0" VerticalAlignment="Top" Width="75" Click="klaarButton_Click"/>
         <Button x:Name="vorigeButton" Content="Vorige Vraag" HorizontalAlignment="Left" Margin="51,296,0,0" VerticalAlignment="Top" Width="99" Click="vorigeButton_Click"/>

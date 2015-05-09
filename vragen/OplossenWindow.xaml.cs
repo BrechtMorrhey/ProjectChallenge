@@ -148,11 +148,11 @@ namespace ProjectChallenge
                         }
                     }
                     break;
-                case (VraagType.wiskunde):
-                    invulTextBox.Visibility = Visibility.Hidden;
-                    invulListBox.Visibility = Visibility.Visible;
+                case(VraagType.wiskunde):
+                    invulTextBox.Visibility = Visibility.Visible;
+                    invulListBox.Visibility = Visibility.Hidden;
+                    invulTextBox.Text = vragenLijst[counter].Ingevuld;
                     break;
-
             }
             tijd = juisteTijd;
         }
@@ -184,10 +184,9 @@ namespace ProjectChallenge
             try
             {
                 String volledigPath = System.IO.Path.Combine(vragenlijstenDirPath, bestandsNaam);
-
                 lezer = new VragenLezer(volledigPath);
                 lezer.Initialise();
-                vragenLijst = lezer.VragenLijst;
+                vragenLijst = lezer.VragenLijst;                
             }
             catch (FileNotFoundException)
             {
@@ -293,6 +292,11 @@ namespace ProjectChallenge
             {
                 klok.Stop();
             }
+        }
+
+        private void invulTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }
