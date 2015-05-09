@@ -27,7 +27,7 @@ namespace ProjectChallenge
         private string programmaDirPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Challenger");
         private string vragenlijstenDirPath;
         private Leerling gebruiker;
-        public OplossenWindow(string bestandsNaam,Leerling gebruiker, MainVragenWindow menuWindow)
+        public OplossenWindow(string bestandsNaam, Leerling gebruiker, MainVragenWindow menuWindow)
         {
             InitializeComponent();
             this.bestandsNaam = bestandsNaam;

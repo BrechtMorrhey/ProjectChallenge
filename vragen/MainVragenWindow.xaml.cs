@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 
+
 namespace ProjectChallenge
 {
     /// <summary>
@@ -75,19 +76,24 @@ namespace ProjectChallenge
 
         private void oplossenButton_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog dialog = new OpenFileDialog();
-            // initial directory 
-            dialog.InitialDirectory = vragenlijstenDirPath ;
-            // only .txt files
-            dialog.Filter = "Text files (*.txt)|*.txt;";
-            dialog.ShowDialog();
-            bestandsNaam = dialog.FileName;
-            if (bestandsNaam != null && bestandsNaam != "")
-            {
-                Window w = new OplossenWindow(bestandsNaam, gebruiker, this);
-                w.Show();
-                this.Hide();
-            }
+            //OpenFileDialog dialog = new OpenFileDialog();
+            //// initial directory 
+            //dialog.InitialDirectory = vragenlijstenDirPath ;
+            //// only .txt files
+            //dialog.Filter = "Text files (*.txt)|*.txt;";
+            //dialog.ShowDialog();
+            //bestandsNaam = dialog.FileName;
+            //if (bestandsNaam != null && bestandsNaam != "")
+            //{
+            //    Window w = new OplossenWindow(bestandsNaam, gebruiker, this);
+            //    w.Show();
+            //    this.Hide();
+            //}
+
+            vragen.VragenSelectieWindow vragenSelectieWindow = new vragen.VragenSelectieWindow(gebruiker, this);
+            vragenSelectieWindow.Show();
+            this.Hide();
+            
         }
              
         private void aanpassenButton_Click(object sender, RoutedEventArgs e)
