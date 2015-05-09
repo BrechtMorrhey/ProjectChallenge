@@ -17,6 +17,7 @@
         <Button x:Name="vorigeButton" Content="Vorige Vraag" HorizontalAlignment="Left" Margin="51,296,0,0" VerticalAlignment="Top" Width="99" Click="vorigeButton_Click"/>
         <ListBox x:Name="invulListBox" HorizontalAlignment="Left" Height="184" Margin="51,83,0,0" VerticalAlignment="Top" Width="372"/>
         <Image Source="..\Pictures\succes.jpg" HorizontalAlignment="Left" Height="141" Margin="330,272,0,0" VerticalAlignment="Top" Width="207"/>
+        <ProgressBar HorizontalAlignment="Left" Height="29" Margin="325,10,0,0" VerticalAlignment="Top" Width="212"/>
 
     </Grid>
 </Window>

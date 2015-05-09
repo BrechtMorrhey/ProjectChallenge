@@ -30,7 +30,7 @@ namespace ProjectChallenge
         public OplossenWindow(string bestandsNaam, Leerling gebruiker, MainVragenWindow menuWindow)
         {
             InitializeComponent();
-            this.bestandsNaam = bestandsNaam;
+            this.bestandsNaam = bestandsNaam.Split(' ')[1] + ".txt";
             vragenlijstenDirPath = programmaDirPath + "\\Vragenlijsten";
             this.menuWindow = menuWindow;
             this.gebruiker = gebruiker;
@@ -165,7 +165,8 @@ namespace ProjectChallenge
             int j = 0;
             try
             {
-                inputStream = File.OpenText(bestandsNaam);
+                String volledigPath = System.IO.Path.Combine(vragenlijstenDirPath, bestandsNaam);
+                inputStream = File.OpenText(volledigPath);
                 line = inputStream.ReadLine();
                 while (line != null && j < 10000)
                 {

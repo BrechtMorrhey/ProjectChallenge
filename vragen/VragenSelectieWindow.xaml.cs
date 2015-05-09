@@ -41,12 +41,35 @@ namespace ProjectChallenge.vragen
             {
                 if (oefenenRadioButton.IsChecked == true)
                 {
+                    oplossen = new OplossenWindow(vakkenListBox.SelectedItem.ToString(), gebruiker, menuWindow);
+                }
+                else if (makkelijkRadioButton.IsChecked == true)
+                {
                     oplossen = new OplossenWindow("test", gebruiker, menuWindow);
                 }
+                else if (gemiddeldRadioButton.IsChecked == true)
+                {
+                    oplossen = new OplossenWindow("test", gebruiker, menuWindow);
+                }
+                else if (moeilijkRadioButton.IsChecked == true)
+                {
+                    oplossen = new OplossenWindow("test", gebruiker, menuWindow);
+                }
+                else
+                {
+                    MessageBox.Show("Geen Moeilijkheidsgraad geselecteerd", "fout", MessageBoxButton.OK);
+                }
+
+                if (oplossen != null)
+                {
+                    oplossen.Show();
+                    this.Close();
+                }
+
             }
             else
             {
-                MessageBox.Show("Selecteer vak eerst", "fout", MessageBoxButton.OK);
+                MessageBox.Show("Selecteer eerst een vak ", "fout", MessageBoxButton.OK);
             }
         }
 
