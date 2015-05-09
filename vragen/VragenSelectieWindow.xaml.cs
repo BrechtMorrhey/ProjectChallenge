@@ -42,19 +42,19 @@ namespace ProjectChallenge.vragen
                 string bestand = ((ListBoxItem)vakkenListBox.SelectedItem).Content.ToString();
                 if (oefenenRadioButton.IsChecked == true)
                 {
-                    oplossen = new OplossenWindow(bestand, gebruiker, menuWindow);
+                    oplossen = new OplossenWindow(bestand, gebruiker, menuWindow, this);
                 }
                 else if (makkelijkRadioButton.IsChecked == true)
                 {
-                    oplossen = new OplossenWindow(bestand, gebruiker, menuWindow);
+                    oplossen = new OplossenWindow(bestand, 30, gebruiker, menuWindow, this);
                 }
                 else if (gemiddeldRadioButton.IsChecked == true)
                 {
-                    oplossen = new OplossenWindow(bestand, gebruiker, menuWindow);
+                    oplossen = new OplossenWindow(bestand, 20, gebruiker, menuWindow, this);
                 }
                 else if (moeilijkRadioButton.IsChecked == true)
                 {
-                    oplossen = new OplossenWindow(bestand, gebruiker, menuWindow);
+                    oplossen = new OplossenWindow(bestand, 10, gebruiker, menuWindow, this);
                 }
                 else
                 {
@@ -63,8 +63,22 @@ namespace ProjectChallenge.vragen
 
                 if (oplossen != null)
                 {
-                    oplossen.Show();
-                    this.Close();
+                    // als windowNotClosed op true staat
+                    // dan het venster tonen
+                    if (oplossen.WindowNotClosed)
+                    {
+                        oplossen.Show();
+
+                    }
+                    //  checken of window wel getoond word
+                    //  (dit kan door middel van exceptions 
+                    //  geclosed, dus niet getoond worden)
+                    //  voor we het menu hiden
+
+                    if (oplossen.IsActive)
+                    {
+                        this.Close();
+                    } 
                 }
 
             }

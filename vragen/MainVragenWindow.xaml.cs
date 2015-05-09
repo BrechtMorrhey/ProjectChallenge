@@ -76,7 +76,6 @@ namespace ProjectChallenge
 
         private void oplossenButton_Click(object sender, RoutedEventArgs e)
         {
-<<<<<<< HEAD
             //OpenFileDialog dialog = new OpenFileDialog();
             //// initial directory 
             //dialog.InitialDirectory = vragenlijstenDirPath ;

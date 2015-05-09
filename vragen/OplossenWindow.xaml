@@ -1,7 +1,7 @@
 ﻿<Window x:Class="ProjectChallenge.OplossenWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="OplossenWindow" Height="429" Width="553" Loaded="Window_Loaded" 
+        Title="OplossenWindow" Height="429" Width="553" Loaded="Window_Loaded" Closed="Window_Closed"
         WindowStyle="None">
     <Grid>
         <Grid.Background>
@@ -17,7 +17,17 @@
         <Button x:Name="vorigeButton" Content="Vorige Vraag" HorizontalAlignment="Left" Margin="51,296,0,0" VerticalAlignment="Top" Width="99" Click="vorigeButton_Click"/>
         <ListBox x:Name="invulListBox" HorizontalAlignment="Left" Height="184" Margin="51,83,0,0" VerticalAlignment="Top" Width="372"/>
         <Image Source="..\Pictures\succes.jpg" HorizontalAlignment="Left" Height="141" Margin="330,272,0,0" VerticalAlignment="Top" Width="207"/>
-        <ProgressBar HorizontalAlignment="Left" Height="29" Margin="325,10,0,0" VerticalAlignment="Top" Width="212"/>
+        <Label x:Name="tijdLabel" Content="" HorizontalAlignment="Left" Margin="390,10,0,0" VerticalAlignment="Top" Width="148" RenderTransformOrigin="0.5,0.5">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.063"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <TextBlock x:Name="overigeVragenTextBlock" HorizontalAlignment="Left" Margin="170,382,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="31" Width="155"/>
 
     </Grid>
 </Window>

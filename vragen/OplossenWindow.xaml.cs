@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
+using System.Windows.Threading;
 
 namespace ProjectChallenge
 {
@@ -24,18 +25,31 @@ namespace ProjectChallenge
         private int counter;
         private string bestandsNaam;
         private MainVragenWindow menuWindow;
+        private vragen.VragenSelectieWindow vragenSelectie;
         private string programmaDirPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Challenger");
         private string vragenlijstenDirPath;
         private Leerling gebruiker;
         private bool windowClosed;
-        public OplossenWindow(string bestandsNaam, Leerling gebruiker, MainVragenWindow menuWindow)
+        private DispatcherTimer klok;
+        private int tijd = 0;
+        private int juisteTijd = 0;
+        private int restVragen;
+
+        public OplossenWindow(string bestandsNaam, Leerling gebruiker,MainVragenWindow menuWindow, vragen.VragenSelectieWindow vragenSelectie)
         {
             InitializeComponent();
+            this.menuWindow = menuWindow;
             this.bestandsNaam = bestandsNaam + ".txt";
             vragenlijstenDirPath = programmaDirPath + "\\Vragenlijsten";
-            this.menuWindow = menuWindow;
+            this.vragenSelectie = vragenSelectie;
             this.gebruiker = gebruiker;
             windowClosed = true;
+        }
+
+        public OplossenWindow(string bestandsNaam,int tijd, Leerling gebruiker, MainVragenWindow menuWindow, vragen.VragenSelectieWindow vragenSelectie)
+                :this(bestandsNaam, gebruiker, menuWindow, vragenSelectie)
+        {
+            this.juisteTijd = tijd; 
         }
 
         private void vorigeButton_Click(object sender, RoutedEventArgs e)
@@ -52,6 +66,11 @@ namespace ProjectChallenge
 
         private void volgendeButton_Click(object sender, RoutedEventArgs e)
         {
+            volgendeVraag();
+        }
+
+        private void volgendeVraag()
+        {
             SlaVraagOp();
             if (counter + 1 < vragenLijst.Count)
             {
@@ -60,10 +79,17 @@ namespace ProjectChallenge
             }
             else
             {
-                MessageBox.Show("Laatste vraag, druk op Klaar om af te sluiten uw score te bekijken");
+                if (juisteTijd != 0)
+                {
+                    Klaar();
+                }
+                else
+                {
+                    MessageBox.Show("Laatste vraag, druk op Klaar om af te sluiten uw score te bekijken");
+                }
             }
+            restVragen--;
         }
-
         private void Klaar()
         {
             Window w = new ScoreWindow(menuWindow, gebruiker, vragenLijst, bestandsNaam);
@@ -126,8 +152,9 @@ namespace ProjectChallenge
                     invulTextBox.Visibility = Visibility.Hidden;
                     invulListBox.Visibility = Visibility.Visible;
                     break;
+
             }
-            
+            tijd = juisteTijd;
         }
         
 
@@ -156,8 +183,9 @@ namespace ProjectChallenge
             VragenLezer lezer = null;
             try
             {
+                String volledigPath = System.IO.Path.Combine(vragenlijstenDirPath, bestandsNaam);
 
-                lezer = new VragenLezer(bestandsNaam);
+                lezer = new VragenLezer(volledigPath);
                 lezer.Initialise();
                 vragenLijst = lezer.VragenLijst;
             }
@@ -165,25 +193,25 @@ namespace ProjectChallenge
             {
                 MessageBox.Show("Invoerbestand bestaat niet");
                 this.Close();
-                menuWindow.Show();
+                vragenSelectie.Show();
             }
             catch (OnbekendVraagTypeException exception)
             {
                 MessageBox.Show(exception.Message + "/n Bestand is mogelijk corrupt, programma zal nu afsluiten");
                 this.Close();
-                menuWindow.Show();
+                vragenSelectie.Show();
             }
             catch (VraagIsNullException exception)
             {
                 MessageBox.Show(exception.Message + "/n Bestand is mogelijk corrupt, programma zal nu afsluiten");
                 this.Close();
-                menuWindow.Show();
+                vragenSelectie.Show();
             }
             catch (BestandTeGrootException exception)
             {
                 MessageBox.Show(exception.Message);
                 this.Close();
-                menuWindow.Show();
+                vragenSelectie.Show();
             }
 //  opvangen leegbestand exception
             catch (LeegBestandException exception)
@@ -191,7 +219,7 @@ namespace ProjectChallenge
                 MessageBox.Show(exception.Message);
                 windowClosed = false; // boolean op vals om te zeggen dat window gesloten is
                 this.Close();
-                menuWindow.Show();  // menuwindow tonen
+                vragenSelectie.Show();  // menuwindow tonen
             }
             finally
             {
@@ -202,7 +230,7 @@ namespace ProjectChallenge
                 if (vragenLijst == null)    //  als vragenlijst null is window sluiten
                 {
                     this.Close();
-                    menuWindow.Show();
+                    vragenSelectie.Show();
                     //throw new LeegBestandException("Bestand " + lezer.BestandsNaam + " bevat geen geldige vragen.");
                 }
             }
@@ -224,11 +252,31 @@ namespace ProjectChallenge
                 }
                 vragenLijst = hulpLijst;
 
+                restVragen = vragenLijst.Count() - 1;
 
                 LaadVraag();
             }
             
+            if(tijd != 0)
+            {
+                vorigeButton.Visibility = Visibility.Hidden;
+                klok = new DispatcherTimer();
+                klok.Interval = TimeSpan.FromSeconds(1);
+                klok.Tick += klok_Tick;
+                klok.Start();
+            }
 
+        }
+
+        void klok_Tick(object sender, EventArgs e)
+        {
+            overigeVragenTextBlock.Text = "resterende vragen: " + restVragen;
+            tijdLabel.Content = "Resterende tijd : " + tijd + " sec";
+            if (tijd == 0)
+            {
+                volgendeVraag();
+            }
+            tijd--;
         }
         
         public bool WindowNotClosed
@@ -236,6 +284,14 @@ namespace ProjectChallenge
             get
             {
                 return windowClosed;
+            }
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            if (klok != null)
+            {
+                klok.Stop();
             }
         }
     }
