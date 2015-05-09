@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProjectChallenge
 {
-    class BasisVraag: Vraag
+    public class BasisVraag: Vraag
     {
         public override VraagType TypeVraag { get { return VraagType.basis; } }
         private string opgave;
@@ -15,9 +15,9 @@ namespace ProjectChallenge
         //private bool isIngevuld, isJuist;
 
         //constructors
-        private BasisVraag()
+        public BasisVraag()
         {
-            // het is niet de bedoeling dat deze ooit gebruikt wordt
+            
         }
         public BasisVraag(string opgave, string antwoord)
         {

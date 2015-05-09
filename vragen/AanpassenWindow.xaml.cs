@@ -281,94 +281,47 @@ namespace ProjectChallenge
             //door een WPF bug die uw events checked voor de bijbehorende controls zijn aangemaakt
             // http://stackoverflow.com/questions/2518231/wpf-getting-control-null-reference-during-initializecomponent
 
-            vragenLijst = new List<Vraag>();
+            
 
             if (!nieuweLijst)   // als het geen nieuwe lijst is, laadt de oude lijst in
             {
-                int i;
-                string line, lijst;
-                Vraag vraag = null;
-                List<string> antwoordenLijst;
-                StreamReader inputStream = null;
-                counter = 0;
-
-                int j = 0;
+                VragenLezer lezer = null;
                 try
                 {
-                    inputStream = File.OpenText(bestandsNaam);
-                    line = inputStream.ReadLine();
-                    while (line != null && j < 10000)
-                    {
-                        switch (line.Split(',')[0])
-                        {
-                            case "basis":
-                                vraag = new BasisVraag(line.Split(',')[1], line.Split(',')[2]);
-                                break;
-                            case "meerkeuze":
-                                antwoordenLijst = new List<string>();
-                                lijst = line.Split(',')[2];
-                                i = 0;
-                                while ((lijst.Split('|')[i]).Trim() != "")   // maak de antwoordenlijst door elementen in te lezen zolang er geen lege waarde komt
-                                {
-                                    antwoordenLijst.Add(lijst.Split('|')[i]);
-                                    i++;
-                                }
-                                if (antwoordenLijst != null)
-                                {
-                                    vraag = new MeerkeuzeVraag(line.Split(',')[1], antwoordenLijst);
-                                }
-                                else
-                                {
-                                    MessageBox.Show("Lege antwoordenlijst voor vraag " + line.Split(',')[1] + "/n vraag wordt overgeslagen");
-                                    // de vraag wordt niet ingelezen en het programma probeert verder te gaan
-                                }
-                                //code voor meerkeuze
-                                break;
-                            case "wiskunde":
-                                //code voor wiskunde
-                                break;
-                            default: throw new OnbekendVraagTypeException("Onbekend Type Vraag voor vraag " + line.Split(',')[1]);
-
-                        }
-                        if (vraag != null)
-                        {
-                            vragenLijst.Add(vraag);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Vraag is null, programma zal nu afsluiten");
-                            this.Close();
-                        }
-                        line = inputStream.ReadLine();
-                        j++;
-                    }
+                    lezer = new VragenLezer(bestandsNaam);
+                    lezer.Initialise();
+                    vragenLijst = lezer.VragenLijst;
                 }
                 catch (FileNotFoundException)
                 {
-                    MessageBox.Show("Bestand niet gevonden.");
-                    this.Close();
-                }
-                catch (ArgumentException)
-                {
-                    // deze exception treedt op als de user het OpenFileDialog sluit
-                    // AanpassenWindow moet dan niet opengaan
+                    MessageBox.Show("Invoerbestand bestaat niet");
                     this.Close();
                 }
                 catch (OnbekendVraagTypeException exception)
                 {
-                    MessageBox.Show(exception.Message + "/n Bestand is mogelijk corrupt, programma sluit nu af.");
+                    MessageBox.Show(exception.Message + "/n Bestand is mogelijk corrupt, programma zal nu afsluiten");
+                    this.Close();
+                }
+                catch (VraagIsNullException exception)
+                {
+                    MessageBox.Show(exception.Message + "/n Bestand is mogelijk corrupt, programma zal nu afsluiten");
+                    this.Close();
+                }
+                catch (BestandTeGrootException exception)
+                {
+                    MessageBox.Show(exception.Message);
                     this.Close();
                 }
                 finally
                 {
-                    if (inputStream != null)
+                    if (lezer != null)
                     {
-                        inputStream.Close();
+                        lezer.Close();
                     }
-                    if (j >= 10000)
+                    if (vragenLijst.Count < 1)
                     {
-                        MessageBox.Show("Bestand te groot, programma sluit nu af");
-                        this.Close();
+                        BasisVraag legeVraag = new BasisVraag();
+                        vragenLijst.Add(legeVraag);
                     }
                 }
             }

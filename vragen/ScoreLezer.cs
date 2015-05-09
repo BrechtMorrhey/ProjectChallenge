@@ -10,7 +10,7 @@ namespace ProjectChallenge
 {
     class ScoreLezer : BestandsLezer
     {
-        public ScoreLezer() { }
+        public ScoreLezer():base() { }
         public ScoreLezer(string bestandsNaam):base(bestandsNaam) { }
 
         public string VoorNaam {
@@ -72,14 +72,14 @@ namespace ProjectChallenge
                 Reset();
                 string line = VolgendeRegel;
                 line = VolgendeRegel;
-                int j=0;
+                int regelCounter=0;
                 line = VolgendeRegel;
-                while(line != null && j<10000){
+                while(line != null && regelCounter<10000){
                     resultaten.Add(line);
-                    j++;
+                    regelCounter++;
                     line = VolgendeRegel;
                 }
-                if (j >= 10000)
+                if (regelCounter >= 10000)
                 {
                     throw new BestandTeGrootException("Bestand " + System.IO.Path.GetFileName(BestandsNaam) + " is te groot.");
                 }

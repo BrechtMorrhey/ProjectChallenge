@@ -27,6 +27,7 @@ namespace ProjectChallenge
         private string programmaDirPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Challenger");
         private string vragenlijstenDirPath;
         private Leerling gebruiker;
+        private bool windowClosed;
         public OplossenWindow(string bestandsNaam, Leerling gebruiker, MainVragenWindow menuWindow)
         {
             InitializeComponent();
@@ -34,6 +35,7 @@ namespace ProjectChallenge
             vragenlijstenDirPath = programmaDirPath + "\\Vragenlijsten";
             this.menuWindow = menuWindow;
             this.gebruiker = gebruiker;
+            windowClosed = true;
         }
 
         private void vorigeButton_Click(object sender, RoutedEventArgs e)
@@ -77,6 +79,7 @@ namespace ProjectChallenge
 
         private void LaadVraag()
         {
+            
             opgaveTextBlock.Text = vragenLijst[counter].Opgave;
             invulListBox.Items.Clear();
             switch (vragenLijst[counter].TypeVraag)
@@ -124,7 +127,9 @@ namespace ProjectChallenge
                     invulListBox.Visibility = Visibility.Visible;
                     break;
             }
+            
         }
+        
 
         public void SlaVraagOp()
         {
@@ -146,116 +151,92 @@ namespace ProjectChallenge
             }
         }
 
-        private void Window_Closed(object sender, RoutedEventArgs e)
-        {
-            menuWindow.Show();
-        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            int i;
-            string line, lijst;
-            Vraag vraag = null;
-            StreamReader inputStream = null;
-            List<string> antwoordenLijst;
-
-
-            counter = 0;
-            vragenLijst = new List<Vraag>();
-
-            int j = 0;
+            VragenLezer lezer = null;
             try
             {
-                String volledigPath = System.IO.Path.Combine(vragenlijstenDirPath, bestandsNaam);
-                inputStream = File.OpenText(volledigPath);
-                line = inputStream.ReadLine();
-                while (line != null && j < 10000)
-                {
-                    switch (line.Split(',')[0])
-                    {
-                        case "basis":
-                            vraag = new BasisVraag(line.Split(',')[1], line.Split(',')[2]);
 
-                            break;
-                        case "meerkeuze":
-                            antwoordenLijst = new List<string>();
-                            lijst = line.Split(',')[2];
-                            i = 0;
-                            while ((lijst.Split('|')[i]).Trim() != "")   // maak de antwoordenlijst door elementen in te lezen zolang er geen lege waarde komt
-                            {
-                                antwoordenLijst.Add(lijst.Split('|')[i]);
-                                i++;
-                            }
-                            if (antwoordenLijst != null)
-                            {
-                                vraag = new MeerkeuzeVraag(line.Split(',')[1], antwoordenLijst);
-                            }
-                            else
-                            {
-                                MessageBox.Show("Lege antwoordenlijst");
-                                // de vraag wordt niet ingelezen en het programma probeert verder te gaan
-                            }
-                            //code voor meerkeuze
-                            break;
-
-                        case "wiskunde":
-                            //code voor wiskunde
-                            break;
-                        default: throw new OnbekendVraagTypeException("Onbekend Type Vraag voor vraag " + line.Split(',')[1]);
-                    }
-                    if (vraag != null)
-                    {
-                        vragenLijst.Add(vraag);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Vraag is null, programma zal nu afsluiten");
-                        this.Close();
-                    }
-                    line = inputStream.ReadLine();
-                    j++;
-                }
-
-
+                lezer = new VragenLezer(bestandsNaam);
+                lezer.Initialise();
+                vragenLijst = lezer.VragenLijst;
             }
             catch (FileNotFoundException)
             {
                 MessageBox.Show("Invoerbestand bestaat niet");
                 this.Close();
+                menuWindow.Show();
             }
             catch (OnbekendVraagTypeException exception)
             {
                 MessageBox.Show(exception.Message + "/n Bestand is mogelijk corrupt, programma zal nu afsluiten");
                 this.Close();
+                menuWindow.Show();
+            }
+            catch (VraagIsNullException exception)
+            {
+                MessageBox.Show(exception.Message + "/n Bestand is mogelijk corrupt, programma zal nu afsluiten");
+                this.Close();
+                menuWindow.Show();
+            }
+            catch (BestandTeGrootException exception)
+            {
+                MessageBox.Show(exception.Message);
+                this.Close();
+                menuWindow.Show();
+            }
+//  opvangen leegbestand exception
+            catch (LeegBestandException exception)
+            {
+                MessageBox.Show(exception.Message);
+                windowClosed = false; // boolean op vals om te zeggen dat window gesloten is
+                this.Close();
+                menuWindow.Show();  // menuwindow tonen
             }
             finally
             {
-                if (inputStream != null)
+                if (lezer != null)
                 {
-                    inputStream.Close();
+                    lezer.Close();
                 }
-                if (j >= 10000)
+                if (vragenLijst == null)    //  als vragenlijst null is window sluiten
                 {
-                    MessageBox.Show("Bestand is te groot, programma zal nu afsluiten");
                     this.Close();
+                    menuWindow.Show();
+                    //throw new LeegBestandException("Bestand " + lezer.BestandsNaam + " bevat geen geldige vragen.");
                 }
             }
 
-
-
-            // zet de vragen in willekeurige volgorde
-            List<Vraag> hulpLijst = new List<Vraag>();
-            Random randomIndex = new Random();
-            int r;
-            while (vragenLijst.Count > 0)
+            //  als window geclosed is word deze code toch nogsteeds uitgevoerd
+            //  daarom eerst testen of er wel een vragenLijst is aangemaakt
+            //  in geval van exceptions
+            if (vragenLijst != null) 
             {
-                r = randomIndex.Next(0, vragenLijst.Count);
-                hulpLijst.Add(vragenLijst[r]);
-                vragenLijst.RemoveAt(r);
+                // zet de vragen in willekeurige volgorde
+                List<Vraag> hulpLijst = new List<Vraag>();
+                Random randomIndex = new Random();
+                int r;
+                while (vragenLijst.Count > 0)
+                {
+                    r = randomIndex.Next(0, vragenLijst.Count);
+                    hulpLijst.Add(vragenLijst[r]);
+                    vragenLijst.RemoveAt(r);
+                }
+                vragenLijst = hulpLijst;
+
+
+                LaadVraag();
             }
-            vragenLijst = hulpLijst;
+            
 
-            LaadVraag();
-
+        }
+        
+        public bool WindowNotClosed
+        {
+            get
+            {
+                return windowClosed;
+            }
         }
     }
 }
