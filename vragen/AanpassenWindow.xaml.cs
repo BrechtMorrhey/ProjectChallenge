@@ -430,15 +430,28 @@ namespace ProjectChallenge
             }
             else if (opgaveTextBox.Text != "") // niet nodig om het anwoord te checken, want dit wordt toch automatisch gegenereerd
             {
+                 ///////////////////////////////////////hier zit de fout ivm handmatige wiskunde vragen die verkeerd ingegeven worden
+                    int m;
+                    if (int.TryParse((opgaveTextBox.Text.Split(' ')[0]), out m) && int.TryParse((opgaveTextBox.Text.Split(' ')[2]), out m))
+                    {
+                        double getal1 = Convert.ToDouble(opgaveTextBox.Text.Split(' ')[0]);
+                        double getal2 = Convert.ToDouble(opgaveTextBox.Text.Split(' ')[2]);
+                        string bewerking = opgaveTextBox.Text.Split(' ')[1];
+                        wiskundeVraagTemp = new wiskundigeVraag(getal1, getal2, bewerking);
+                        opgaveTextBox.Text = wiskundeVraagTemp.Opgave;
+                        antwoordTextBox.Text = wiskundeVraagTemp.Antwoord;
+                    }
+                    else
+                    {
+                        MessageBox.Show("opgave dient in dit formaat ingegeven te worden, 'getal1 + getal2'");
+                    }
 
-                double getal1 = Convert.ToDouble(opgaveTextBox.Text.Split(' ')[0]);
-                double getal2 = Convert.ToDouble(opgaveTextBox.Text.Split(' ')[2]);
-                string bewerking = opgaveTextBox.Text.Split(' ')[1];
-                wiskundeVraagTemp = new wiskundigeVraag(getal1, getal2, bewerking);
-                opgaveTextBox.Text = wiskundeVraagTemp.Opgave;
-                antwoordTextBox.Text = wiskundeVraagTemp.Antwoord;
+              
+                
+                       
             }
             else
+
             {
                 wiskundeVraagTemp = new wiskundigeVraag();
                 opgaveTextBox.Text = wiskundeVraagTemp.Opgave;

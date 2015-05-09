@@ -109,8 +109,22 @@ namespace ProjectChallenge
         public void GenereerOpgave(int min, int max)
         {
             Random random = new Random();
-            getal1 = random.Next(min, max);
-            getal2 = random.Next(min, max);
+            getal1 = random.Next(min, max+1);
+
+            // nooit delen door 0
+            if (bewerking == "/")
+            {
+                getal2 = random.Next(min, max+1);
+                while (getal2 == 0)
+                {
+                    getal2 = random.Next(min, max+1);
+                }
+            }
+            else
+            {
+                getal2 = random.Next(min, max+1);
+            }
+            
 
             int index = BerekenIndex(bewerking);
             BewaarBewerking(index);
