@@ -30,7 +30,7 @@ namespace ProjectChallenge
         public OplossenWindow(string bestandsNaam, Leerling gebruiker, MainVragenWindow menuWindow)
         {
             InitializeComponent();
-            this.bestandsNaam = bestandsNaam.Split(' ')[1] + ".txt";
+            this.bestandsNaam = bestandsNaam + ".txt";
             vragenlijstenDirPath = programmaDirPath + "\\Vragenlijsten";
             this.menuWindow = menuWindow;
             this.gebruiker = gebruiker;

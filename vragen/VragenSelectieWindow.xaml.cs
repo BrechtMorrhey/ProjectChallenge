@@ -39,21 +39,22 @@ namespace ProjectChallenge.vragen
             OplossenWindow oplossen = null;
             if(vakkenListBox.SelectedItem != null)
             {
+                string bestand = ((ListBoxItem)vakkenListBox.SelectedItem).Content.ToString();
                 if (oefenenRadioButton.IsChecked == true)
                 {
-                    oplossen = new OplossenWindow(vakkenListBox.SelectedItem.ToString(), gebruiker, menuWindow);
+                    oplossen = new OplossenWindow(bestand, gebruiker, menuWindow);
                 }
                 else if (makkelijkRadioButton.IsChecked == true)
                 {
-                    oplossen = new OplossenWindow("test", gebruiker, menuWindow);
+                    oplossen = new OplossenWindow(bestand, gebruiker, menuWindow);
                 }
                 else if (gemiddeldRadioButton.IsChecked == true)
                 {
-                    oplossen = new OplossenWindow("test", gebruiker, menuWindow);
+                    oplossen = new OplossenWindow(bestand, gebruiker, menuWindow);
                 }
                 else if (moeilijkRadioButton.IsChecked == true)
                 {
-                    oplossen = new OplossenWindow("test", gebruiker, menuWindow);
+                    oplossen = new OplossenWindow(bestand, gebruiker, menuWindow);
                 }
                 else
                 {
