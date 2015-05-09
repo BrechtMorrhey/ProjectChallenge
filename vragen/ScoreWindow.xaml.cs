@@ -57,7 +57,7 @@ namespace ProjectChallenge
                 {
                     juistOfFout = "Fout";
                 }
-                scoreListBox.Items.Add(juistOfFout + "\t" + vraag.Antwoord + "\t" + vraag.Ingevuld);
+                scoreListBox.Items.Add(vraag.Opgave+"\t"+ juistOfFout + "\t" + vraag.Antwoord + "\t" + vraag.Ingevuld);
                 if (!vraag.IsJuist)
                 {
                     score--;
@@ -93,7 +93,7 @@ namespace ProjectChallenge
                 {
                     juistOfFout2 = "Fout";
                 }
-                outputStream.WriteLine(juistOfFout2 + "," + vraag.Antwoord + "," + vraag.Ingevuld);
+                outputStream.WriteLine(vraag.Opgave +", "+ juistOfFout2 + ", " + vraag.Antwoord + ", " + vraag.Ingevuld);
             }
             outputStream.Close();
             
