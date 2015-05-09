@@ -318,6 +318,11 @@ namespace ProjectChallenge
                     {
                         lezer.Close();
                     }
+                    if (vragenLijst.Count < 1)
+                    {
+                        BasisVraag legeVraag = new BasisVraag();
+                        vragenLijst.Add(legeVraag);
+                    }
                 }
             }
 

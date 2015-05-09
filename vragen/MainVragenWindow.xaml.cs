@@ -84,9 +84,17 @@ namespace ProjectChallenge
             bestandsNaam = dialog.FileName;
             if (bestandsNaam != null && bestandsNaam != "")
             {
-                Window w = new OplossenWindow(bestandsNaam, gebruiker, this);
-                w.Show();
-                this.Hide();
+                try
+                {
+                    Window w = new OplossenWindow(bestandsNaam, gebruiker, this);
+                    w.Show();
+                    this.Hide();
+                }
+                catch (LeegBestandException exception)
+                {
+                    MessageBox.Show(exception.Message);
+                }
+                
             }
         }
              

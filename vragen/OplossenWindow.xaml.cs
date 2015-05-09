@@ -184,7 +184,12 @@ namespace ProjectChallenge
                 if (lezer != null)
                 {
                     lezer.Close();
-                }                
+                }
+                if (vragenLijst.Count < 1)
+                {
+                    this.Close();
+                    throw new LeegBestandException("Bestand " + lezer.BestandsNaam + " bevat geen geldige vragen.");
+                }
             }
 
 
