@@ -78,7 +78,7 @@ namespace ProjectChallenge
         public override bool IsJuist {
             get
             {
-                return antwoord == ingevuld;
+                return antwoord.Trim() == ingevuld.Trim();
             }
         }
 

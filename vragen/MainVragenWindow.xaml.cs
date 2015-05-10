@@ -139,7 +139,7 @@ namespace ProjectChallenge
 
         private void NieuweKlasButton_Click(object sender, RoutedEventArgs e)
         {
-            Window nieuweKlasWindow = new login.maakKlasWindow(alleGebruikers, this);
+            Window nieuweKlasWindow = new login.MaakKlasWindow(alleGebruikers, this);
             nieuweKlasWindow.Show();
             this.Hide();
         }

@@ -24,7 +24,7 @@ namespace ProjectChallenge.login
     //
     //  Author: Stijn Stas
 
-    public partial class maakKlasWindow : Window
+    public partial class MaakKlasWindow : Window
     {
 
         //  Eigenschappen
@@ -32,7 +32,7 @@ namespace ProjectChallenge.login
         private AlleGebruikers alleGebruikers;
 
         //  Constructor
-        public maakKlasWindow(AlleGebruikers alleGebruikers, MainVragenWindow menuWindow)
+        public MaakKlasWindow(AlleGebruikers alleGebruikers, MainVragenWindow menuWindow)
         {
             InitializeComponent();
             this.alleGebruikers = alleGebruikers;
@@ -51,7 +51,7 @@ namespace ProjectChallenge.login
         {
             string klas = nieuweKlasTextBox.Text;
             alleGebruikers.SlaKlasOp(klas);
-            MessageBox.Show("Klas aangemaakt !!!", "Klas aangemaakt", MessageBoxButton.OK);
+            MessageBox.Show("Klas aangemaak", "Klas "+klas+" aangemaakt", MessageBoxButton.OK);
         }
 
         //  Keer terug naar het menu.

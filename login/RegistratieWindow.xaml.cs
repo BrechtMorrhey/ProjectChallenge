@@ -57,7 +57,8 @@ namespace ProjectChallenge
             naam = naamTextBox.Text;
             voornaam = voornaamTextBox.Text;
             passwoord = passwoordPasswordBox.Password;
-            if (datumDatePicker.Text.Split('/')[0].Length != 2)
+            geboorteDatum = datumDatePicker.Text;
+            if (datumDatePicker.Text.Split('/')[0].Length < 2) //vul aan met 0
             {
                 geboorteDatum = "0" + datumDatePicker.Text;
             }

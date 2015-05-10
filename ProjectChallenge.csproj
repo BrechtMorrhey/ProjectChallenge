@@ -77,8 +77,8 @@
     <Compile Include="login\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="login\maakKlasWindow.xaml.cs">
-      <DependentUpon>maakKlasWindow.xaml</DependentUpon>
+    <Compile Include="login\MaakKlasWindow.xaml.cs">
+      <DependentUpon>MaakKlasWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -167,7 +167,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="login\maakKlasWindow.xaml">
+    <Page Include="login\MaakKlasWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

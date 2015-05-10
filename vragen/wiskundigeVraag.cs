@@ -221,7 +221,7 @@ namespace ProjectChallenge
         {
             get
             {
-                return antwoord == ingevuld;
+                return antwoord.Trim() == ingevuld.Trim();
             }
         }
 
