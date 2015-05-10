@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
+using System.IO;
 //Author: Brecht Morrhey
 
 namespace ProjectChallenge
@@ -36,9 +37,27 @@ namespace ProjectChallenge
             InitializeComponent();
             //Author: Stijn Stas
             vragenlijstenDirPath = programmaDirPath + "\\Vragenlijsten";
-            if (!(System.IO.Directory.Exists(vragenlijstenDirPath)))
+            if (!(Directory.Exists(vragenlijstenDirPath)))
             {
-                System.IO.Directory.CreateDirectory(vragenlijstenDirPath);
+                Directory.CreateDirectory(vragenlijstenDirPath);
+                // Author: Brecht Morrhey
+                // probeer de voorbeeldvragen in de vragenLijst map te kopieren
+                // http://stackoverflow.com/questions/6041332/best-way-to-get-application-folder-path
+                string voorbeeldDirPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "VoorbeeldVragen");
+                // AppDomain.CurrentDomain.BaseDirectory returned de debug map als gerund wordt in Visual Studio, als het programma gecompileerd wordt zou het de directory moeten 
+                // teruggeven waarin de .exe staat
+                if (Directory.Exists(voorbeeldDirPath))
+                {
+                    string[] files = Directory.GetFiles(voorbeeldDirPath);
+                    string filenaam;
+                    string doelFile;
+                    foreach (string file in files)
+                    {
+                        filenaam = System.IO.Path.GetFileName(file);
+                        doelFile = System.IO.Path.Combine(vragenlijstenDirPath, filenaam);
+                        System.IO.File.Copy(file, doelFile);
+                    }
+                }
             }
         }
 
