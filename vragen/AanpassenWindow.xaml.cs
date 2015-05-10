@@ -170,7 +170,7 @@ namespace ProjectChallenge
                     }
                 }
             }
-            catch(Exception)
+            catch(Exception)    // hier zou specifieker gewerkt moeten worden
             {
                 MessageBox.Show("opgave dient in dit formaat ingegeven te worden, 'getal1 + getal2'");
                 if ((counter - 1) >= 0)
@@ -377,6 +377,12 @@ namespace ProjectChallenge
                         vragenLijst.Add(legeVraag);
                     }
                 }
+            }
+            else // als het een nieuwe lijst, moet er een lege vragenlijst gemaakt worden om te beginnen
+            {
+                vragenLijst = new List<Vraag>();
+                BasisVraag legeVraag = new BasisVraag();
+                vragenLijst.Add(legeVraag);
             }
 
             // kopieer de opmaak en grootte van de TextBoxes in de listbox voor later
