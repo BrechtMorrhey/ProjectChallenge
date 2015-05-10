@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProjectChallenge
 {
-    public class BasisVraag: Vraag
+    public class BasisVraag : Vraag
     {
         //variables
         private string opgave;
@@ -17,7 +17,7 @@ namespace ProjectChallenge
         //constructors
         public BasisVraag()
         {
-            
+
         }
         public BasisVraag(string opgave, string antwoord)
         {
@@ -28,7 +28,7 @@ namespace ProjectChallenge
         //methods
         public override string ToString()
         {
-            return "basis,"+opgave+","+antwoord;
+            return "basis," + opgave + "," + antwoord;
         }
 
         //properties
@@ -45,7 +45,7 @@ namespace ProjectChallenge
 
             }
         }
-        public override string Antwoord 
+        public override string Antwoord
         {
             get
             {
@@ -57,7 +57,7 @@ namespace ProjectChallenge
 
             }
         }
-        public override string Ingevuld 
+        public override string Ingevuld
         {
             get
             {
@@ -67,22 +67,29 @@ namespace ProjectChallenge
             {
                 ingevuld = value;
 
-            } 
+            }
         }
-        public override bool IsIngevuld 
+        public override bool IsIngevuld
         {
             get
             {
                 return (ingevuld != null && ingevuld != "");
             }
         }
-        public override bool IsJuist {
+        public override bool IsJuist
+        {
             get
             {
-                return antwoord.Trim() == ingevuld.Trim();
+                if (IsIngevuld)
+                {
+                    return antwoord.Trim() == ingevuld.Trim();
+                }
+                else
+                {
+                    return (false);
+                }
             }
         }
 
-        
     }
 }

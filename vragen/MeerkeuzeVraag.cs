@@ -82,7 +82,7 @@ namespace ProjectChallenge
             get
             {
                 return antwoordenLijst[0] == ingevuld;
-                // We vergelijken niet de ingevulde index met de antwoordindex maar de geselecteerde string, zo kan de volgorde van de antwoorden willekeurig gemaakt worden
+                // We vergelijken niet de ingevulde index met de antwoordindex maar de geselecteerde string met de antwoordString, zo kan de volgorde van de antwoorden willekeurig gemaakt worden
             }
         }
         public List<string> AntwoordenLijst { get { return antwoordenLijst; } set { antwoordenLijst = value; } }

@@ -222,7 +222,14 @@ namespace ProjectChallenge
         {
             get
             {
-                return antwoord.Trim() == ingevuld.Trim();
+                if (IsIngevuld)
+                {
+                    return antwoord.Trim() == ingevuld.Trim();
+                }
+                else
+                {
+                    return (false);
+                }
             }
         }
 
