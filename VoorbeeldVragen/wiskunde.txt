@@ -1,4 +1,0 @@
-basis,test,1
-meerkeuze,meerkeuze,optie|2|3|
-wiskunde,34,23,+
-wiskunde,69,40,*
