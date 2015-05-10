@@ -30,8 +30,6 @@ namespace ProjectChallenge
             AppDomain currentDomain = AppDomain.CurrentDomain;
             //currentDomain.UnhandledException += new UnhandledExceptionEventHandler(UEHandler);
             InitializeComponent();
-            this.
-            // akki test
             alleGebruikers = new AlleGebruikers();
             
         }
