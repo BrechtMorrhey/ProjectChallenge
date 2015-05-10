@@ -7,6 +7,12 @@ using System.Threading.Tasks;
 
 namespace ProjectChallenge
 {
+    //  Leerling klasse die alle gegevens
+    //  van een leerling bezit en die gebruik
+    //  maakt van de klasse Persoon
+    //
+    //  Author: Stijn Stas
+
     public class Leerling : Persoon
     {
         //  eigenschappen
@@ -30,21 +36,38 @@ namespace ProjectChallenge
         }
 
         //  methoden
+
+        //  ToString() geeft de gegevens van de leerling
+        //  terug in string formaat
+        //
+        //  Author: Stijn Stas
+
         public override string ToString()
         {
             return string.Format("{0},{1},{2},{3},{4},{5}", this.klas, base.id, base.paswoord, base.naam, base.voornaam, base.geboorteDatum);
         }
+
+        //  SlaOp maakt gebruik van 
+        //  de alleGebruikers class
+        //  om leerlingen op te slaan
+        //
+        //  Author: Stijn Stas
 
         public void SlaOp()
         {
             alleGebruikers.SlaStudentOp(this);  
         }
 
+        //  Geef het type gebruiker terug
+        //
+        //  Author: Stijn Stas
 
         public override string GeefGebruikersType()
         {
             return "leerling";
         }
+
+        //  properties
 
         public string Klas
         {

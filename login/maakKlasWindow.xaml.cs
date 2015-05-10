@@ -17,10 +17,21 @@ namespace ProjectChallenge.login
     /// <summary>
     /// Interaction logic for maakKlas.xaml
     /// </summary>
+    /// 
+
+    //  Verzorgt de code achter het 
+    //  maak klas formulier
+    //
+    //  Author: Stijn Stas
+
     public partial class maakKlasWindow : Window
     {
+
+        //  Eigenschappen
         private MainVragenWindow menuWindow;
         private AlleGebruikers alleGebruikers;
+
+        //  Constructor
         public maakKlasWindow(AlleGebruikers alleGebruikers, MainVragenWindow menuWindow)
         {
             InitializeComponent();
@@ -28,12 +39,24 @@ namespace ProjectChallenge.login
             this.menuWindow = menuWindow;
         }
 
+        //  Methoden
+
+        
+        //  Verzorgt code achter de nieuwe klas button
+        //  maakt gebruik van allegebruikers om klas
+        //  aan te maken en op te slaan
+        //
+        //  Author: Stijn Stas
         private void nieuweKlasButton_Click(object sender, RoutedEventArgs e)
         {
             string klas = nieuweKlasTextBox.Text;
             alleGebruikers.SlaKlasOp(klas);
             MessageBox.Show("Klas aangemaakt !!!", "Klas aangemaakt", MessageBoxButton.OK);
         }
+
+        //  Keer terug naar het menu.
+        //
+        //  Author: Stijn Stas
 
         private void terugButton_Click(object sender, RoutedEventArgs e)
         {

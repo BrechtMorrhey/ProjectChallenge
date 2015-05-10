@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace ProjectChallenge
 {
+
+    //  Persoon klasse
+    //  abstracte klasse gebruikt in
+    //  leerling en leerkracht
+    //
+    //  Author: Stijn Stas
+
     public abstract class Persoon
     {
         //  eigenschappen

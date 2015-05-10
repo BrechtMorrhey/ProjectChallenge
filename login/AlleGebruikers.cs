@@ -8,6 +8,15 @@ using System.IO;
 
 namespace ProjectChallenge
 {
+    //  Deze klasse leest de gebruikers in en slaat ze op
+    //  Ook de klassen worden hierin opgeslagen en ingelezen
+    //  En ook het grootste deel van de mappenstructuur wordt
+    //  Hierin aangemaakt.
+    //
+    //  Author: Stijn Stas
+     
+
+
     public class AlleGebruikers
     {
         //  eigenschappen
@@ -23,7 +32,7 @@ namespace ProjectChallenge
         private StreamReader readKlassenStream = null;
 
 
-        //  methoden
+        //  Constructor
         public AlleGebruikers()
         {
             programmaDirPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Challenger");
@@ -101,6 +110,13 @@ namespace ProjectChallenge
                 }
             }
         }
+        
+        //  Methoden
+
+        //  Student word opgeslagen in de leerlingenlijst
+        //  en in een .txt bestand.
+        //
+        //  Author: Stijn Stas
 
         public void SlaStudentOp(Leerling leerling)
         {
@@ -120,6 +136,12 @@ namespace ProjectChallenge
                 opslaanStudent.Close();
             }
         }
+
+        //  Leerkracht word opgeslagen in de leerkrachtenlijst
+        //  en in een .txt bestand.
+        //
+        //  Author: Stijn Stas
+
         public void SlaLeerkrachtOp(Leerkracht leerkracht)
         {
             leerkrachten.Add(leerkracht);
@@ -138,6 +160,11 @@ namespace ProjectChallenge
             }
         }
 
+        //  klassen word opgeslagen in de klassenlijst
+        //  en in een .txt bestand.
+        //
+        //  Author: Stijn Stas
+
         public void SlaKlasOp(string klas)
         {
             klassen.Add(klas);
@@ -155,6 +182,12 @@ namespace ProjectChallenge
                 writeKlassenStream.Close();
             }
         }
+
+        //  Klassen worden uit een .txt bestand 
+        //  ingelezen en in een klassenlijst 
+        //  geplaatst.
+        //
+        //  Author: Stijn Stas
 
         public void LeesKlassenIn()
         {
@@ -176,6 +209,12 @@ namespace ProjectChallenge
             }
         }
 
+        //  Studenten worden uit een .txt bestand 
+        //  ingelezen en in een leerlingenlijst 
+        //  geplaatst.
+        //
+        //  Author: Stijn Stas
+
         private void LeesStudentenIn() 
         {
             string regel = studentenStream.ReadLine();
@@ -186,6 +225,12 @@ namespace ProjectChallenge
             }
         }
 
+        //  Leerkrachten worden uit een .txt bestand 
+        //  ingelezen en in een leerkrachtenlijst 
+        //  geplaatst.
+        //
+        //  Author: Stijn Stas
+
         private void LeesLeerkrachtenIn()
         {
             string regel = leerkrachtenStream.ReadLine();
@@ -195,6 +240,13 @@ namespace ProjectChallenge
                 regel = leerkrachtenStream.ReadLine();
             }
         }
+
+        //  gebruikers worden uit een .txt bestand 
+        //  ingelezen en in een de respectievelijke 
+        //  lijst geplaatst. Deze methode word gebruikt
+        //  in LeesLeerkrachtenIn() en in LeesStudentenIn()
+        //
+        //  Author: Stijn Stas
 
         private void LeesGebruikerIn(string regel, soortGebruiker gebruikerSoort)
         {

@@ -18,8 +18,15 @@ namespace ProjectChallenge
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// 
+
+    //  Code achter het registratie scherm
+    //
+    //  Author: Stijn Stas
+
     public partial class RegistratieWindow : Window
     {
+        //  Eigenschappen
         private string naam;
         private string voornaam;
         private string geboorteDatum;
@@ -27,6 +34,8 @@ namespace ProjectChallenge
         private string klas;
         private AlleGebruikers allegebruikers;
         private MainWindow mainWindow;
+
+        //  Constructor
         public RegistratieWindow(AlleGebruikers allegebruikers, MainWindow mainWindow)
         {
             InitializeComponent();
@@ -37,6 +46,12 @@ namespace ProjectChallenge
             this.mainWindow = mainWindow;
         }
 
+        //methoden
+
+        //  gebruikers worden aangemaakt
+        //  met behulp van de allegebruikersklasse
+        //
+        //  Author: Stijn Stas
         private void klasButton_Click(object sender, RoutedEventArgs e)
         {
             naam = naamTextBox.Text;
@@ -70,6 +85,10 @@ namespace ProjectChallenge
 
         }
 
+        //  Handler die elementen in het scherm toont
+        //  afhankelijk van gebruiker
+        //
+        //  Author: Stijn Stas
         private void soortRegistratieComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (soortRegistratieComboBox.SelectedItem == leerlingItem)
@@ -83,6 +102,10 @@ namespace ProjectChallenge
                 klasComboBox.Visibility = Visibility.Hidden;
             }
         }
+
+        //  keer terug naar beginscherm
+        //
+        //  Author: Stijn Stas
 
         private void terugButton_Click(object sender, RoutedEventArgs e)
         {
