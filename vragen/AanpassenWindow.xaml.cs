@@ -286,7 +286,7 @@ namespace ProjectChallenge
                         minButton.Visibility = Visibility.Hidden;
                         plusButton.IsEnabled = false;
                         minButton.IsEnabled = false;
-                        antwoordTextBox.IsEnabled = true;
+                        antwoordTextBox.IsEnabled = false;
                         meerkeuzeListBox.IsEnabled = false;
                         GenereerOpgaveButton.Visibility = Visibility.Visible;
                         getal1TextBox.Visibility = Visibility.Visible;
