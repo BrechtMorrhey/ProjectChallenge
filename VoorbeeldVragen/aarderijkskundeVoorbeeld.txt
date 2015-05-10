@@ -1,0 +1,10 @@
+basis,Wat is de hoofdstad van Frankrijk?,Parijs
+meerkeuze,Wat is het wereld's grootste meer?,De Kaspische Zee|Het Schulensmeer|Het Victoriameer|
+basis,Welk land heeft de grootste populatie ter wereld?,China
+basis,Hoe noemt de grootste woestijn op aarde?,Sahara
+meerkeuze,Wat is de tweede langste rivier in de wereld?,Amazone Rivier|De Nijl|
+meerkeuze,Welke vlag heeft de meeste kleuren?,Zuid-Afrika|Japan|Tanzania|Verenigde Staten|Zimbabwe|China|
+meerkeuze,Welk land heeft de langste kustlijn?,Canada|Noorwegen|
+basis,In welk werelddeel bevind de Nijl zich ?,Afrika
+meerkeuze,Tussen welke landen ligt Everest?,Nepal en Tibet|China en Tibet|Nepal en China|Nepal en Mongolie|
+basis,Wat is het kleinste land ter wereld?,Vaticaanstad
