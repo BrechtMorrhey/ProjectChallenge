@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.IO;
 using Microsoft.Win32;
 
+// Author: Brecht Morrhey
 namespace ProjectChallenge
 {
     /// <summary>
@@ -37,6 +38,7 @@ namespace ProjectChallenge
 	public AanpassenWindow(string bestandsNaam, bool nieuweLijst, MainVragenWindow menuWindow)
 	{
             InitializeComponent();
+            //Author: Stijn Stas
             vragenlijstenDirPath = programmaDirPath + "\\Vragenlijsten";
             this.bestandsNaam = bestandsNaam;
             this.nieuweLijst = nieuweLijst;
@@ -81,7 +83,9 @@ namespace ProjectChallenge
         {
             // voeg enkel een vraag toe als er ook data in de vakjes zit
             if (opgaveTextBox.Text != "")
+            {
                 VoegVraagToe();
+            }
 
             StreamWriter outputStream = File.CreateText(bestandsNaam);
             foreach (Vraag vraag in vragenLijst)
@@ -96,12 +100,16 @@ namespace ProjectChallenge
         {
             // voeg enkel een vraag toe als er ook data in de vakjes zit
             if (opgaveTextBox.Text != "")
+            {
                 VoegVraagToe();
+            }
 
+            //Author: Akki Stankidis
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.InitialDirectory = vragenlijstenDirPath;
             dialog.ShowDialog();
             bestandsNaam = dialog.FileName;
+
             if (bestandsNaam != null && bestandsNaam != "")
             {
                 StreamWriter outputStream = File.CreateText(bestandsNaam);
@@ -138,6 +146,7 @@ namespace ProjectChallenge
                             vraag = new MeerkeuzeVraag(opgaveTextBox.Text, antwoordenLijst);
                             break;
                         case 2:
+                            // Author: Akki Stankidis
                             if (wiskundeVraagTemp == null) // wiskunde vraag werd handmatig ingegeven
                             {
                                 GenerateMathQuestion();
@@ -206,7 +215,6 @@ namespace ProjectChallenge
                             TextBox lijstItem;
                             foreach (string antwoord in ((MeerkeuzeVraag)vragenLijst[counter]).AntwoordenLijst)
                             // we kunnen niet zomaar aan de antwoordenlijst aangezien dit geen property van Vraag is dus moeten we eerst naar MeerkeuzeVraag casten
-                            // dit is niet zo een mooie oplossing, alternatieven??
                             {
                                 lijstItem = new TextBox();
                                 lijstItem.Height = textBoxHeight;
@@ -226,6 +234,7 @@ namespace ProjectChallenge
                             typeVraagComboBox.SelectedIndex = 1;
                             break;
                         case VraagType.wiskunde:
+                            // Author: Akki Stankidis
                             opgaveTextBox.Text = vragenLijst[counter].Opgave;
                             antwoordTextBox.Text = vragenLijst[counter].Antwoord;
                             typeVraagComboBox.SelectedIndex = 2;
@@ -278,6 +287,7 @@ namespace ProjectChallenge
                         maximumLabel.Visibility = Visibility.Hidden;
                         break;
                     case 2: //wiskunde
+                        // Author: Akki Stankidis
                         antwoordLabel.Visibility = Visibility.Visible;
                         antwoordTextBox.Visibility = Visibility.Visible;
                         meerkeuzeLabel.Visibility = Visibility.Hidden;
@@ -397,6 +407,7 @@ namespace ProjectChallenge
 
         private void GenereerOpgaveButton_Click(object sender, RoutedEventArgs e)
         {
+            // Author: Akki Stankidis
             GenerateMathQuestion();
         }
 
@@ -408,6 +419,7 @@ namespace ProjectChallenge
 
         private void GenerateMathQuestion()
         {
+            // Author: Akki Stankidis
             int n;
             if (int.TryParse(getal1TextBox.Text, out n) && int.TryParse(getal2TextBox.Text, out n))
             {
@@ -415,9 +427,8 @@ namespace ProjectChallenge
                 opgaveTextBox.Text = wiskundeVraagTemp.Opgave;
                 antwoordTextBox.Text = wiskundeVraagTemp.Antwoord;
             }
-            else if (opgaveTextBox.Text != "") // niet nodig om het anwoord te checken, want dit wordt toch automatisch gegenereerd
+            else if (opgaveTextBox.Text != "") 
             {
-                ///////////////////////////////////////hier zit de fout ivm handmatige wiskunde vragen die verkeerd ingegeven worden
                 int m;
                 if (int.TryParse((opgaveTextBox.Text.Split(' ')[0]), out m) && int.TryParse((opgaveTextBox.Text.Split(' ')[2]), out m))
                 {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-
+//Author: Brecht Morrhey
 // http://stackoverflow.com/questions/2053206/return-streamreader-to-beginning
 namespace ProjectChallenge
 {

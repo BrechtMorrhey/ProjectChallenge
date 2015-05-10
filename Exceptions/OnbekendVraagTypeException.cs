@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+//Author: Brecht Morrhey
 namespace ProjectChallenge
 {
-    class LeegBestandException : ApplicationException
+    class OnbekendVraagTypeException: ApplicationException
     {
-        public LeegBestandException() { }
-        public LeegBestandException(string message)
+        public OnbekendVraagTypeException() { }
+        public OnbekendVraagTypeException(string message)
             : base(message)
         {          
         }

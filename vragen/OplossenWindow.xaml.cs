@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Windows.Threading;
 
+//Author: Brecht Morrhey
 namespace ProjectChallenge
 {
     /// <summary>
@@ -38,8 +39,10 @@ namespace ProjectChallenge
         public OplossenWindow(string bestandsNaam, Leerling gebruiker,MainVragenWindow menuWindow, vragen.VragenSelectieWindow vragenSelectie)
         {
             InitializeComponent();
-            this.menuWindow = menuWindow;
             this.bestandsNaam = bestandsNaam + ".txt";
+
+            //Author: Stijn Stas
+            this.menuWindow = menuWindow;
             vragenlijstenDirPath = programmaDirPath + "\\Vragenlijsten";
             this.vragenSelectie = vragenSelectie;
             this.gebruiker = gebruiker;
@@ -49,6 +52,7 @@ namespace ProjectChallenge
         public OplossenWindow(string bestandsNaam,int tijd, Leerling gebruiker, MainVragenWindow menuWindow, vragen.VragenSelectieWindow vragenSelectie)
                 :this(bestandsNaam, gebruiker, menuWindow, vragenSelectie)
         {
+            //Author: Stijn Stas
             this.juisteTijd = tijd; 
         }
 
@@ -79,6 +83,7 @@ namespace ProjectChallenge
             }
             else
             {
+                //Author: Stijn Stas
                 if (juisteTijd != 0)
                 {
                     Klaar();
@@ -149,11 +154,13 @@ namespace ProjectChallenge
                     }
                     break;
                 case(VraagType.wiskunde):
+                    // Author: Akki Stankidis
                     invulTextBox.Visibility = Visibility.Visible;
                     invulListBox.Visibility = Visibility.Hidden;
                     invulTextBox.Text = vragenLijst[counter].Ingevuld;
                     break;
             }
+            //Author: Stijn Stas
             tijd = juisteTijd;
         }
         
@@ -215,6 +222,7 @@ namespace ProjectChallenge
 //  opvangen leegbestand exception
             catch (LeegBestandException exception)
             {
+                //Author: Stijn Stas
                 MessageBox.Show(exception.Message);
                 windowClosed = false; // boolean op vals om te zeggen dat window gesloten is
                 this.Close();
@@ -255,7 +263,8 @@ namespace ProjectChallenge
 
                 LaadVraag();
             }
-            
+
+            //Author: Stijn Stas
             if(tijd != 0)
             {
                 vorigeButton.Visibility = Visibility.Hidden;
@@ -269,6 +278,7 @@ namespace ProjectChallenge
 
         void klok_Tick(object sender, EventArgs e)
         {
+            //Author: Stijn Stas
             overigeVragenTextBlock.Text = "resterende vragen: " + restVragen;
             tijdLabel.Content = "Resterende tijd : " + tijd + " sec";
             if (tijd == 0)
@@ -280,6 +290,7 @@ namespace ProjectChallenge
         
         public bool WindowNotClosed
         {
+            //Author: Stijn Stas
             get
             {
                 return windowClosed;
@@ -288,15 +299,11 @@ namespace ProjectChallenge
 
         private void Window_Closed(object sender, EventArgs e)
         {
+            //Author: Stijn Stas
             if (klok != null)
             {
                 klok.Stop();
             }
-        }
-
-        private void invulTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
     }
 }

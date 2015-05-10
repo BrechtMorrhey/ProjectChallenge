@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
-
+//Author: Brecht Morrhey
 
 namespace ProjectChallenge
 {
@@ -31,6 +31,7 @@ namespace ProjectChallenge
         public MainVragenWindow()
         {
             InitializeComponent();
+            //Author: Stijn Stas
             vragenlijstenDirPath = programmaDirPath + "\\Vragenlijsten";
             if (!(System.IO.Directory.Exists(vragenlijstenDirPath)))
             {
@@ -41,6 +42,7 @@ namespace ProjectChallenge
         public MainVragenWindow(Leerling leerling, MainWindow mainWindow)
             :this()
         {
+            //Author: Stijn Stas
             this.mainWindow = mainWindow;
             bekijkScoreButton.Visibility = Visibility.Visible;
             oplossenButton.Visibility = Visibility.Visible;
@@ -49,6 +51,7 @@ namespace ProjectChallenge
         public MainVragenWindow(Leerkracht leerkracht, AlleGebruikers allegebruikers, MainWindow mainWindow)
             :this()
         {
+            //Author: Stijn Stas
             this.alleGebruikers = allegebruikers;
             this.mainWindow = mainWindow;
             aanpassenButton.Visibility = Visibility.Visible;
@@ -59,6 +62,7 @@ namespace ProjectChallenge
 
         private void opstellenButton_Click(object sender, RoutedEventArgs e)
         {
+            // Author: Akki Stankidis
             SaveFileDialog dialog = new SaveFileDialog();
             // initial directory 
             dialog.InitialDirectory = vragenlijstenDirPath;
@@ -78,7 +82,7 @@ namespace ProjectChallenge
         {
             //OpenFileDialog dialog = new OpenFileDialog();
             //// initial directory 
-            //dialog.InitialDirectory = vragenlijstenDirPath ;
+            //dialog.InitialDirectory = vragenlijstenDirPath;
             //// only .txt files
             //dialog.Filter = "Text files (*.txt)|*.txt;";
             //dialog.ShowDialog();
@@ -90,6 +94,7 @@ namespace ProjectChallenge
             //    this.Hide();
             //}
 
+            //Author: Stijn Stas
             vragen.VragenSelectieWindow vragenSelectieWindow = new vragen.VragenSelectieWindow(gebruiker, this);
             vragenSelectieWindow.Show();
             this.Hide();
@@ -97,6 +102,8 @@ namespace ProjectChallenge
              
         private void aanpassenButton_Click(object sender, RoutedEventArgs e)
         {
+            // Author: Akki Stankidis
+
             OpenFileDialog dialog = new OpenFileDialog();
             // initial directory 
             dialog.InitialDirectory = vragenlijstenDirPath;
@@ -118,14 +125,7 @@ namespace ProjectChallenge
             w.Show();
             this.Hide();
         }
-
-        //private void GameButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    Game game = new Game(this);
-        //    game.Show();
-        //    this.Hide();
-        //}
-
+        
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
             System.Environment.Exit(0);

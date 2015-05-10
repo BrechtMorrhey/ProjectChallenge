@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
-
+//Author: Brecht Morrhey
 namespace ProjectChallenge
 {
     /// <summary>
@@ -26,6 +26,7 @@ namespace ProjectChallenge
         public ScoreAlleWindow(OverzichtScoresWindow vorigWindow, MainVragenWindow menuWindow )
         {
             InitializeComponent();
+            //Author: Stijn Stas
             this.menuWindow = menuWindow;
             this.vorigWindow = vorigWindow;
         }
@@ -61,7 +62,7 @@ namespace ProjectChallenge
             }
 
             Dictionary<string, double> klasScores = new Dictionary<string, double>();
-            foreach (string item in klassenLijst)
+            foreach (string item in klassenLijst)   //initialiseer een Dictionary waarin we per klas de gemiddelde score bijhouden
             {
                 klasScores.Add(item, 0);
             }
@@ -146,17 +147,20 @@ namespace ProjectChallenge
 
         private void menuButton_Click(object sender, RoutedEventArgs e)
         {
+            //Author: Stijn Stas
             this.NaarMenu();
         }
 
         private void overzichtButton_Click(object sender, RoutedEventArgs e)
         {
+            //Author: Stijn Stas
             vorigWindow.Show();
             this.Close();
         }
 
         private void NaarMenu()
         {
+            //Author: Stijn Stas
             menuWindow.Show();
             vorigWindow.Close();
             this.Close();

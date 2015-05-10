@@ -12,7 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+//Author: Brecht Morrhey
 namespace ProjectChallenge
 {
     /// <summary>
@@ -22,14 +22,13 @@ namespace ProjectChallenge
     {
         string klas;
         private MainVragenWindow menuWindow;
-        //        private Window vorigWindow;
 
-        public ScoreKlasWindow(string klas,/* Window vorigWindow,*/ MainVragenWindow menuWindow)
+        public ScoreKlasWindow(string klas, MainVragenWindow menuWindow)
         {
             this.klas = klas;
             InitializeComponent();
+            //Author: Stijn Stas
             this.menuWindow = menuWindow;
-            //            this.vorigWindow = vorigWindow;
             klasLabel.Content = klas + ":";
         }
 
@@ -37,6 +36,7 @@ namespace ProjectChallenge
         {
             string userId = ((string)((Button)(sender)).Content).Split(':')[0];
             Leerling gebruiker = null;
+            //Author: Stijn Stas
             foreach (Leerling leerling in menuWindow.Gebruikers.Leerlingen)
             {
                 if (userId == leerling.ID)
@@ -89,7 +89,7 @@ namespace ProjectChallenge
 
 
             Dictionary<string, double> leerlingScores = new Dictionary<string, double>();
-            foreach (string item in leerlingenLijst)    //initialiseer Dictionary
+            foreach (string item in leerlingenLijst)    //initialiseer Dictionary waar per leerling de gemiddeldescore wordt bijgehouden
             {
                 leerlingScores.Add(item, 0);
             }
@@ -181,6 +181,7 @@ namespace ProjectChallenge
 
         private void klassenButton_Click(object sender, RoutedEventArgs e)
         {
+            //Author: Stijn Stas
             ScoreAlleWindow klassen = new ScoreAlleWindow(new OverzichtScoresWindow(menuWindow), menuWindow);
             klassen.Show();
             this.Close();
@@ -188,11 +189,13 @@ namespace ProjectChallenge
 
         private void menuButton_Click(object sender, RoutedEventArgs e)
         {
+            //Author: Stijn Stas
             this.NaarMenu();
         }
 
         private void NaarMenu()
         {
+            //Author: Stijn Stas
             menuWindow.Show();
             this.Close();
         }

@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//Author: Brecht Morrhey
 namespace ProjectChallenge
 {
-    class OnbekendVraagTypeException: ApplicationException
+    class FouteWiskundeVraagException : ApplicationException
     {
-        public OnbekendVraagTypeException() { }
-        public OnbekendVraagTypeException(string message)
+         public FouteWiskundeVraagException() { }
+         public FouteWiskundeVraagException(string message)
             : base(message)
         {          
         }

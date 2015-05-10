@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+//Author: Stijn Stas
 namespace ProjectChallenge
 {
-    class FouteWiskundeVraagException : ApplicationException
+    class LeegBestandException : ApplicationException
     {
-         public FouteWiskundeVraagException() { }
-         public FouteWiskundeVraagException(string message)
+        public LeegBestandException() { }
+        public LeegBestandException(string message)
             : base(message)
         {          
         }
