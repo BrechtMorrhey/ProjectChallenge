@@ -19,15 +19,21 @@ namespace ProjectChallenge
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-   
+    /// 
+
+    //  Code achter het game scherm
+    //
     // Author: Timo Biesmans, Brecht Morrhey
+
     public partial class Game : Window
     {
+        //  Eigenschappen
         private List<GameObject> gameObjecten = new List<GameObject>();
         private DispatcherTimer animationTimer, klok;
         private MainVragenWindow menuWindow;
         private int secondsLeft;
 
+        //  Constructors
         public Game(MainVragenWindow menuWindow)
         {
             InitializeComponent();
@@ -50,6 +56,12 @@ namespace ProjectChallenge
             klokTextBox.Text = "tijd:\n" + secondsLeft + " sec";
         }
 
+        //  Methodes
+
+        //  acties die uitgevoerd worden
+        //  elke tick van klok
+        //
+        //  Author: Stijn Stas
         void klok_Tick(object sender, EventArgs e)
         {
             secondsLeft -= 1;
@@ -64,6 +76,10 @@ namespace ProjectChallenge
             }
         }
 
+        //  Methode die de kleuren
+        //  Van gebotste opbjecten verandert
+        //
+        //  Author: Timo Biesmans
         public static void VeranderKleuren(GameObject a, GameObject b)
         {
             if (!(a.GetType() == b.GetType()) && a.Leven && b.Leven)
@@ -78,6 +94,11 @@ namespace ProjectChallenge
             }
         }
 
+        //  Code achter de rode knop
+        //  hierin wordt nieuw rood object
+        //  aangemaakt
+        //
+        //  Author: Timo Biesmans
         private void roodButton_Click(object sender, RoutedEventArgs e)
         {
             RoodObject roodObject;
@@ -90,6 +111,11 @@ namespace ProjectChallenge
             roodObject.DisplayOn(gameCanvas);
         }
 
+        //  Code achter de blauwe knop
+        //  hierin wordt nieuw blauw object
+        //  aangemaakt
+        //
+        //  Author: Timo Biesmans
         private void blauwButton_Click(object sender, RoutedEventArgs e)
         {
             BlauwObject blauwObject;
@@ -102,6 +128,12 @@ namespace ProjectChallenge
             blauwObject.DisplayOn(gameCanvas);
         }
 
+        //  Code die per tick van de animatie
+        //  timer wordt uigevoerd
+        //  Deze code test elke tick of de objecten
+        //  Botsen
+        //
+        //  Author: Timo Biesmans
         private void animationTimer_Tick(object sender, EventArgs e)
         {
             List<GameObject> botsingLijst = new List<GameObject>();
@@ -127,6 +159,13 @@ namespace ProjectChallenge
 
         }
 
+        
+        //  Code achter score button
+        //  deze zorgt ervoor dat als
+        //  je er op klikt het spel stopt
+        //  en het score scherm geopent word
+        //
+        //  Author: Timo Biesmans
         private void scoreButton_Click(object sender, RoutedEventArgs e)
         {
             Window w = new GameScore(gameObjecten, menuWindow);
@@ -134,12 +173,24 @@ namespace ProjectChallenge
             this.Close();
         }
 
+        //  Code achter de terug knop
+        //  Game wordt afgesloten
+        //  Menu wordt geopend
+        //
+        //  Author: Stijn Stas
         private void TerugButton_Click(object sender, RoutedEventArgs e)
         {
             menuWindow.Show();
             this.Close();
         }
 
+        
+        //  Code die uitgevoerd wordt als
+        //  het scherm gesloten word
+        //  Hierin worden de timers uit
+        //  geschakeld
+        //
+        //  Author: Timo Biesmans
         private void Window_Closed(object sender, EventArgs e)
         {
             animationTimer.Stop();  // https://social.msdn.microsoft.com/Forums/en-US/992b4aa3-f066-4ccf-8c14-aec871eccdb6/how-to-properly-close-dispose-a-wpf-window?forum=wpf

@@ -9,13 +9,19 @@ using System.Windows.Shapes;
 
 namespace ProjectChallenge
 {
+    //  De code achter de rode bolletjes
+    //  die je in de game kunt maken
+    //
+    // Author: Timo Biesmans
+
     public class RoodObject : GameObject
     {
+        //  Eigenschappen
         private static SolidColorBrush objectKleur = new SolidColorBrush(Colors.Red);
         private SolidColorBrush kleur;
         private Ellipse roodObject;
         
-        
+        //  Constructor
         public RoodObject(Canvas drawingCanvas)
             : base(drawingCanvas)
         {
@@ -26,6 +32,8 @@ namespace ProjectChallenge
             kleur = ObjectKleur;
             roodObject.Fill = kleur;
         }
+
+        //  Properties
         public override Shape objectShape
         {
             get { return roodObject; }
@@ -40,6 +48,14 @@ namespace ProjectChallenge
             get { return objectKleur; }
         }
 
+        //  Methoden
+
+        //  UpdateElement() word gebruikt
+        //  om de nieuwe locatie, hoogte, breedte
+        //  en kleur van het object mee te 
+        //  geven
+        //
+        //  Author: Timo Biesmans
         public override void UpdateElement()
         {
             roodObject.Margin = new Thickness(X, Y, 0, 0);

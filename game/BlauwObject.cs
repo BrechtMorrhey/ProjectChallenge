@@ -9,14 +9,18 @@ using System.Windows.Shapes;
 
 namespace ProjectChallenge
 {
+    //  De code achter de blauwe vierkantjes 
+    //  die je in de game kunt maken
+    //
     // Author: Timo Biesmans
     public class BlauwObject : GameObject
     {
+        //  Eigenschappen
         private static SolidColorBrush objectKleur = new SolidColorBrush(Colors.Blue);
         private SolidColorBrush kleur;
         private Rectangle blauwObject;
 
-
+        //  Constructor
         public BlauwObject(Canvas drawingCanvas)
             : base(drawingCanvas)
         {
@@ -27,6 +31,8 @@ namespace ProjectChallenge
             kleur = ObjectKleur;
             blauwObject.Fill = kleur;
         }
+
+        //  Properties
         public override Shape objectShape
         {
             get { return blauwObject; }
@@ -40,6 +46,16 @@ namespace ProjectChallenge
         {
             get { return objectKleur; }
         }
+
+        //  Methoden
+
+        //  UpdateElement() word gebruikt
+        //  om de nieuwe locatie, hoogte, breedte
+        //  en kleur van het object mee te 
+        //  geven
+        //
+        //  Author: Timo Biesmans
+
         public override void UpdateElement()
         {
             blauwObject.Margin = new Thickness(X, Y, 0, 0);

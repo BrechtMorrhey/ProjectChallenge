@@ -10,14 +10,22 @@ using System.Windows.Shapes;
 
 namespace ProjectChallenge
 {
+
+    //  abstracte klasse die overgeërft word
+    //  in blauwObject en roodObject
+    //  en die de klasse iBeweegbaar implementeert
+    //
+    //  Author: Timo Biesmans
     public abstract class GameObject : iBeweegbaar
     {
+        //  Eigenschappen
         private static SolidColorBrush doodKleur = new SolidColorBrush(Colors.Black);
         private bool leven;
         private int x, y, width, height;
         private int xStepSize, yStepSize;
         private Canvas canvas;
 
+        //  Constructor
         public GameObject(Canvas drawingCanvas)
         {
             Random randomNumber = new Random();
@@ -31,6 +39,7 @@ namespace ProjectChallenge
             y = randomNumber.Next(1, (int)(canvas.Height - height));
         }
 
+        //  Properties
         public abstract Shape objectShape { get; }
         public int X
         {
@@ -79,7 +88,13 @@ namespace ProjectChallenge
                 leven = value;
             }
         }
+
         //methods
+
+        //  Move() zorgt voor de beweging van
+        //  het object
+        //
+        //  Author: Timo Biesmans
         public void Move()
         {
 
@@ -94,6 +109,13 @@ namespace ProjectChallenge
             X += xStepSize;
             Y += yStepSize;
         }
+
+        //  deze move zorgt voor de beweging van het 
+        //  object en kijkt of het object niet met
+        //  andere dingen botst en verandert de 
+        //  kleur als het wel botst
+        //
+        //  Author: Timo Biesmans
         public void Move(ref List<GameObject> gameObjecten, out GameObject botser)
         {
             gameObjecten.Remove(this);  // zodat dit object niet met zichzelf wordt vergeleken
@@ -118,6 +140,10 @@ namespace ProjectChallenge
             }            
         }
 
+        //  Methodes die gebruikt word
+        //  om te kijken of objecten botsen
+        //
+        //  Author: Timo Biesmans
         public bool Overlapping(List<GameObject> gameObjecten)
         {
             bool overlap = false;
@@ -138,6 +164,8 @@ namespace ProjectChallenge
             }
             return overlap;
         }
+
+        
         public void Overlapping(List<GameObject> gameObjecten, out bool overlap, out GameObject botser)
         {
             overlap = false;
@@ -164,10 +192,21 @@ namespace ProjectChallenge
                 botser = gameObjecten[i - 1];
             }
         }
+
+        //  DisplayOn toont het object
+        //  op het canvas
+        //
+        //  Author: Timo Biesmans
         public void DisplayOn(Canvas drawingCanvas)
         {
             drawingCanvas.Children.Add(this.objectShape);
         }
+
+        //  Abstracte methode die uitgewerkt word
+        //  in roodObject en blauwObject
+        //  om het object up te daten
+        //
+        //  Author: Timo Biesmans
         public abstract void UpdateElement();
     }
 }
