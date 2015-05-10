@@ -51,7 +51,7 @@ namespace ProjectChallenge.vragen
             {
 
                 filename = System.IO.Path.GetFileName(file);
-                if (filename.Split('.')[1] == "txt")
+                if (filename.Split('.').Count() > 1 && filename.Split('.').Last() == "txt") //kijk of het bestand een extensie heeft, zo ja, kijk of het een .txt is
                 {
                     vak = filename.Split('.')[0];
                     vakItem = new ListBoxItem();

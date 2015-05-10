@@ -178,6 +178,7 @@ namespace ProjectChallenge
             //Author: Akki Stankidis
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.InitialDirectory = vragenlijstenDirPath;
+            dialog.Filter = "Text files (*.txt)|*.txt;";
             dialog.ShowDialog();
             bestandsNaam = dialog.FileName;
 
