@@ -164,20 +164,23 @@ namespace ProjectChallenge
         {
             string userId = ((string)((Button)(sender)).Content).Split(':')[0];
             Leerling gebruiker = null;
+            bool leerlingGevonden = false;
             //Author: Stijn Stas
             foreach (Leerling leerling in menuWindow.Gebruikers.Leerlingen)
             {
                 if (userId == leerling.ID)
                 {
+                    leerlingGevonden = true;
                     gebruiker = leerling;
                     Window w = new ScoreLeerlingWindow(gebruiker, menuWindow);
                     w.Show();
                     this.Hide();
                 }
-                else
-                {
-                    MessageBox.Show("Foutief Bestand", "FOUT", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+            }
+
+            if (!leerlingGevonden)
+            {
+                MessageBox.Show("foutief bestand", "fout", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private void klassenButton_Click(object sender, RoutedEventArgs e)
