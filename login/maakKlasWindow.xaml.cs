@@ -51,7 +51,7 @@ namespace ProjectChallenge.login
         {
             string klas = nieuweKlasTextBox.Text;
             alleGebruikers.SlaKlasOp(klas);
-            MessageBox.Show("Klas aangemaak", "Klas "+klas+" aangemaakt", MessageBoxButton.OK);
+            MessageBox.Show("Klas aangemaakt.", "Klas "+klas+" aangemaakt", MessageBoxButton.OK);
         }
 
         //  Keer terug naar het menu.

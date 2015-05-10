@@ -9,6 +9,7 @@ namespace ProjectChallenge
 {
     class wiskundigeVraag : Vraag
     {
+        //variables
         public override VraagType TypeVraag { get { return VraagType.wiskunde; } }
         private string opgave, antwoord, ingevuld, bewerking;
         //private bool isIngevuld, isJuist;

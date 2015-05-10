@@ -9,9 +9,11 @@ namespace ProjectChallenge
 {
     class VragenLezer: BestandsLezer
     {
+        //constructors
         public VragenLezer():base() { }
         public VragenLezer(string bestandsNaam) : base(bestandsNaam) { }
 
+        //properties
         public List<Vraag> VragenLijst
         {
             get

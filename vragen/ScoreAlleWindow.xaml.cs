@@ -20,9 +20,11 @@ namespace ProjectChallenge
     /// </summary>
     public partial class ScoreAlleWindow : Window
     {
+        //variables
         MainVragenWindow menuWindow;
         OverzichtScoresWindow vorigWindow;
 
+        //constructors
         public ScoreAlleWindow(OverzichtScoresWindow vorigWindow, MainVragenWindow menuWindow )
         {
             InitializeComponent();
@@ -30,14 +32,8 @@ namespace ProjectChallenge
             this.menuWindow = menuWindow;
             this.vorigWindow = vorigWindow;
         }
-        private void scoresListBoxItem_Click(object sender, RoutedEventArgs e)
-        {
-            string klas = ((string)((Button)(sender)).Content).Split(':')[0];
-            Window w = new ScoreKlasWindow(klas, menuWindow);
-            w.Show();
-            this.Hide();
-        }
-        
+
+        //event handlers
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             string klas = "";
@@ -145,6 +141,16 @@ namespace ProjectChallenge
             }
         }
 
+        private void scoresListBoxItem_Click(object sender, RoutedEventArgs e)
+        {
+            string klas = ((string)((Button)(sender)).Content).Split(':')[0];
+            Window w = new ScoreKlasWindow(klas, menuWindow);
+            w.Show();
+            this.Hide();
+        }
+        
+       
+
         private void menuButton_Click(object sender, RoutedEventArgs e)
         {
             //Author: Stijn Stas
@@ -157,6 +163,8 @@ namespace ProjectChallenge
             vorigWindow.Show();
             this.Close();
         }
+
+        //methods
 
         private void NaarMenu()
         {

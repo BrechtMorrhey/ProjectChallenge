@@ -20,13 +20,17 @@ namespace ProjectChallenge
     /// </summary>
     public partial class OverzichtScoresWindow : Window
     {
+        //variables
         private MainVragenWindow menuWindow;
+
+        //constructors
         public OverzichtScoresWindow(MainVragenWindow menuWindow)
         {
             InitializeComponent();
             this.menuWindow = menuWindow;
         }
         
+        //event handlers
         private void userIdButton_Click(object sender, RoutedEventArgs e)
         {
             if (userIdTextBox.Text != "" && userIdTextBox.Text != null)

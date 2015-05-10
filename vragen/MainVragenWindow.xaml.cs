@@ -22,12 +22,15 @@ namespace ProjectChallenge
     /// </summary>
     public partial class MainVragenWindow : Window
     {
+        //variables
         private string bestandsNaam;
         private AlleGebruikers alleGebruikers;
         private MainWindow mainWindow;
         private string programmaDirPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Challenger");
         private string vragenlijstenDirPath;
         private Leerling gebruiker;
+        
+        //constructors
         public MainVragenWindow()
         {
             InitializeComponent();
@@ -60,6 +63,7 @@ namespace ProjectChallenge
             scoreButton.Visibility = Visibility.Visible;
         }
 
+        //event handlers
         private void opstellenButton_Click(object sender, RoutedEventArgs e)
         {
             // Author: Akki Stankidis
@@ -143,7 +147,16 @@ namespace ProjectChallenge
             nieuweKlasWindow.Show();
             this.Hide();
         }
+        private void bekijkScoreButton_Click(object sender, RoutedEventArgs e)
+        {
+            ScoreLeerlingWindow window = new ScoreLeerlingWindow(gebruiker, this);
+            window.klasButton.Visibility = Visibility.Hidden;
+            window.Show();
+            this.Hide();
+        }
 
+        //properties
+        //Author: Stijn Stas
         public AlleGebruikers Gebruikers
         {
             get
@@ -152,12 +165,5 @@ namespace ProjectChallenge
             }
         }
 
-        private void bekijkScoreButton_Click(object sender, RoutedEventArgs e)
-        {
-            ScoreLeerlingWindow window = new ScoreLeerlingWindow(gebruiker, this);
-            window.klasButton.Visibility = Visibility.Hidden;
-            window.Show();
-            this.Hide();
-        }
     }
 }

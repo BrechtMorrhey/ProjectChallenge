@@ -10,10 +10,12 @@ namespace ProjectChallenge
 {
     public abstract class BestandsLezer
     {
+        //variables
         private string bestandsNaam;
         private FileStream s;
         private StreamReader inputStream;
 
+        //constructors
         public BestandsLezer() { }
         public BestandsLezer(string bestandsNaam)
         {
@@ -21,6 +23,7 @@ namespace ProjectChallenge
             inputStream = null;
             s = null;
         }
+        //methods
         public void Initialise()
         {
             s = File.OpenRead(bestandsNaam);
@@ -49,6 +52,7 @@ namespace ProjectChallenge
                 throw new LezerNotInitialisedException();
             }
         }
+        //properties
         public string BestandsNaam { 
             get { return bestandsNaam; } 
             set 

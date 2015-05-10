@@ -13,6 +13,7 @@ namespace ProjectChallenge
         //private string opgave;
         //private bool isIngevuld, isJuist;
 
+        //properties
         public virtual VraagType TypeVraag { get { return VraagType.vraag; } }
 
         public abstract string Opgave { get; set; }

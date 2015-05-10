@@ -10,9 +10,11 @@ namespace ProjectChallenge
 {
     class ScoreLezer : BestandsLezer
     {
+        //constructors
         public ScoreLezer():base() { }
         public ScoreLezer(string bestandsNaam):base(bestandsNaam) { }
 
+        //properties
         public string VoorNaam {
             get
             {

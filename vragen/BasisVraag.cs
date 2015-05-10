@@ -9,7 +9,7 @@ namespace ProjectChallenge
 {
     public class BasisVraag: Vraag
     {
-        public override VraagType TypeVraag { get { return VraagType.basis; } }
+        //variables
         private string opgave;
         private string antwoord, ingevuld;
         //private bool isIngevuld, isJuist;
@@ -32,6 +32,7 @@ namespace ProjectChallenge
         }
 
         //properties
+        public override VraagType TypeVraag { get { return VraagType.basis; } }
         public override string Opgave
         {
             get

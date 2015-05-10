@@ -21,6 +21,7 @@ namespace ProjectChallenge
     /// </summary>
     public partial class ScoreWindow : Window
     {
+        //variables
         private MainVragenWindow menuWindow;
         private string bestandsNaam;
         private int verdiendeMinuten;
@@ -29,6 +30,7 @@ namespace ProjectChallenge
         private string moeilijkHeidsGraad;
         private int tijdPerVraag = 0;
         
+        //constructors
         public ScoreWindow(MainVragenWindow menuWindow, Leerling gebruiker, List<Vraag> vragenLijst, string bestandsNaam, int tijd)
         {
             InitializeComponent();
@@ -59,6 +61,7 @@ namespace ProjectChallenge
 
         }
             
+        //event handlers
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 

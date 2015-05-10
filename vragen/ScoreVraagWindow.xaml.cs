@@ -21,10 +21,12 @@ namespace ProjectChallenge
     /// </summary>
     public partial class ScoreVraagWindow : Window
     {
+        //variables
         private string bestandNaam;
         private MainVragenWindow menuWindow;
         private Window vorigWindow;
 
+        //constructors
         public ScoreVraagWindow(string bestandNaam, Window vorigWindow, MainVragenWindow menuWindow)
         {
             InitializeComponent();
@@ -34,6 +36,7 @@ namespace ProjectChallenge
             this.menuWindow = menuWindow;
         }
 
+        //event handlers
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             ScoreLezer lezer = new ScoreLezer();
@@ -92,6 +95,7 @@ namespace ProjectChallenge
             NaarMenu();
         }
 
+        //methods
         private void NaarMenu()
         {
             //Author: Stijn Stas

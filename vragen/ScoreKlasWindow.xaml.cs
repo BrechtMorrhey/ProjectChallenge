@@ -20,9 +20,11 @@ namespace ProjectChallenge
     /// </summary>
     public partial class ScoreKlasWindow : Window
     {
+        //variables
         string klas;
         private MainVragenWindow menuWindow;
 
+        //constructors
         public ScoreKlasWindow(string klas, MainVragenWindow menuWindow)
         {
             this.klas = klas;
@@ -32,27 +34,7 @@ namespace ProjectChallenge
             klasLabel.Content = klas + ":";
         }
 
-        private void scoresListBoxItem_Click(object sender, RoutedEventArgs e)
-        {
-            string userId = ((string)((Button)(sender)).Content).Split(':')[0];
-            Leerling gebruiker = null;
-            //Author: Stijn Stas
-            foreach (Leerling leerling in menuWindow.Gebruikers.Leerlingen)
-            {
-                if (userId == leerling.ID)
-                {
-                    gebruiker = leerling;
-                    Window w = new ScoreLeerlingWindow(gebruiker, menuWindow);
-                    w.Show();
-                    this.Hide();
-                }
-                else
-                {
-                    MessageBox.Show("Foutief Bestand", "FOUT", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-        }
-
+        //event handlers
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             string path = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Challenger\\challenge scores";
@@ -170,7 +152,7 @@ namespace ProjectChallenge
                 scoresListBox.Items.Add(b);
             }
             //http://stackoverflow.com/questions/141088/what-is-the-best-way-to-iterate-over-a-dictionary-in-c
-           
+
             if (leerlingenLijst.Count == 0)
             {
                 b = new Button();
@@ -178,7 +160,26 @@ namespace ProjectChallenge
                 scoresListBox.Items.Add(b);
             }
         }
-
+        private void scoresListBoxItem_Click(object sender, RoutedEventArgs e)
+        {
+            string userId = ((string)((Button)(sender)).Content).Split(':')[0];
+            Leerling gebruiker = null;
+            //Author: Stijn Stas
+            foreach (Leerling leerling in menuWindow.Gebruikers.Leerlingen)
+            {
+                if (userId == leerling.ID)
+                {
+                    gebruiker = leerling;
+                    Window w = new ScoreLeerlingWindow(gebruiker, menuWindow);
+                    w.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    MessageBox.Show("Foutief Bestand", "FOUT", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
         private void klassenButton_Click(object sender, RoutedEventArgs e)
         {
             //Author: Stijn Stas
@@ -193,6 +194,7 @@ namespace ProjectChallenge
             this.NaarMenu();
         }
 
+        //methods
         private void NaarMenu()
         {
             //Author: Stijn Stas

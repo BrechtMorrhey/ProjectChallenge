@@ -20,11 +20,13 @@ namespace ProjectChallenge
     /// </summary>
     public partial class ScoreLeerlingWindow : Window
     {
+        //variables
         private string userId;
         private Leerling leerling;
         private Dictionary<Button, string> bestandsNaamDictionary;
         private MainVragenWindow menuWindow;
 
+        //constructors
         public ScoreLeerlingWindow(Leerling leerling, MainVragenWindow menuWindow)
         {
             InitializeComponent();
@@ -35,6 +37,7 @@ namespace ProjectChallenge
 
         }
 
+        //event handlers
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //Author: Stijn Stas
@@ -133,6 +136,7 @@ namespace ProjectChallenge
             w.Show();
             this.Hide();
         }
+
         private void klasButton_Click(object sender, RoutedEventArgs e)
         {
             //Author: Stijn Stas
@@ -147,6 +151,7 @@ namespace ProjectChallenge
             NaarMenu();
         }
 
+        //methods
         private void NaarMenu()
         {
             //Author: Stijn Stas
