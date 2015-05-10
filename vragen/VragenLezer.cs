@@ -21,6 +21,7 @@ namespace ProjectChallenge
                 List<string> antwoordenLijst;
                 string antwoord;
                 Vraag vraag = null;
+                wiskundigeVraag wiskundeVraagTemp = null; // gebruikt om de wiskundevraag tijdelijk in op te slaan
                 string line = VolgendeRegel;
                 int regelCounter=0;
                 while(line != null && regelCounter<10000)
@@ -50,9 +51,13 @@ namespace ProjectChallenge
                             }
                             //code voor meerkeuze
                             break;
-
                         case "wiskunde":
                             //code voor wiskunde
+                                double getal1 = Convert.ToDouble(line.Split(',')[1]);
+                                double getal2 = Convert.ToDouble(line.Split(',')[2]);
+                                string bewerking = line.Split(',')[3];
+                                vraag = new wiskundigeVraag(getal1, getal2, bewerking);
+                                wiskundeVraagTemp = (wiskundigeVraag)vraag; // <-----------------------
                             break;
                         default: throw new OnbekendVraagTypeException("Onbekend Type Vraag voor vraag " + line.Split(',')[1]);
                     }

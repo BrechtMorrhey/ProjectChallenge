@@ -32,7 +32,7 @@ namespace ProjectChallenge
         MainVragenWindow menuWindow;
         private string programmaDirPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Challenger");
         private string vragenlijstenDirPath;
-	private wiskundigeVraag wiskundeVraagTemp; // gebruikt om de wiskundevraag tijdelijk in op te slaan     
+	    private wiskundigeVraag wiskundeVraagTemp; // gebruikt om de wiskundevraag tijdelijk in op te slaan     
         
 	public AanpassenWindow(string bestandsNaam, bool nieuweLijst, MainVragenWindow menuWindow)
 	{
@@ -66,8 +66,15 @@ namespace ProjectChallenge
 
         private void verwijderButton_Click(object sender, RoutedEventArgs e)
         {
-            vragenLijst.RemoveAt(counter);
-            LaadVraag();
+            try
+            {
+                vragenLijst.RemoveAt(counter);
+                LaadVraag();
+            }
+            catch(IndexOutOfRangeException)
+            {
+                MessageBox.Show("Vraag kan niet verwijderd worden, probeer opnieuw");
+            }
         }
 
         private void opslaanButton_Click(object sender, RoutedEventArgs e)
@@ -114,47 +121,64 @@ namespace ProjectChallenge
 
         private void VoegVraagToe()
         {
-            if (!(opgaveTextBox.Text == "" && (antwoordTextBox.Text == "" || ((TextBox)meerkeuzeListBox.Items[0]).Text == "")))    // kijk of de gebruiker alle velden heeft ingevuld
+            try
             {
-                Vraag vraag = null;
-                switch (typeVraagComboBox.SelectedIndex)
+                if (!(opgaveTextBox.Text == "" && (antwoordTextBox.Text == "" || ((TextBox)meerkeuzeListBox.Items[0]).Text == "")))    // kijk of de gebruiker alle velden heeft ingevuld
                 {
-                    case 0: vraag = new BasisVraag(opgaveTextBox.Text, antwoordTextBox.Text);
-                        break;
-                    case 1: List<string> antwoordenLijst = new List<string>();
-                        foreach (TextBox antwoordBox in meerkeuzeListBox.Items)
-                        {
-                            antwoordenLijst.Add(antwoordBox.Text);
-                        }
-                        vraag = new MeerkeuzeVraag(opgaveTextBox.Text, antwoordenLijst);
-                        break;
-                    case 2:
-                        if (wiskundeVraagTemp == null) // wiskunde vraag werd handmatig ingegeven
-                        {
-                            GenerateMathQuestion();
-                        }
-                        vraag = wiskundeVraagTemp;
-                        wiskundeVraagTemp = null;
-                        
-                        break;
-                }
-                if (vraag != null)
-                {
-                    if (counter >= vragenLijst.Count)   // kijk of er een vraag moet worden toegevoegd of moet worden aangepast
+                    Vraag vraag = null;
+                    switch (typeVraagComboBox.SelectedIndex)
                     {
-                        vragenLijst.Add(vraag);
+                        case 0: vraag = new BasisVraag(opgaveTextBox.Text, antwoordTextBox.Text);
+                            break;
+                        case 1: List<string> antwoordenLijst = new List<string>();
+                            foreach (TextBox antwoordBox in meerkeuzeListBox.Items)
+                            {
+                                antwoordenLijst.Add(antwoordBox.Text);
+                            }
+                            vraag = new MeerkeuzeVraag(opgaveTextBox.Text, antwoordenLijst);
+                            break;
+                        case 2:
+                            if (wiskundeVraagTemp == null) // wiskunde vraag werd handmatig ingegeven
+                            {
+                                GenerateMathQuestion();
+                            }
+                            vraag = wiskundeVraagTemp;
+                            wiskundeVraagTemp = null;
+
+                            break;
                     }
+                    if (vraag != null)
+                    {
+                        if (vraag.Opgave == "0 + 0")
+                        {
+                            throw new Exception();
+                        }
+                        if (counter >= vragenLijst.Count)   // kijk of er een vraag moet worden toegevoegd of moet worden aangepast
+                        {
+                            vragenLijst.Add(vraag);
+                        }
+                        else
+                        {
+                            vragenLijst[counter] = vraag;
+                        }
+                    }
+                    
                     else
                     {
-                        vragenLijst[counter] = vraag;
+                        MessageBox.Show("Vraag is null, programma zal nu afsluiten");
+                        this.Close();
                     }
                 }
-                else
+            }
+            catch(Exception)
+            {
+                MessageBox.Show("opgave dient in dit formaat ingegeven te worden, 'getal1 + getal2'");
+                if ((counter - 1) >= 0)
                 {
-                    MessageBox.Show("Vraag is null, programma zal nu afsluiten");
-                    this.Close();
+                    counter = counter - 1;
+                    LaadVraag();
                 }
-            }            
+            }
         }
 
         private void LaadVraag()
@@ -387,28 +411,28 @@ namespace ProjectChallenge
             }
             else if (opgaveTextBox.Text != "") // niet nodig om het anwoord te checken, want dit wordt toch automatisch gegenereerd
             {
-                 ///////////////////////////////////////hier zit de fout ivm handmatige wiskunde vragen die verkeerd ingegeven worden
-                    int m;
-                    if (int.TryParse((opgaveTextBox.Text.Split(' ')[0]), out m) && int.TryParse((opgaveTextBox.Text.Split(' ')[2]), out m))
-                    {
-                        double getal1 = Convert.ToDouble(opgaveTextBox.Text.Split(' ')[0]);
-                        double getal2 = Convert.ToDouble(opgaveTextBox.Text.Split(' ')[2]);
-                        string bewerking = opgaveTextBox.Text.Split(' ')[1];
-                        wiskundeVraagTemp = new wiskundigeVraag(getal1, getal2, bewerking);
-                        opgaveTextBox.Text = wiskundeVraagTemp.Opgave;
-                        antwoordTextBox.Text = wiskundeVraagTemp.Antwoord;
-                    }
-                    else
-                    {
-                        MessageBox.Show("opgave dient in dit formaat ingegeven te worden, 'getal1 + getal2'");
-                    }
+                ///////////////////////////////////////hier zit de fout ivm handmatige wiskunde vragen die verkeerd ingegeven worden
+                int m;
+                if (int.TryParse((opgaveTextBox.Text.Split(' ')[0]), out m) && int.TryParse((opgaveTextBox.Text.Split(' ')[2]), out m))
+                {
+                    double getal1 = Convert.ToDouble(opgaveTextBox.Text.Split(' ')[0]);
+                    double getal2 = Convert.ToDouble(opgaveTextBox.Text.Split(' ')[2]);
+                    string bewerking = opgaveTextBox.Text.Split(' ')[1];
+                    wiskundeVraagTemp = new wiskundigeVraag(getal1, getal2, bewerking);
+                    opgaveTextBox.Text = wiskundeVraagTemp.Opgave;
+                    antwoordTextBox.Text = wiskundeVraagTemp.Antwoord;
+                }
+                else
+                {
+                    wiskundeVraagTemp = new wiskundigeVraag(0, 0, "+"); // geeft lege vraag mee
+//                    MessageBox.Show("opgave dient in dit formaat ingegeven te worden, 'getal1 + getal2'");
+                }
 
               
                 
                        
             }
             else
-
             {
                 wiskundeVraagTemp = new wiskundigeVraag();
                 opgaveTextBox.Text = wiskundeVraagTemp.Opgave;
