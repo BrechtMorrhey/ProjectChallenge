@@ -12,7 +12,7 @@ namespace ProjectChallenge
     //  De code achter de blauwe vierkantjes 
     //  die je in de game kunt maken
     //
-    // Author: Timo Biesmans
+    // Author: Timo Biesmans, Brecht Morrhey
     public class BlauwObject : GameObject
     {
         //  Eigenschappen
@@ -54,7 +54,6 @@ namespace ProjectChallenge
         //  en kleur van het object mee te 
         //  geven
         //
-        //  Author: Timo Biesmans
 
         public override void UpdateElement()
         {

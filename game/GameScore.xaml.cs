@@ -22,7 +22,7 @@ namespace ProjectChallenge
     //  hierin wordt de score berekent en op
     //  het scherm getoond
     //
-    //  Author: Timo Biesmans
+    //  Author: Brecht Morrhey
 
     public partial class GameScore : Window
     {
