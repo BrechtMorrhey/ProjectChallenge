@@ -99,7 +99,7 @@ namespace ProjectChallenge
             {
                 Directory.CreateDirectory(path);
             }
-            StreamWriter outputStream = File.CreateText(path + klas + "_" + userId + "_Score_" + System.IO.Path.GetFileName(bestandsNaam).Split('.')[0] + moeilijkHeidsGraad); //oppassen voor Directory Not Found Exception
+            StreamWriter outputStream = File.CreateText(path + klas + "_" + userId + "_Score_" + System.IO.Path.GetFileName(bestandsNaam).Split('.')[0] + moeilijkHeidsGraad+".txt"); //oppassen voor Directory Not Found Exception
             outputStream.WriteLine(voorNaam + ", " + achterNaam);
             // zet de score vanboven om makkelijker te kunnen inlezen
             outputStream.WriteLine("Score: " + score + "/" + vragenLijst.Count + "\t Percentage: " + ((double)score / vragenLijst.Count) * 100 + "%");
