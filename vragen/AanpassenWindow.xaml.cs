@@ -149,10 +149,6 @@ namespace ProjectChallenge
                     }
                     if (vraag != null)
                     {
-                        if (vraag.Opgave == "0 + 0")
-                        {
-                            throw new FouteWiskundeVraagException();
-                        }
                         if (counter >= vragenLijst.Count)   // kijk of er een vraag moet worden toegevoegd of moet worden aangepast
                         {
                             vragenLijst.Add(vraag);
@@ -434,8 +430,7 @@ namespace ProjectChallenge
                 }
                 else
                 {
-                    wiskundeVraagTemp = new wiskundigeVraag(0, 0, "+"); // geeft lege vraag mee
-//                    MessageBox.Show("opgave dient in dit formaat ingegeven te worden, 'getal1 + getal2'");
+                    throw new FouteWiskundeVraagException();
                 }
 
               
