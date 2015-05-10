@@ -54,6 +54,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BestandTeGrootException.cs" />
+    <Compile Include="FouteWiskundeVraagException.cs" />
     <Compile Include="LeegBestandException.cs" />
     <Compile Include="VraagIsNullException.cs" />
     <Compile Include="vragen\VragenLezer.cs" />

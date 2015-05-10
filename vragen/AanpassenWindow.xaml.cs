@@ -151,7 +151,7 @@ namespace ProjectChallenge
                     {
                         if (vraag.Opgave == "0 + 0")
                         {
-                            throw new Exception();
+                            throw new FouteWiskundeVraagException();
                         }
                         if (counter >= vragenLijst.Count)   // kijk of er een vraag moet worden toegevoegd of moet worden aangepast
                         {
@@ -170,20 +170,15 @@ namespace ProjectChallenge
                     }
                 }
             }
-            catch(Exception)    // hier zou specifieker gewerkt moeten worden
+            catch(FouteWiskundeVraagException)    
             {
-                MessageBox.Show("opgave dient in dit formaat ingegeven te worden, 'getal1 + getal2'");
-                if ((counter - 1) >= 0)
-                {
-                    counter = counter - 1;
-                    LaadVraag();
-                }
+                MessageBox.Show("opgave dient in dit formaat ingegeven te worden, 'getal1 + getal2'. Inclusief spaties!");
             }
         }
 
         private void LaadVraag()
         {
-            if (counter >= vragenLijst.Count)
+            if (counter >= vragenLijst.Count) //nieuwe vraag
             {
                 opgaveTextBox.Text = "";
                 antwoordTextBox.Text = "";
@@ -192,7 +187,6 @@ namespace ProjectChallenge
                 TextBox lijstItem;
                 for (int i=0; i < 2; i++)
                 {
-                    // dit stukje code komt meerdere keren terug, kan gerefactored worden
                     lijstItem = new TextBox();
                     lijstItem.Height = textBoxHeight;
                     lijstItem.Width = textBoxWidth;
@@ -235,7 +229,8 @@ namespace ProjectChallenge
                             ((TextBox)meerkeuzeListBox.Items[0]).Foreground = juistBrush;
                             typeVraagComboBox.SelectedIndex = 1;
                             break;
-                        case VraagType.wiskunde: 
+                        case VraagType.wiskunde:
+                            opgaveTextBox.Text = vragenLijst[counter].Opgave;
                             antwoordTextBox.Text = vragenLijst[counter].Antwoord;
                             typeVraagComboBox.SelectedIndex = 2;
                             break;
@@ -263,6 +258,9 @@ namespace ProjectChallenge
                         getal1TextBox.Visibility = Visibility.Hidden;
                         getal2TextBox.Visibility = Visibility.Hidden;
                         bewerkingTextBox.Visibility = Visibility.Hidden;
+                        minimumLabel.Visibility = Visibility.Hidden;
+                        bewerkingLabel.Visibility = Visibility.Hidden;
+                        maximumLabel.Visibility = Visibility.Hidden;
                         break;
                     case 1: //meerkeuze
                         antwoordLabel.Visibility = Visibility.Hidden;
@@ -279,6 +277,9 @@ namespace ProjectChallenge
                         getal1TextBox.Visibility = Visibility.Hidden;
                         getal2TextBox.Visibility = Visibility.Hidden;
                         bewerkingTextBox.Visibility = Visibility.Hidden;
+                        minimumLabel.Visibility = Visibility.Hidden;
+                        bewerkingLabel.Visibility = Visibility.Hidden;
+                        maximumLabel.Visibility = Visibility.Hidden;
                         break;
                     case 2: //wiskunde
                         antwoordLabel.Visibility = Visibility.Visible;
@@ -295,6 +296,9 @@ namespace ProjectChallenge
                         getal1TextBox.Visibility = Visibility.Visible;
                         getal2TextBox.Visibility = Visibility.Visible;
                         bewerkingTextBox.Visibility = Visibility.Visible;
+                        minimumLabel.Visibility = Visibility.Visible;
+                        bewerkingLabel.Visibility = Visibility.Visible;
+                        maximumLabel.Visibility = Visibility.Visible;
                         break;
                 }
         }
