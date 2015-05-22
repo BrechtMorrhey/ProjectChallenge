@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
-
+//Author: Brecht Morrhey
 namespace ProjectChallenge
 {
     /// <summary>
@@ -20,21 +20,24 @@ namespace ProjectChallenge
     /// </summary>
     public partial class ScoreAlleWindow : Window
     {
-        public ScoreAlleWindow()
+        //variables
+        MainVragenWindow menuWindow;
+        OverzichtScoresWindow vorigWindow;
+
+        //constructors
+        public ScoreAlleWindow(OverzichtScoresWindow vorigWindow, MainVragenWindow menuWindow )
         {
-            
-            InitializeComponent();            
+            InitializeComponent();
+            //Author: Stijn Stas
+            this.menuWindow = menuWindow;
+            this.vorigWindow = vorigWindow;
         }
-        private void scoresListBoxItem_Click(object sender, RoutedEventArgs e)
-        {
-            string klas = ((string)((Button)(sender)).Content).Split(':')[0];
-            Window w = new ScoreKlasWindow(klas);
-            w.Show();            
-        }
+
+        //event handlers
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             string klas = "";
-            string path = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/challenge scores";
+            string path = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Challenger\\challenge scores\\";
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
@@ -55,24 +58,23 @@ namespace ProjectChallenge
             }
 
             Dictionary<string, double> klasScores = new Dictionary<string, double>();
-            foreach (string item in klassenLijst)
+            foreach (string item in klassenLijst)   //initialiseer een Dictionary waarin we per klas de gemiddelde score bijhouden
             {
                 klasScores.Add(item, 0);
             }
 
             double score;
             string vraag = "";
-            StreamReader inputStream = null;
+            ScoreLezer lezer = new ScoreLezer();
             foreach (string file in files)
             {
                 try
                 {
-                    inputStream = File.OpenText(file);
-                    filename = System.IO.Path.GetFileName(file);
-                    klas = filename.Split('_')[0];
-                    vraag = filename.Split('_')[3];
-                    inputStream.ReadLine(); //sla de eerste lijn over
-                    score = Convert.ToDouble(((inputStream.ReadLine().Split(':')[2]).Split('%')[0])); //verwijder procent teken en converteer naar double
+                    lezer.BestandsNaam = file;
+                    lezer.Initialise();
+                    klas = lezer.Klas;
+                    vraag = lezer.Vraag;
+                    score = lezer.Score;
 
                     //bereken nieuwe gemiddelde score
                     if (klasScores[klas] != 0)
@@ -84,34 +86,41 @@ namespace ProjectChallenge
                 catch (FileNotFoundException)
                 {
                     MessageBox.Show("Bestand " + file + " niet gevonden.");
-                    this.Close();
+                    this.NaarMenu();
                 }
                 catch (ArgumentException)
                 {
                     MessageBox.Show("Argument Exception bij inlezen bestand " + file);
-                    this.Close();
+                    this.NaarMenu();
                 }
                 catch (FormatException)
                 {
                     MessageBox.Show("Kan score in " + file + " bij vraag " + vraag + " niet omzetten");
-                    this.Close();
+                    this.NaarMenu();
                 }
                 catch (OverflowException)
                 {
                     MessageBox.Show("Score in " + file + " bij vraag " + vraag + " is te groot");
-                    this.Close();
+                    this.NaarMenu();
                 }
                 catch (KeyNotFoundException)
                 {
-                    MessageBox.Show("KeyNotFoundException, de bestanden zijn mogelijk aangepast tijdens het inladen, programma zal nu afsluiten");
-                    this.Close();
+                    MessageBox.Show("KeyNotFoundException, de bestanden zijn mogelijk aangepast tijdens het inladen, programma keert terug naar hoofdmenu");
+                    this.NaarMenu();
+                }
+                catch (BestandTeGrootException exception)
+                {
+                    MessageBox.Show(exception.Message);
+                    this.NaarMenu();
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    MessageBox.Show("Index Out of Range Exception in " + file + ". Bestand is mogelijk corrupt");
+                    this.NaarMenu();
                 }
                 finally
                 {
-                    if (inputStream != null)
-                    {
-                        inputStream.Close();
-                    }
+                    lezer.Close();
                 }
             }
             Button b;
@@ -123,6 +132,46 @@ namespace ProjectChallenge
                 scoresListBox.Items.Add(b);
             }
             //http://stackoverflow.com/questions/141088/what-is-the-best-way-to-iterate-over-a-dictionary-in-c
+
+            if (klasScores.Count == 0)
+            {
+                b = new Button();
+                b.Content = "geen klassen met resultaten";
+                scoresListBox.Items.Add(b);
+            }
+        }
+
+        private void scoresListBoxItem_Click(object sender, RoutedEventArgs e)
+        {
+            string klas = ((string)((Button)(sender)).Content).Split(':')[0];
+            Window w = new ScoreKlasWindow(klas, menuWindow);
+            w.Show();
+            this.Hide();
+        }
+        
+       
+
+        private void menuButton_Click(object sender, RoutedEventArgs e)
+        {
+            //Author: Stijn Stas
+            this.NaarMenu();
+        }
+
+        private void overzichtButton_Click(object sender, RoutedEventArgs e)
+        {
+            //Author: Stijn Stas
+            vorigWindow.Show();
+            this.Close();
+        }
+
+        //methods
+
+        private void NaarMenu()
+        {
+            //Author: Stijn Stas
+            menuWindow.Show();
+            vorigWindow.Close();
+            this.Close();
         }
     }
 }

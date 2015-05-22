@@ -57,5 +57,7 @@ namespace ProjectChallenge
             opgaveTextBox.Text = "";
             antwoordTextBox.Text = "";
         }
+
+
     }
 }

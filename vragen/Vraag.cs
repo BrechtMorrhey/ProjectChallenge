@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+// Author: Brecht Morrhey
 
 namespace ProjectChallenge
 {
@@ -12,6 +13,7 @@ namespace ProjectChallenge
         //private string opgave;
         //private bool isIngevuld, isJuist;
 
+        //properties
         public virtual VraagType TypeVraag { get { return VraagType.vraag; } }
 
         public abstract string Opgave { get; set; }

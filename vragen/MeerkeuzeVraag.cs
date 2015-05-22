@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+//Author: Brecht Morrhey
 namespace ProjectChallenge
 {
     class MeerkeuzeVraag : Vraag
     {
+        //properties
         private string opgave;       
         private string ingevuld; // ingevulde antwoord
         private List<string> antwoordenLijst;
@@ -19,8 +20,8 @@ namespace ProjectChallenge
             this.opgave = opgave;            
             this.antwoordenLijst = antwoordenLijst;
         }
-        //properties
-        public override VraagType TypeVraag { get { return VraagType.meerkeuze; } }
+
+        //methods
 
         public override string ToString()
         {
@@ -31,6 +32,8 @@ namespace ProjectChallenge
             }
             return s;
         }
+        //properties
+        public override VraagType TypeVraag { get { return VraagType.meerkeuze; } }
 
         public override string Opgave
         {
@@ -79,7 +82,7 @@ namespace ProjectChallenge
             get
             {
                 return antwoordenLijst[0] == ingevuld;
-                // We vergelijken niet de ingevulde index met de antwoordindex maar de geselecteerde string, zo kan de volgorde van de antwoorden willekeurig gemaakt worden
+                // We vergelijken niet de ingevulde index met de antwoordindex maar de geselecteerde string met de antwoordString, zo kan de volgorde van de antwoorden willekeurig gemaakt worden
             }
         }
         public List<string> AntwoordenLijst { get { return antwoordenLijst; } set { antwoordenLijst = value; } }

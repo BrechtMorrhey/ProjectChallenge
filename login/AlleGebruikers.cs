@@ -8,13 +8,22 @@ using System.IO;
 
 namespace ProjectChallenge
 {
+    //  Deze klasse leest de gebruikers in en slaat ze op
+    //  Ook de klassen worden hierin opgeslagen en ingelezen
+    //  En ook het grootste deel van de mappenstructuur wordt
+    //  Hierin aangemaakt.
+    //
+    //  Author: Stijn Stas
+     
+
+
     public class AlleGebruikers
     {
         //  eigenschappen
         private List<Leerling> leerlingen;
         private List<Leerkracht> leerkrachten;
         private List<string> klassen;
-        private string aceDirPath, aceGebruikersPath, leerlingPath, leerkrachtPath, klassenPath;
+        private string programmaDirPath, aceGebruikersPath, leerlingPath, leerkrachtPath, klassenPath;
         private StreamWriter opslaanStudent = null;
         private StreamWriter opslaanLeerkracht = null;
         private StreamWriter writeKlassenStream = null;
@@ -23,11 +32,11 @@ namespace ProjectChallenge
         private StreamReader readKlassenStream = null;
 
 
-        //  methoden
+        //  Constructor
         public AlleGebruikers()
         {
-            aceDirPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "ace");
-            aceGebruikersPath = aceDirPath + "\\aceGebruikers";
+            programmaDirPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Challenger");
+            aceGebruikersPath = programmaDirPath + "\\Gebruikers";
             leerlingPath = aceGebruikersPath + "\\leerlingen.txt";
             leerkrachtPath = aceGebruikersPath + "\\leerkrachten.txt";
             klassenPath = aceGebruikersPath + "\\klassen.txt";
@@ -36,9 +45,9 @@ namespace ProjectChallenge
             leerkrachten = new List<Leerkracht>();
             klassen = new List<string>();
             
-            if (!Directory.Exists(aceDirPath))
+            if (!Directory.Exists(programmaDirPath))
             {
-                Directory.CreateDirectory(aceDirPath);    
+                Directory.CreateDirectory(programmaDirPath);    
             }
 
             if (!Directory.Exists(aceGebruikersPath))
@@ -82,22 +91,32 @@ namespace ProjectChallenge
             try
             {
                 readKlassenStream = File.OpenText(klassenPath);
+                LeesKlassenIn();
             }
             catch (FileNotFoundException)
             {
+                if (readKlassenStream != null)
+                {
+                    readKlassenStream.Close();
+                }
                 File.CreateText(klassenPath);
+                klassen.Add("testKlas");
             }
             finally
             {
-                LeesKlassenIn();
-                readKlassenStream.Close();
-            }
-            
-            if (klassen.Count == 0)
-            {
-                SlaKlasOp("testKlas");
+                if (readKlassenStream != null)
+                {
+                    readKlassenStream.Close();
+                }
             }
         }
+        
+        //  Methoden
+
+        //  Student word opgeslagen in de leerlingenlijst
+        //  en in een .txt bestand.
+        //
+        //  Author: Stijn Stas
 
         public void SlaStudentOp(Leerling leerling)
         {
@@ -117,6 +136,12 @@ namespace ProjectChallenge
                 opslaanStudent.Close();
             }
         }
+
+        //  Leerkracht word opgeslagen in de leerkrachtenlijst
+        //  en in een .txt bestand.
+        //
+        //  Author: Stijn Stas
+
         public void SlaLeerkrachtOp(Leerkracht leerkracht)
         {
             leerkrachten.Add(leerkracht);
@@ -135,8 +160,14 @@ namespace ProjectChallenge
             }
         }
 
+        //  klassen word opgeslagen in de klassenlijst
+        //  en in een .txt bestand.
+        //
+        //  Author: Stijn Stas
+
         public void SlaKlasOp(string klas)
         {
+            klassen.Add(klas);
             try
             {
                 writeKlassenStream = File.AppendText(klassenPath);
@@ -147,21 +178,42 @@ namespace ProjectChallenge
             }
             finally
             {
-                klassen.Add(klas);
                 writeKlassenStream.WriteLine(klas);
                 writeKlassenStream.Close();
             }
         }
 
+        //  Klassen worden uit een .txt bestand 
+        //  ingelezen en in een klassenlijst 
+        //  geplaatst.
+        //
+        //  Author: Stijn Stas
+
         public void LeesKlassenIn()
         {
+            bool testKlasAanwezig = false;
+
             string regel = readKlassenStream.ReadLine();
             while (regel != null)
             {
                 klassen.Add(regel);
+                if (regel.CompareTo("testKlas") == 0)
+                {
+                    testKlasAanwezig = true;
+                }
                 regel = readKlassenStream.ReadLine();
             }
+            if (!testKlasAanwezig)
+            {
+                klassen.Add("testKlas");
+            }
         }
+
+        //  Studenten worden uit een .txt bestand 
+        //  ingelezen en in een leerlingenlijst 
+        //  geplaatst.
+        //
+        //  Author: Stijn Stas
 
         private void LeesStudentenIn() 
         {
@@ -173,6 +225,12 @@ namespace ProjectChallenge
             }
         }
 
+        //  Leerkrachten worden uit een .txt bestand 
+        //  ingelezen en in een leerkrachtenlijst 
+        //  geplaatst.
+        //
+        //  Author: Stijn Stas
+
         private void LeesLeerkrachtenIn()
         {
             string regel = leerkrachtenStream.ReadLine();
@@ -182,6 +240,13 @@ namespace ProjectChallenge
                 regel = leerkrachtenStream.ReadLine();
             }
         }
+
+        //  gebruikers worden uit een .txt bestand 
+        //  ingelezen en in een de respectievelijke 
+        //  lijst geplaatst. Deze methode word gebruikt
+        //  in LeesLeerkrachtenIn() en in LeesStudentenIn()
+        //
+        //  Author: Stijn Stas
 
         private void LeesGebruikerIn(string regel, soortGebruiker gebruikerSoort)
         {

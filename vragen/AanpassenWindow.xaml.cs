@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.IO;
 using Microsoft.Win32;
 
+// Author: Brecht Morrhey
 namespace ProjectChallenge
 {
     /// <summary>
@@ -21,6 +22,7 @@ namespace ProjectChallenge
     /// </summary>
     public partial class AanpassenWindow : Window
     {
+        //variables
         private List<Vraag> vragenLijst;
         private string bestandsNaam;
         private int counter;
@@ -29,14 +31,92 @@ namespace ProjectChallenge
         double textBoxWidth;
         double textBoxHeight;
         bool nieuweLijst;
-              
-        public AanpassenWindow(string bestandsNaam, bool nieuweLijst)
-        {
+        MainVragenWindow menuWindow;
+        private string programmaDirPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Challenger");
+        private string vragenlijstenDirPath;
+	    private wiskundigeVraag wiskundeVraagTemp; // gebruikt om de wiskundevraag tijdelijk in op te slaan     
+     
+        //constructors
+	public AanpassenWindow(string bestandsNaam, bool nieuweLijst, MainVragenWindow menuWindow)
+	{
             InitializeComponent();
+            //Author: Stijn Stas
+            vragenlijstenDirPath = programmaDirPath + "\\Vragenlijsten";
             this.bestandsNaam = bestandsNaam;
             this.nieuweLijst = nieuweLijst;
+            this.menuWindow = menuWindow;
+            this.wiskundeVraagTemp = null;
         }
 
+        //event handlers
+    private void Window_Loaded(object sender, RoutedEventArgs e)
+    {
+        // BELANGRIJK
+        typeVraagComboBox.SelectedIndex = 0;
+        // als ge dit in XAML probeert te doen krijgt ge een NullReferenceException in uw InitializeComponent 
+        //door een WPF bug die uw events checked voor de bijbehorende controls zijn aangemaakt
+        // http://stackoverflow.com/questions/2518231/wpf-getting-control-null-reference-during-initializecomponent
+
+
+
+        if (!nieuweLijst)   // als het geen nieuwe lijst is, laadt de oude lijst in
+        {
+            VragenLezer lezer = null;
+            try
+            {
+                lezer = new VragenLezer(bestandsNaam);
+                lezer.Initialise();
+                vragenLijst = lezer.VragenLijst;
+            }
+            catch (FileNotFoundException)
+            {
+                MessageBox.Show("Invoerbestand bestaat niet");
+                this.Close();
+            }
+            catch (OnbekendVraagTypeException exception)
+            {
+                MessageBox.Show(exception.Message + "/n Bestand is mogelijk corrupt, programma zal nu afsluiten");
+                this.Close();
+            }
+            catch (VraagIsNullException exception)
+            {
+                MessageBox.Show(exception.Message + "/n Bestand is mogelijk corrupt, programma zal nu afsluiten");
+                this.Close();
+            }
+            catch (BestandTeGrootException exception)
+            {
+                MessageBox.Show(exception.Message);
+                this.Close();
+            }
+            finally
+            {
+                if (lezer != null)
+                {
+                    lezer.Close();
+                }
+                if (vragenLijst.Count < 1)
+                {
+                    BasisVraag legeVraag = new BasisVraag();
+                    vragenLijst.Add(legeVraag);
+                }
+            }
+        }
+        else // als het een nieuwe lijst, moet er een lege vragenlijst gemaakt worden om te beginnen
+        {
+            vragenLijst = new List<Vraag>();
+            BasisVraag legeVraag = new BasisVraag();
+            vragenLijst.Add(legeVraag);
+        }
+
+        // kopieer de opmaak en grootte van de TextBoxes in de listbox voor later
+        juistBrush = ((TextBox)meerkeuzeListBox.Items[0]).Foreground;
+        juistFontWeight = ((TextBox)meerkeuzeListBox.Items[0]).FontWeight;
+        textBoxWidth = ((TextBox)meerkeuzeListBox.Items[0]).Width;
+        textBoxHeight = ((TextBox)meerkeuzeListBox.Items[0]).Height;
+
+
+        LaadVraag();
+    }
         private void volgendeButton_Click(object sender, RoutedEventArgs e)
         {
             VoegVraagToe();
@@ -59,13 +139,25 @@ namespace ProjectChallenge
 
         private void verwijderButton_Click(object sender, RoutedEventArgs e)
         {
-            vragenLijst.RemoveAt(counter);
-            LaadVraag();
+            try
+            {
+                vragenLijst.RemoveAt(counter);
+                LaadVraag();
+            }
+            catch(IndexOutOfRangeException)
+            {
+                MessageBox.Show("Vraag kan niet verwijderd worden, probeer opnieuw");
+            }
         }
 
         private void opslaanButton_Click(object sender, RoutedEventArgs e)
         {
-            VoegVraagToe();
+            // voeg enkel een vraag toe als er ook data in de vakjes zit
+            if (opgaveTextBox.Text != "")
+            {
+                VoegVraagToe();
+            }
+
             StreamWriter outputStream = File.CreateText(bestandsNaam);
             foreach (Vraag vraag in vragenLijst)
             {
@@ -77,10 +169,19 @@ namespace ProjectChallenge
 
         private void opslaanAlsButton_Click(object sender, RoutedEventArgs e)
         {
-            VoegVraagToe();
+            // voeg enkel een vraag toe als er ook data in de vakjes zit
+            if (opgaveTextBox.Text != "")
+            {
+                VoegVraagToe();
+            }
+
+            //Author: Akki Stankidis
             SaveFileDialog dialog = new SaveFileDialog();
+            dialog.InitialDirectory = vragenlijstenDirPath;
+            dialog.Filter = "Text files (*.txt)|*.txt;";
             dialog.ShowDialog();
             bestandsNaam = dialog.FileName;
+
             if (bestandsNaam != null && bestandsNaam != "")
             {
                 StreamWriter outputStream = File.CreateText(bestandsNaam);
@@ -97,50 +198,187 @@ namespace ProjectChallenge
             //    MessageBox.Show("Geen bestandsnaam opgegeven");
             //}
         }
-
-        private void VoegVraagToe()
+        private void typeVraagComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!(opgaveTextBox.Text == "" && (antwoordTextBox.Text == "" || ((TextBox)meerkeuzeListBox.Items[0]).Text == "")))    // kijk of de gebruiker alle velden heeft ingevuld
+            switch (typeVraagComboBox.SelectedIndex) // toon de relevante velden op basis van het geselecteerde type vraag
+            // dit kan misschien gerefactored worden om overzichtelijker te zijn, maar wrs best mee wachten tot alle vraagtypes geimplementeerd zijn
             {
-                Vraag vraag = null;
-                switch (typeVraagComboBox.SelectedIndex)
-                {
-                    case 0: vraag = new BasisVraag(opgaveTextBox.Text, antwoordTextBox.Text);
-                        break;
-                    case 1: List<string> antwoordenLijst = new List<string>();
-                        foreach (TextBox antwoordBox in meerkeuzeListBox.Items)
-                        {
-                            antwoordenLijst.Add(antwoordBox.Text);
-                        }
-                        vraag = new MeerkeuzeVraag(opgaveTextBox.Text, antwoordenLijst);
-                        break;
-                    case 2: // code voor wiskunde vrag
-                        break;
-                }
-                if (vraag != null)
-                {
-                    if (counter >= vragenLijst.Count)   // kijk of er een vraag moet worden toegevoegd of moet worden aangepast
-                    {
-                        vragenLijst.Add(vraag);
-                    }
-                    else
-                    {
-                        vragenLijst[counter] = vraag;
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Vraag is null, programma zal nu afsluiten");
-                    this.Close();
-                }
-            }            
+                case 0: //basis
+                    antwoordLabel.Visibility = Visibility.Visible;
+                    antwoordTextBox.Visibility = Visibility.Visible;
+                    meerkeuzeLabel.Visibility = Visibility.Hidden;
+                    meerkeuzeListBox.Visibility = Visibility.Hidden;
+                    plusButton.Visibility = Visibility.Hidden;
+                    minButton.Visibility = Visibility.Hidden;
+                    plusButton.IsEnabled = false;
+                    minButton.IsEnabled = false;
+                    antwoordTextBox.IsEnabled = true;
+                    meerkeuzeListBox.IsEnabled = false;
+                    GenereerOpgaveButton.Visibility = Visibility.Hidden;
+                    getal1TextBox.Visibility = Visibility.Hidden;
+                    getal2TextBox.Visibility = Visibility.Hidden;
+                    bewerkingTextBox.Visibility = Visibility.Hidden;
+                    minimumLabel.Visibility = Visibility.Hidden;
+                    bewerkingLabel.Visibility = Visibility.Hidden;
+                    maximumLabel.Visibility = Visibility.Hidden;
+                    break;
+                case 1: //meerkeuze
+                    antwoordLabel.Visibility = Visibility.Hidden;
+                    antwoordTextBox.Visibility = Visibility.Hidden;
+                    meerkeuzeLabel.Visibility = Visibility.Visible;
+                    meerkeuzeListBox.Visibility = Visibility.Visible;
+                    plusButton.Visibility = Visibility.Visible;
+                    minButton.Visibility = Visibility.Visible;
+                    plusButton.IsEnabled = true;
+                    minButton.IsEnabled = true;
+                    antwoordTextBox.IsEnabled = false;
+                    meerkeuzeListBox.IsEnabled = true;
+                    GenereerOpgaveButton.Visibility = Visibility.Hidden;
+                    getal1TextBox.Visibility = Visibility.Hidden;
+                    getal2TextBox.Visibility = Visibility.Hidden;
+                    bewerkingTextBox.Visibility = Visibility.Hidden;
+                    minimumLabel.Visibility = Visibility.Hidden;
+                    bewerkingLabel.Visibility = Visibility.Hidden;
+                    maximumLabel.Visibility = Visibility.Hidden;
+                    break;
+                case 2: //wiskunde
+                    // Author: Akki Stankidis
+                    antwoordLabel.Visibility = Visibility.Visible;
+                    antwoordTextBox.Visibility = Visibility.Visible;
+                    meerkeuzeLabel.Visibility = Visibility.Hidden;
+                    meerkeuzeListBox.Visibility = Visibility.Hidden;
+                    plusButton.Visibility = Visibility.Hidden;
+                    minButton.Visibility = Visibility.Hidden;
+                    plusButton.IsEnabled = false;
+                    minButton.IsEnabled = false;
+                    antwoordTextBox.IsEnabled = false;
+                    meerkeuzeListBox.IsEnabled = false;
+                    GenereerOpgaveButton.Visibility = Visibility.Visible;
+                    getal1TextBox.Visibility = Visibility.Visible;
+                    getal2TextBox.Visibility = Visibility.Visible;
+                    bewerkingTextBox.Visibility = Visibility.Visible;
+                    minimumLabel.Visibility = Visibility.Visible;
+                    bewerkingLabel.Visibility = Visibility.Visible;
+                    maximumLabel.Visibility = Visibility.Visible;
+                    break;
+            }
         }
 
+        private void plusButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (meerkeuzeListBox.Items.Count < 6)
+            {
+                TextBox lijstItem = new TextBox();
+                lijstItem.Width = 350;
+                lijstItem.Height = 25;
+                meerkeuzeListBox.Items.Add(lijstItem);
+            }
+            else
+            {
+                MessageBox.Show("Maximum aantal antwoorden bereikt");
+            }
+        }
 
+        private void minButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (meerkeuzeListBox.Items.Count > 2)
+            {
+                meerkeuzeListBox.Items.RemoveAt(meerkeuzeListBox.Items.Count - 1); // verwijder het laatste item in de lijst
+            }
+            else
+            {
+                MessageBox.Show("Minimum aantal antwoorden bereikt");
+            }
+        }
+        private void GenereerOpgaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Author: Akki Stankidis
+            GenerateMathQuestion();
+        }
+
+        private void terugButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            this.Close();
+        }
+        private void bewerkingTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            bewerkingTextBox.Text = "";
+        }
+
+        private void getal1TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            getal1TextBox.Text = "";
+        }
+
+        private void getal2TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            getal2TextBox.Text = "";
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            menuWindow.Show();
+        }
+
+        //methods
+        private void VoegVraagToe()
+        {
+            try
+            {
+                if (!(opgaveTextBox.Text == "" && (antwoordTextBox.Text == "" || ((TextBox)meerkeuzeListBox.Items[0]).Text == "")))    // kijk of de gebruiker alle velden heeft ingevuld
+                {
+                    Vraag vraag = null;
+                    switch (typeVraagComboBox.SelectedIndex)
+                    {
+                        case 0: vraag = new BasisVraag(opgaveTextBox.Text, antwoordTextBox.Text);
+                            break;
+                        case 1: List<string> antwoordenLijst = new List<string>();
+                            foreach (TextBox antwoordBox in meerkeuzeListBox.Items)
+                            {
+                                antwoordenLijst.Add(antwoordBox.Text);
+                            }
+                            vraag = new MeerkeuzeVraag(opgaveTextBox.Text, antwoordenLijst);
+                            break;
+                        case 2:
+                            // Author: Akki Stankidis
+                            if (wiskundeVraagTemp == null) // wiskunde vraag werd handmatig ingegeven
+                            {
+                                GenerateMathQuestion();
+                            }
+                            vraag = wiskundeVraagTemp;
+                            wiskundeVraagTemp = null;
+
+                            break;
+                    }
+                    if (vraag != null)
+                    {
+                        if (counter >= vragenLijst.Count)   // kijk of er een vraag moet worden toegevoegd of moet worden aangepast
+                        {
+                            vragenLijst.Add(vraag);
+                        }
+                        else
+                        {
+                            vragenLijst[counter] = vraag;
+                        }
+                    }
+                    
+                    else
+                    {
+                        MessageBox.Show("Vraag is null, programma zal nu afsluiten");
+                        this.Close();
+                    }
+                }
+            }
+            catch(FouteWiskundeVraagException)    
+            {
+                MessageBox.Show("opgave dient in dit formaat ingegeven te worden, 'getal1 + getal2'. Inclusief spaties!");
+            }
+        }
 
         private void LaadVraag()
         {
-            if (counter >= vragenLijst.Count)
+            if (counter >= vragenLijst.Count) //nieuwe vraag
             {
                 opgaveTextBox.Text = "";
                 antwoordTextBox.Text = "";
@@ -149,7 +387,6 @@ namespace ProjectChallenge
                 TextBox lijstItem;
                 for (int i=0; i < 2; i++)
                 {
-                    // dit stukje code komt meerdere keren terug, kan gerefactored worden
                     lijstItem = new TextBox();
                     lijstItem.Height = textBoxHeight;
                     lijstItem.Width = textBoxWidth;
@@ -173,7 +410,6 @@ namespace ProjectChallenge
                             TextBox lijstItem;
                             foreach (string antwoord in ((MeerkeuzeVraag)vragenLijst[counter]).AntwoordenLijst)
                             // we kunnen niet zomaar aan de antwoordenlijst aangezien dit geen property van Vraag is dus moeten we eerst naar MeerkeuzeVraag casten
-                            // dit is niet zo een mooie oplossing, alternatieven??
                             {
                                 lijstItem = new TextBox();
                                 lijstItem.Height = textBoxHeight;
@@ -192,200 +428,65 @@ namespace ProjectChallenge
                             ((TextBox)meerkeuzeListBox.Items[0]).Foreground = juistBrush;
                             typeVraagComboBox.SelectedIndex = 1;
                             break;
-                        case VraagType.wiskunde: // code voor wiskundevraag
+                        case VraagType.wiskunde:
+                            // Author: Akki Stankidis
+                            opgaveTextBox.Text = vragenLijst[counter].Opgave;
+                            antwoordTextBox.Text = vragenLijst[counter].Antwoord;
+                            typeVraagComboBox.SelectedIndex = 2;
                             break;
                     }
             }
         }
 
-        private void typeVraagComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-           switch (typeVraagComboBox.SelectedIndex) // toon de relevante velden op basis van het geselecteerde type vraag
-                   // dit kan misschien gerefactored worden om overzichtelijker te zijn, maar wrs best mee wachten tot alle vraagtypes geimplementeerd zijn
-                {
-                    case 0: //basis
-                        antwoordLabel.Visibility = Visibility.Visible;
-                        antwoordTextBox.Visibility = Visibility.Visible;
-                        meerkeuzeLabel.Visibility = Visibility.Hidden;
-                        meerkeuzeListBox.Visibility = Visibility.Hidden;
-                        plusButton.Visibility = Visibility.Hidden;
-                        minButton.Visibility = Visibility.Hidden;
-                        plusButton.IsEnabled = false;
-                        minButton.IsEnabled = false;
-                        antwoordTextBox.IsEnabled = true;
-                        meerkeuzeListBox.IsEnabled = false;
-                        break;
-                    case 1: //meerkeuze
-                        antwoordLabel.Visibility = Visibility.Hidden;
-                        antwoordTextBox.Visibility = Visibility.Hidden;
-                        meerkeuzeLabel.Visibility = Visibility.Visible;
-                        meerkeuzeListBox.Visibility = Visibility.Visible;
-                        plusButton.Visibility = Visibility.Visible;
-                        minButton.Visibility = Visibility.Visible;
-                        plusButton.IsEnabled = true;
-                        minButton.IsEnabled = true;
-                        antwoordTextBox.IsEnabled = false;
-                        meerkeuzeListBox.IsEnabled = true;
-                        break;
-                    case 2: //wiskunde
-                        antwoordLabel.Visibility = Visibility.Visible;
-                        antwoordTextBox.Visibility = Visibility.Visible;
-                        meerkeuzeLabel.Visibility = Visibility.Hidden;
-                        meerkeuzeListBox.Visibility = Visibility.Hidden;
-                        plusButton.Visibility = Visibility.Hidden;
-                        minButton.Visibility = Visibility.Hidden;
-                        plusButton.IsEnabled = false;
-                        minButton.IsEnabled = false;
-                        antwoordTextBox.IsEnabled = true;
-                        meerkeuzeListBox.IsEnabled = false;
-                        break;
-                }
-            
-        }
+        
 
-        private void plusButton_Click(object sender, RoutedEventArgs e)
+        
+        
+
+        
+
+        private void GenerateMathQuestion()
         {
-            if (meerkeuzeListBox.Items.Count < 6)
+            // Author: Akki Stankidis
+            int n;
+            if (int.TryParse(getal1TextBox.Text, out n) && int.TryParse(getal2TextBox.Text, out n))
             {
-                TextBox lijstItem = new TextBox();
-                lijstItem.Width = 350;
-                lijstItem.Height = 25;
-                meerkeuzeListBox.Items.Add(lijstItem);
-            }else
-            {
-                MessageBox.Show("Maximum aantal antwoorden bereikt");
+                wiskundeVraagTemp = new wiskundigeVraag(int.Parse(getal1TextBox.Text), int.Parse(getal2TextBox.Text), bewerkingTextBox.Text);
+                opgaveTextBox.Text = wiskundeVraagTemp.Opgave;
+                antwoordTextBox.Text = wiskundeVraagTemp.Antwoord;
             }
-        }
-
-        private void minButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (meerkeuzeListBox.Items.Count > 2)
+            else if (opgaveTextBox.Text != "") 
             {
-                meerkeuzeListBox.Items.RemoveAt(meerkeuzeListBox.Items.Count - 1); // verwijder het laatste item in de lijst
+                int m;
+                if (int.TryParse((opgaveTextBox.Text.Split(' ')[0]), out m) && int.TryParse((opgaveTextBox.Text.Split(' ')[2]), out m))
+                {
+                    double getal1 = Convert.ToDouble(opgaveTextBox.Text.Split(' ')[0]);
+                    double getal2 = Convert.ToDouble(opgaveTextBox.Text.Split(' ')[2]);
+                    string bewerking = opgaveTextBox.Text.Split(' ')[1];
+                    wiskundeVraagTemp = new wiskundigeVraag(getal1, getal2, bewerking);
+                    opgaveTextBox.Text = wiskundeVraagTemp.Opgave;
+                    antwoordTextBox.Text = wiskundeVraagTemp.Antwoord;
+                }
+                else
+                {
+                    throw new FouteWiskundeVraagException();
+                }
+
+              
+                
+                       
             }
             else
             {
-                MessageBox.Show("Minimum aantal antwoorden bereikt");
+                wiskundeVraagTemp = new wiskundigeVraag();
+                opgaveTextBox.Text = wiskundeVraagTemp.Opgave;
+                antwoordTextBox.Text = wiskundeVraagTemp.Antwoord;
             }
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-
-            // BELANGRIJK
-            typeVraagComboBox.SelectedIndex = 0;
-            // als ge dit in XAML probeert te doen krijgt ge een NullReferenceException in uw InitializeComponent 
-            //door een WPF bug die uw events checked voor de bijbehorende controls zijn aangemaakt
-            // http://stackoverflow.com/questions/2518231/wpf-getting-control-null-reference-during-initializecomponent
-
-            vragenLijst = new List<Vraag>();
-
-            if (!nieuweLijst)   // als het geen nieuwe lijst is, laadt de oude lijst in
-            {
-                int i;
-                string line, lijst;
-                Vraag vraag = null;
-                List<string> antwoordenLijst;
-                StreamReader inputStream = null;
-                counter = 0;
-
-                int j = 0;
-                try
-                {
-                    inputStream = File.OpenText(bestandsNaam);
-                    line = inputStream.ReadLine();
-                    while (line != null && j < 10000)
-                    {
-                        switch (line.Split(',')[0])
-                        {
-                            case "basis":
-                                vraag = new BasisVraag(line.Split(',')[1], line.Split(',')[2]);
-                                break;
-                            case "meerkeuze":
-                                antwoordenLijst = new List<string>();
-                                lijst = line.Split(',')[2];
-                                i = 0;
-                                while ((lijst.Split('|')[i]).Trim() != "")   // maak de antwoordenlijst door elementen in te lezen zolang er geen lege waarde komt
-                                {
-                                    antwoordenLijst.Add(lijst.Split('|')[i]);
-                                    i++;
-                                }
-                                if (antwoordenLijst != null)
-                                {
-                                    vraag = new MeerkeuzeVraag(line.Split(',')[1], antwoordenLijst);
-                                }
-                                else
-                                {
-                                    MessageBox.Show("Lege antwoordenlijst voor vraag " + line.Split(',')[1] + "/n vraag wordt overgeslagen");
-                                    // de vraag wordt niet ingelezen en het programma probeert verder te gaan
-                                }
-                                //code voor meerkeuze
-                                break;
-                            case "wiskunde":
-                                //code voor wiskunde
-                                break;
-                            default: throw new OnbekendVraagTypeException("Onbekend Type Vraag voor vraag " + line.Split(',')[1]);
-
-                        }
-                        if (vraag != null)
-                        {
-                            vragenLijst.Add(vraag);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Vraag is null, programma zal nu afsluiten");
-                            this.Close();
-                        }
-                        line = inputStream.ReadLine();
-                        j++;
-                    }
-                }
-                catch (FileNotFoundException)
-                {
-                    MessageBox.Show("Bestand niet gevonden.");
-                    this.Close();
-                }
-                catch (ArgumentException)
-                {
-                    // deze exception treedt op als de user het OpenFileDialog sluit
-                    // AanpassenWindow moet dan niet opengaan
-                    this.Close();
-                }
-                catch (OnbekendVraagTypeException exception)
-                {
-                    MessageBox.Show(exception.Message + "/n Bestand is mogelijk corrupt, programma sluit nu af.");
-                    this.Close();
-                }
-                finally
-                {
-                    if (inputStream != null)
-                    {
-                        inputStream.Close();
-                    }
-                    if (j >= 10000)
-                    {
-                        MessageBox.Show("Bestand te groot, programma sluit nu af");
-                        this.Close();
-                    }
-                }
-            }
-
-            // kopieer de opmaak en grootte van de TextBoxes in de listbox voor later
-            juistBrush = ((TextBox)meerkeuzeListBox.Items[0]).Foreground;
-            juistFontWeight = ((TextBox)meerkeuzeListBox.Items[0]).FontWeight;
-            textBoxWidth = ((TextBox)meerkeuzeListBox.Items[0]).Width;
-            textBoxHeight = ((TextBox)meerkeuzeListBox.Items[0]).Height;
-
-
-            LaadVraag();
-
-            
-            
         }
 
         
 
-        
+       
         
     }
 }

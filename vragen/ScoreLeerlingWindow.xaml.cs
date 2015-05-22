@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
-
+//Author: Brecht Morrhey
 namespace ProjectChallenge
 {
     /// <summary>
@@ -20,17 +20,31 @@ namespace ProjectChallenge
     /// </summary>
     public partial class ScoreLeerlingWindow : Window
     {
-        string userId;
+        //variables
+        private string userId;
+        private Leerling leerling;
+        private Dictionary<Button, string> bestandsNaamDictionary;
+        private MainVragenWindow menuWindow;
 
-        public ScoreLeerlingWindow(string userId)
+        //constructors
+        public ScoreLeerlingWindow(Leerling leerling, MainVragenWindow menuWindow)
         {
-            this.userId = userId;
             InitializeComponent();
+            //Author: Stijn Stas
+            this.menuWindow = menuWindow;
+            this.userId = leerling.ID;
+            this.leerling = leerling;
+
         }
 
+        //event handlers
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            string path = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/challenge scores";
+            //Author: Stijn Stas
+            klasEnLeerlingLabel.Content = leerling.Voornaam + " " + leerling.Naam + "\n" + leerling.Klas;
+            //
+
+            string path = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Challenger\\challenge scores";
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
@@ -40,48 +54,109 @@ namespace ProjectChallenge
             string filename;
 
             // zoek alle scores met die userId
+
             foreach (string file in files)
             {
-                filename = System.IO.Path.GetFileName(file);
-                if (userId == filename.Split('_')[1])
+                try
                 {
-                    userFiles.Add(file);
+
+                    filename = System.IO.Path.GetFileName(file);
+                    if (userId == filename.Split('_')[1])
+                    {
+                        userFiles.Add(file);
+                    }
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    MessageBox.Show("Index Out of Range Exception in " + file + ". Bestand is mogelijk corrupt");
+                    this.NaarMenu();
                 }
             }
 
-            string score;
+
+
+            double score;
             string vraag;
-            StreamReader inputStream = null;
+            Button b;
+            ScoreLezer lezer = new ScoreLezer();
+            bestandsNaamDictionary = new Dictionary<Button, string>(); //Maak een dictionary om voor elke score het bijbehorende filepath bij te houden
             foreach (string file in userFiles)
             {
                 try
                 {
-                    inputStream = File.OpenText(file);
-                    filename = System.IO.Path.GetFileName(file);
-                    vraag = filename.Split('_')[3];
-                    inputStream.ReadLine(); //sla de eerste lijn over
-                    score = inputStream.ReadLine().Split(':')[2];
-                    scoresListBox.Items.Add(vraag + "\t" + score);
+                    lezer.BestandsNaam = file;
+                    lezer.Initialise();
+                    vraag = lezer.Vraag;
+                    score = lezer.Score;
+                    b = new Button();
+                    b.Click += scoresListBoxItem_Click;
+                    b.Content = (vraag + ":\t" + score+"%");
+                    scoresListBox.Items.Add(b);
+                    bestandsNaamDictionary.Add(b, file);
+
                 }
                 catch (FileNotFoundException)
                 {
                     MessageBox.Show("Bestand " + file + " niet gevonden.", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
-                    this.Close();
+                    this.NaarMenu();
                 }
                 catch (ArgumentException)
                 {
-                    MessageBox.Show("Argument Exception bij inlezen bestand " + file , "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
-                    this.Close();
+                    MessageBox.Show("Argument Exception bij inlezen bestand " + file, "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                    this.NaarMenu();
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    MessageBox.Show("Index Out of Range Exception in " + file + ". Bestand is mogelijk corrupt");
+                    this.NaarMenu();
+                }
+                catch (BestandTeGrootException exception)
+                {
+                    MessageBox.Show(exception.Message);
+                    this.NaarMenu();
                 }
                 finally
                 {
-                    if (inputStream != null)
-                    {
-                        inputStream.Close();
-                    }
+                    lezer.Close();
                 }
             }
-          
+
+            if (bestandsNaamDictionary.Count == 0)
+            {
+                b = new Button();
+                b.Content = "geen resultaten";
+                scoresListBox.Items.Add(b);
+            }
+        }
+
+        private void scoresListBoxItem_Click(object sender, RoutedEventArgs e)
+        {
+            string bestandsNaam = bestandsNaamDictionary[(Button)sender];
+            Window w = new ScoreVraagWindow(bestandsNaam, this, menuWindow);
+            w.Show();
+            this.Hide();
+        }
+
+        private void klasButton_Click(object sender, RoutedEventArgs e)
+        {
+            //Author: Stijn Stas
+            ScoreKlasWindow klas = new ScoreKlasWindow(leerling.Klas, menuWindow);
+            klas.Show();
+            this.Close();
+        }
+
+        private void menuButton_Click(object sender, RoutedEventArgs e)
+        {
+            //Author: Stijn Stas
+            NaarMenu();
+        }
+
+        //methods
+        private void NaarMenu()
+        {
+            //Author: Stijn Stas
+            menuWindow.Show();
+            this.Close();
         }
     }
 }

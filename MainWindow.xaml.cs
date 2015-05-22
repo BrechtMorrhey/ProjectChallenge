@@ -21,11 +21,15 @@ namespace ProjectChallenge
     /// </summary>
     public partial class MainWindow : Window
     {
+        
         AlleGebruikers alleGebruikers;
         public MainWindow()
         {
+            //http://stackoverflow.com/questions/1472498/wpf-global-exception-handler
+
+            AppDomain currentDomain = AppDomain.CurrentDomain;
+            //currentDomain.UnhandledException += new UnhandledExceptionEventHandler(UEHandler);
             InitializeComponent();
-            // akki test
             alleGebruikers = new AlleGebruikers();
             
         }
@@ -44,10 +48,15 @@ namespace ProjectChallenge
             login.Show();
         }
 
-        private void gameButton_Click(object sender, RoutedEventArgs e)
+        private void exitButton_Click(object sender, RoutedEventArgs e)
         {
-            Game w = new Game();
-            w.Show();
+            System.Environment.Exit(0);
+        }
+
+        static void UEHandler(object sender, UnhandledExceptionEventArgs args)
+        {
+            MessageBox.Show("An unhandled exception has occured: " + (sender.ToString())+"/n Program will shutdown");
+            System.Environment.Exit(0);
         }
     }
 }

@@ -12,7 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
+using System.Windows.Threading;
 
+//Author: Brecht Morrhey
 namespace ProjectChallenge
 {
     /// <summary>
@@ -20,16 +22,133 @@ namespace ProjectChallenge
     /// </summary>
     public partial class OplossenWindow : Window
     {
+        //variables
         private List<Vraag> vragenLijst;
         private int counter;
         private string bestandsNaam;
-        
-        
-        public OplossenWindow(string bestandsNaam)
+        private MainVragenWindow menuWindow;
+        private vragen.VragenSelectieWindow vragenSelectie;
+        private string programmaDirPath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Challenger");
+        private string vragenlijstenDirPath;
+        private Leerling gebruiker;
+        private bool windowClosed;
+        private DispatcherTimer klok;
+        private int tijd = 0;
+        private int juisteTijd = 0;
+        private int restVragen;
+
+        //constructors
+        public OplossenWindow(string bestandsNaam, Leerling gebruiker,MainVragenWindow menuWindow, vragen.VragenSelectieWindow vragenSelectie)
         {
-            this.bestandsNaam = bestandsNaam;
-            InitializeComponent();                     
-                    }
+            InitializeComponent();
+            this.bestandsNaam = bestandsNaam + ".txt";
+
+            //Author: Stijn Stas
+            this.menuWindow = menuWindow;
+            vragenlijstenDirPath = programmaDirPath + "\\Vragenlijsten";
+            this.vragenSelectie = vragenSelectie;
+            this.gebruiker = gebruiker;
+            windowClosed = true;
+        }
+
+        public OplossenWindow(string bestandsNaam,int tijd, Leerling gebruiker, MainVragenWindow menuWindow, vragen.VragenSelectieWindow vragenSelectie)
+                :this(bestandsNaam, gebruiker, menuWindow, vragenSelectie)
+        {
+            //Author: Stijn Stas
+            this.juisteTijd = tijd; 
+        }
+
+        //event handlers
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            VragenLezer lezer = null;
+            try
+            {
+                String volledigPath = System.IO.Path.Combine(vragenlijstenDirPath, bestandsNaam);
+                lezer = new VragenLezer(volledigPath);
+                lezer.Initialise();
+                vragenLijst = lezer.VragenLijst;
+            }
+            catch (FileNotFoundException)
+            {
+                MessageBox.Show("Invoerbestand bestaat niet");
+                this.Close();
+                vragenSelectie.Show();
+            }
+            catch (OnbekendVraagTypeException exception)
+            {
+                MessageBox.Show(exception.Message + "/n Bestand is mogelijk corrupt, programma zal nu afsluiten");
+                this.Close();
+                vragenSelectie.Show();
+            }
+            catch (VraagIsNullException exception)
+            {
+                MessageBox.Show(exception.Message + "/n Bestand is mogelijk corrupt, programma zal nu afsluiten");
+                this.Close();
+                vragenSelectie.Show();
+            }
+            catch (BestandTeGrootException exception)
+            {
+                MessageBox.Show(exception.Message);
+                this.Close();
+                vragenSelectie.Show();
+            }
+            //  opvangen leegbestand exception
+            catch (LeegBestandException exception)
+            {
+                //Author: Stijn Stas
+                MessageBox.Show(exception.Message);
+                windowClosed = false; // boolean op vals om te zeggen dat window gesloten is
+                this.Close();
+                vragenSelectie.Show();  // menuwindow tonen
+            }
+            finally
+            {
+                if (lezer != null)
+                {
+                    lezer.Close();
+                }
+                if (vragenLijst == null)    //  als vragenlijst null is window sluiten
+                {
+                    this.Close();
+                    vragenSelectie.Show();
+                    
+                }
+            }
+
+            //  als window geclosed is word deze code toch nog steeds uitgevoerd
+            //  daarom eerst testen of er wel een vragenLijst is aangemaakt
+            //  in geval van exceptions
+            if (vragenLijst != null)
+            {
+                // zet de vragen in willekeurige volgorde
+                List<Vraag> hulpLijst = new List<Vraag>();
+                Random randomIndex = new Random();
+                int r;
+                while (vragenLijst.Count > 0)
+                {
+                    r = randomIndex.Next(0, vragenLijst.Count);
+                    hulpLijst.Add(vragenLijst[r]);
+                    vragenLijst.RemoveAt(r);
+                }
+                vragenLijst = hulpLijst;
+
+                restVragen = vragenLijst.Count() - 1;
+
+                LaadVraag();
+            }
+
+            //Author: Stijn Stas
+            if (tijd != 0)
+            {
+                vorigeButton.Visibility = Visibility.Hidden;
+                klok = new DispatcherTimer();
+                klok.Interval = TimeSpan.FromSeconds(1);
+                klok.Tick += klok_Tick;
+                klok.Start();
+            }
+
+        }
 
         private void vorigeButton_Click(object sender, RoutedEventArgs e)
         {
@@ -41,27 +160,9 @@ namespace ProjectChallenge
             }
         }
 
-        
-
         private void volgendeButton_Click(object sender, RoutedEventArgs e)
         {
-            SlaVraagOp();
-            if (counter+1 < vragenLijst.Count)
-            {
-                counter++;
-                LaadVraag();
-            }
-            else
-            {
-                MessageBox.Show("Laatste vraag, druk op Klaar om af te sluiten uw score te bekijken");                
-            }
-        }
-
-        private void Klaar()
-        {
-            Window w = new ScoreWindow(vragenLijst, bestandsNaam);
-            w.Show();
-            this.Close();
+            volgendeVraag();
         }
 
         private void klaarButton_Click(object sender, RoutedEventArgs e)
@@ -70,21 +171,75 @@ namespace ProjectChallenge
             Klaar(); // misschien onnodig om methode voor te gebruiken
         }
 
+        void klok_Tick(object sender, EventArgs e)
+        {
+            //Author: Stijn Stas
+            overigeVragenTextBlock.Text = "resterende vragen: " + restVragen;
+            tijdLabel.Content = "Resterende tijd : " + tijd + " sec";
+            if (tijd == 0)
+            {
+                volgendeVraag();
+            }
+            tijd--;
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            //Author: Stijn Stas
+            if (klok != null)
+            {
+                klok.Stop();
+            }
+        }
+
+        //methods
+        private void volgendeVraag()
+        {
+            SlaVraagOp();
+            if (counter + 1 < vragenLijst.Count)
+            {
+                counter++;
+                LaadVraag();
+            }
+            else
+            {
+                //Author: Stijn Stas
+                if (juisteTijd != 0)
+                {
+                    Klaar();
+                }
+                else
+                {
+                    MessageBox.Show("Laatste vraag, druk op Klaar om af te sluiten uw score te bekijken");
+                }
+            }
+            restVragen--;
+        }
+
+        private void Klaar()
+        {
+            Window w = new ScoreWindow(menuWindow, gebruiker, vragenLijst, bestandsNaam, juisteTijd);
+            w.Show();
+            this.Close();
+        }
+
         private void LaadVraag()
         {
+            
             opgaveTextBlock.Text = vragenLijst[counter].Opgave;
             invulListBox.Items.Clear();
-            switch (vragenLijst[counter].TypeVraag) { 
-                case(VraagType.basis):
+            switch (vragenLijst[counter].TypeVraag)
+            {
+                case (VraagType.basis):
                     invulTextBox.Visibility = Visibility.Visible;
                     invulListBox.Visibility = Visibility.Hidden;
                     invulTextBox.Text = vragenLijst[counter].Ingevuld;
                     break;
-                case(VraagType.meerkeuze):
+                case (VraagType.meerkeuze):
                     invulTextBox.Visibility = Visibility.Hidden;
                     invulListBox.Visibility = Visibility.Visible;
 
-                    List<string> antwoordenLijst=new List<string>();
+                    List<string> antwoordenLijst = new List<string>();
                     foreach (string antwoord in ((MeerkeuzeVraag)vragenLijst[counter]).AntwoordenLijst) // copy by value
                     {
                         antwoordenLijst.Add(antwoord);
@@ -92,11 +247,11 @@ namespace ProjectChallenge
                     Random randomIndex = new Random();
                     int r;
                     RadioButton radioKnop;
-                    while(antwoordenLijst.Count>0)// zet de antwoorden in willekeurige volgorde in de ListBox
+                    while (antwoordenLijst.Count > 0)// zet de antwoorden in willekeurige volgorde in de ListBox
                     {
                         r = randomIndex.Next(0, antwoordenLijst.Count);
                         radioKnop = new RadioButton();
-                        radioKnop.Content = antwoordenLijst[r];                        
+                        radioKnop.Content = antwoordenLijst[r];
                         invulListBox.Items.Add(radioKnop);
                         antwoordenLijst.RemoveAt(r);
                     }
@@ -114,12 +269,17 @@ namespace ProjectChallenge
                     }
                     break;
                 case(VraagType.wiskunde):
-                    invulTextBox.Visibility = Visibility.Hidden;
-                    invulListBox.Visibility = Visibility.Visible;
-                    break;               
+                    // Author: Akki Stankidis
+                    invulTextBox.Visibility = Visibility.Visible;
+                    invulListBox.Visibility = Visibility.Hidden;
+                    invulTextBox.Text = vragenLijst[counter].Ingevuld;
+                    break;
             }
+            //Author: Stijn Stas
+            tijd = juisteTijd;
         }
         
+
         public void SlaVraagOp()
         {
             switch (vragenLijst[counter].TypeVraag)
@@ -128,7 +288,7 @@ namespace ProjectChallenge
                 case (VraagType.wiskunde):
                     vragenLijst[counter].Ingevuld = invulTextBox.Text;
                     break;
-                case (VraagType.meerkeuze):                    
+                case (VraagType.meerkeuze):
                     foreach (RadioButton radioKnop in invulListBox.Items)
                     {
                         if ((bool)radioKnop.IsChecked)
@@ -136,107 +296,20 @@ namespace ProjectChallenge
                             vragenLijst[counter].Ingevuld = (string)radioKnop.Content;
                         }
                     }
-                    break;          
+                    break;
             }
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        //properties
+        public bool WindowNotClosed
         {
-            int i;
-            string line, lijst;
-            Vraag vraag = null;
-            StreamReader inputStream = null;
-            List<string> antwoordenLijst;
-
-
-            counter = 0;
-            vragenLijst = new List<Vraag>();
-
-            int j = 0;
-            try
+            //Author: Stijn Stas
+            get
             {
-                inputStream = File.OpenText(bestandsNaam);
-                line = inputStream.ReadLine();
-                while (line != null && j < 10000)
-                {
-                    switch (line.Split(',')[0])
-                    {
-                        case "basis":
-                            vraag = new BasisVraag(line.Split(',')[1], line.Split(',')[2]);
-
-                            break;
-                        case "meerkeuze":
-                            antwoordenLijst = new List<string>();
-                            lijst = line.Split(',')[2];
-                            i = 0;
-                            while ((lijst.Split('|')[i]).Trim() != "")   // maak de antwoordenlijst door elementen in te lezen zolang er geen lege waarde komt
-                            {
-                                antwoordenLijst.Add(lijst.Split('|')[i]);
-                                i++;
-                            }
-                            if (antwoordenLijst != null)
-                            {
-                                vraag = new MeerkeuzeVraag(line.Split(',')[1], antwoordenLijst);
-                            }
-                            else
-                            {
-                                MessageBox.Show("Lege antwoordenlijst");
-                                // de vraag wordt niet ingelezen en het programma probeert verder te gaan
-                            }
-                            //code voor meerkeuze
-                            break;
-
-                        case "wiskunde":
-                            //code voor wiskunde
-                            break;
-                        default: throw new OnbekendVraagTypeException("Onbekend Type Vraag voor vraag " + line.Split(',')[1]);
-                    }
-                    if (vraag != null)
-                    {
-                        vragenLijst.Add(vraag);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Vraag is null, programma zal nu afsluiten");
-                        this.Close();
-                    }
-                    line = inputStream.ReadLine();
-                    j++;
-                }
+                return windowClosed;
             }
-            catch (FileNotFoundException)
-            {
-                MessageBox.Show("Invoerbestand bestaat niet");
-                this.Close();
-            }
-            catch (OnbekendVraagTypeException exception)
-            {
-                MessageBox.Show(exception.Message + "/n Bestand is mogelijk corrupt, programma zal nu afsluiten");
-            }
-            finally
-            {
-                if (inputStream != null)
-                {
-                    inputStream.Close();
-                }
-                if (j >= 10000)
-                {
-                    MessageBox.Show("Bestand is te groot, programma zal nu afsluiten");
-                    this.Close();
-                }
-            }
-
-            LaadVraag();
-            //StreamReader inputStream = File.OpenText(bestandsNaam);
-            //line = inputStream.ReadLine();
-            //while (line != null)
-            //{
-            //    basisVraag=new BasisVraag(line.Split(',')[0],line.Split(',')[1]);
-            //    vragenLijst.Add(basisVraag);
-            //    line = inputStream.ReadLine();
-
-            //}
-            //opgaveTextBlock.Text = vragenLijst[counter].Opgave; //zet eerste vraag klaar
         }
+
+       
     }
 }

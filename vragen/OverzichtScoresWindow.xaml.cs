@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+//Author: Brecht Morrhey 
 
 namespace ProjectChallenge
 {
@@ -19,45 +20,85 @@ namespace ProjectChallenge
     /// </summary>
     public partial class OverzichtScoresWindow : Window
     {
-        public OverzichtScoresWindow()
+        //variables
+        private MainVragenWindow menuWindow;
+
+        //constructors
+        public OverzichtScoresWindow(MainVragenWindow menuWindow)
         {
             InitializeComponent();
+            this.menuWindow = menuWindow;
         }
+        
+        //event handlers
         private void userIdButton_Click(object sender, RoutedEventArgs e)
         {
             if (userIdTextBox.Text != "" && userIdTextBox.Text != null)
             {
-                Window w = new ScoreLeerlingWindow(userIdTextBox.Text);
-                w.Show();
-            }
+                //Author: Stijn Stas
+                Leerling gebruiker = null;
+                bool gebruikerGevonden = false;
+                foreach (Leerling leerling in menuWindow.Gebruikers.Leerlingen)
+                {
+                    if (userIdTextBox.Text == leerling.ID)
+                    {
+                        gebruiker = leerling;
+                        gebruikerGevonden = true;
+                        Window w = new ScoreLeerlingWindow(gebruiker, menuWindow);
+                        w.Show();
+                        this.Hide();
+                    }
+                }
+                if (!gebruikerGevonden)
+                {
+                    MessageBox.Show("UserId niet gevonden, probeer opnieuw", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }   
             else
             {
-                MessageBox.Show("Gelieve eerst een userId in te geven", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Gelieve eerst een bestaand userId in te geven", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-        private void klasButton_Click(object sender, RoutedEventArgs e)
-        {
-           
         }
 
         private void alleButton_Click(object sender, RoutedEventArgs e)
         {
-            Window w = new ScoreAlleWindow();
+            Window w = new ScoreAlleWindow(this, menuWindow);
             w.Show();
+            this.Hide();
         }
 
         private void scoreKlasButton_Click(object sender, RoutedEventArgs e)
         {
             if (scoreKlasTextBox.Text != "" && scoreKlasTextBox.Text != null)
             {
-                Window w = new ScoreKlasWindow(scoreKlasTextBox.Text);
-                w.Show();
+                //Author: Stijn Stas
+                bool klasGevonden = false;
+                foreach (string klas in menuWindow.Gebruikers.Klassen)
+                {
+                    if (klas == scoreKlasTextBox.Text)
+                    {
+                        klasGevonden = true;
+                        Window w = new ScoreKlasWindow(scoreKlasTextBox.Text, menuWindow);
+                        w.Show();
+                        this.Hide();
+                    }
+                    if (!klasGevonden)
+                    {
+                        MessageBox.Show("KlasId niet gevonden, probeer opnieuw", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
             }
             else
             {
-                MessageBox.Show("Gelieve eerst een klasId in te geven", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Gelieve eerst een bestaand klasId in te geven", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void terugButton_Click(object sender, RoutedEventArgs e)
+        {
+            //Author: Stijn Stas
+            menuWindow.Show();
+            this.Close();
         }
     }
 }

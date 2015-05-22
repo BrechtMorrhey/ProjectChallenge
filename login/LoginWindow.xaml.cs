@@ -17,54 +17,75 @@ namespace ProjectChallenge
     /// <summary>
     /// Interaction logic for LoginWindow.xaml
     /// </summary>
+    /// 
+
+    //  Verzorgt de code achter het 
+    //  login formulier
+    //
+    //  Author: Stijn Stas
+
     public partial class LoginWindow : Window
     {
+        //  Eigenschappen
         private AlleGebruikers alleGebruikers;
         private Persoon gebruiker;
         private MainWindow mainWindow;
+
+        //  Constructor
         public LoginWindow(MainWindow mainWindow, AlleGebruikers alleGebruikers)
         {
             InitializeComponent();
             this.alleGebruikers = alleGebruikers;
             this.mainWindow = mainWindow;
         }
+        
+        //  Methoden
+
+        //  Code achter login button
+        //  gebruiker word ingelogd
+        //  via methode Login()
+        //  en menu word opgeroepen
+        //
+        //  Author: Stijn Stas
 
         private void loginButton_Click(object sender, RoutedEventArgs e)
         {
             bool loginOk = Login();
-            //MainVragenWindow w;
+            MainVragenWindow menuWindow;
             if (loginOk)
             {
-                MessageBox.Show("Login OK");
                 if( gebruiker.GeefGebruikersType() == "leerling")
                 {
                     Leerling leerling = (Leerling) gebruiker;
-                    //w = new MainVragenWindow(leerling);
+                    menuWindow = new MainVragenWindow(leerling, Main);
                 }
                 else 
                 {
                     Leerkracht leerkracht = (Leerkracht)gebruiker;
-                    //w = new MainVragenWindow(leerkracht, alleGebruikers);
+                    menuWindow = new MainVragenWindow(leerkracht, alleGebruikers, Main);
                 }
 
-                //w.Show();
+                menuWindow.Show();
+                this.Close();
             }
             else
-            {
+            { 
                 MessageBox.Show("Foute login", "Fout", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                // ENKEL VOOR TESTDOELEINDEN
-
-                MainVragenWindow w = new MainVragenWindow();
-                w.Show();
-                // VERWIJDER UIT UITEINDELIJK PROJECT
             }
         }
+
+        //  Login() controleert de ingegeven
+        //  gegevens en vergelijkt deze met
+        //  de gebruikersgegevens in de lijsten
+        //  die zich in het allegebruikers object
+        //  bevinden
+        //
+        //  Author: Stijn Stas
 
         private bool Login()
         {
             string gebruikerId = idTextBox.Text;
-            string gebruikerPassword = passwordTextBox.Text;
+            string gebruikerPassword = passwordPasswordBox.Password;
 
             foreach (Leerling student in alleGebruikers.Leerlingen)
             {
@@ -90,11 +111,28 @@ namespace ProjectChallenge
             }
             return false;
         }
+        
+        //  Keert terug naar het
+        //  beginscherm
+        //
+        //  Author: Stijn Stas
 
         private void backButton_Click(object sender, RoutedEventArgs e)
         {
             mainWindow.Show();
             this.Close();
+        }
+
+        //  Properties
+        public MainWindow Main
+        {
+            get
+            {
+                return mainWindow;
+            }
+            set
+            {
+            }
         }
     }
 }

@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+//Author Brecht Morrhey
 
 namespace ProjectChallenge
 {
-    class BasisVraag: Vraag
+    public class BasisVraag : Vraag
     {
-        public override VraagType TypeVraag { get { return VraagType.basis; } }
+        //variables
         private string opgave;
         private string antwoord, ingevuld;
         //private bool isIngevuld, isJuist;
 
         //constructors
-        private BasisVraag()
+        public BasisVraag()
         {
-            // het is niet de bedoeling dat deze ooit gebruikt wordt
+
         }
         public BasisVraag(string opgave, string antwoord)
         {
@@ -28,10 +28,11 @@ namespace ProjectChallenge
         //methods
         public override string ToString()
         {
-            return "basis,"+opgave+","+antwoord;
+            return "basis," + opgave + "," + antwoord;
         }
 
         //properties
+        public override VraagType TypeVraag { get { return VraagType.basis; } }
         public override string Opgave
         {
             get
@@ -44,7 +45,7 @@ namespace ProjectChallenge
 
             }
         }
-        public override string Antwoord 
+        public override string Antwoord
         {
             get
             {
@@ -56,7 +57,7 @@ namespace ProjectChallenge
 
             }
         }
-        public override string Ingevuld 
+        public override string Ingevuld
         {
             get
             {
@@ -66,22 +67,29 @@ namespace ProjectChallenge
             {
                 ingevuld = value;
 
-            } 
+            }
         }
-        public override bool IsIngevuld 
+        public override bool IsIngevuld
         {
             get
             {
                 return (ingevuld != null && ingevuld != "");
             }
         }
-        public override bool IsJuist {
+        public override bool IsJuist
+        {
             get
             {
-                return antwoord == ingevuld;
+                if (IsIngevuld)
+                {
+                    return antwoord.Trim() == ingevuld.Trim();
+                }
+                else
+                {
+                    return (false);
+                }
             }
         }
 
-        
     }
 }

@@ -1,12 +1,23 @@
 ﻿<Window x:Class="ProjectChallenge.LoginWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="LoginWindow" Height="300" Width="300">
-    <Grid>
-        <TextBox Name="idTextBox" HorizontalAlignment="Left" Height="23" Margin="10,31,0,0" TextWrapping="Wrap" Text="ID" VerticalAlignment="Top" Width="120"/>
-        <TextBox Name="passwordTextBox" HorizontalAlignment="Left" Height="23" Margin="163,31,0,0" TextWrapping="Wrap" Text="password" VerticalAlignment="Top" Width="120"/>
-        <Button Name="loginButton" Content="Login" HorizontalAlignment="Left" Margin="175,90,0,0" VerticalAlignment="Top" Width="84" Click="loginButton_Click" Height="29"/>
-        <Button x:Name="backButton_Copy" Content="Back" HorizontalAlignment="Left" Margin="30,90,0,0" VerticalAlignment="Top" Width="84" Click="backButton_Click" Height="29"/>
+        Title="LoginWindow" Height="228" Width="300"
+        WindowStyle="None"
+        >
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFFCFCFC" Offset="0.133"/>
+            <GradientStop Color="#FFE8CE71" Offset="0.313"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <Grid Margin="0,0,0.333,0" Height="218" VerticalAlignment="Top" Background="#FFE8CE71">
+        <TextBox Name="idTextBox" HorizontalAlignment="Left" Height="23" Margin="10,117,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <PasswordBox Name="passwordPasswordBox" HorizontalAlignment="Left" Height="23" Margin="163,117,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button Name="loginButton" Content="Log in" HorizontalAlignment="Left" Margin="178,166,0,0" VerticalAlignment="Top" Width="84" Click="loginButton_Click" Height="29"/>
+        <Button x:Name="backButton_Copy" Content="Terug" HorizontalAlignment="Left" Margin="25,166,0,0" VerticalAlignment="Top" Width="84" Click="backButton_Click" Height="29"/>
+        <Label Content="Gebruiker id:" HorizontalAlignment="Left" Margin="10,86,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Wachtwoord:" HorizontalAlignment="Left" Margin="163,86,0,0" VerticalAlignment="Top" Width="120"/>
+        <Image Margin="0,0,0,137" Source="..\Pictures\welkom.jpg" Stretch="Fill"/>
 
     </Grid>
 </Window>
