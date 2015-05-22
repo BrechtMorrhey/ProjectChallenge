@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+//Author: Stijn Stas
 namespace ProjectChallenge
 {
-    class VraagIsNullException : ApplicationException
+    class LeegBestandException : ApplicationException
     {
-         public VraagIsNullException() { }
-         public VraagIsNullException(string message)
+        public LeegBestandException() { }
+        public LeegBestandException(string message)
             : base(message)
         {          
         }

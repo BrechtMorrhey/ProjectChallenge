@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
-
+//Author: Brecht Morrhey
 namespace ProjectChallenge
 {
     /// <summary>
@@ -20,23 +20,20 @@ namespace ProjectChallenge
     /// </summary>
     public partial class ScoreAlleWindow : Window
     {
+        //variables
         MainVragenWindow menuWindow;
         OverzichtScoresWindow vorigWindow;
 
+        //constructors
         public ScoreAlleWindow(OverzichtScoresWindow vorigWindow, MainVragenWindow menuWindow )
         {
             InitializeComponent();
+            //Author: Stijn Stas
             this.menuWindow = menuWindow;
             this.vorigWindow = vorigWindow;
         }
-        private void scoresListBoxItem_Click(object sender, RoutedEventArgs e)
-        {
-            string klas = ((string)((Button)(sender)).Content).Split(':')[0];
-            Window w = new ScoreKlasWindow(klas, menuWindow);
-            w.Show();
-            this.Hide();
-        }
-        
+
+        //event handlers
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             string klas = "";
@@ -61,7 +58,7 @@ namespace ProjectChallenge
             }
 
             Dictionary<string, double> klasScores = new Dictionary<string, double>();
-            foreach (string item in klassenLijst)
+            foreach (string item in klassenLijst)   //initialiseer een Dictionary waarin we per klas de gemiddelde score bijhouden
             {
                 klasScores.Add(item, 0);
             }
@@ -144,19 +141,34 @@ namespace ProjectChallenge
             }
         }
 
+        private void scoresListBoxItem_Click(object sender, RoutedEventArgs e)
+        {
+            string klas = ((string)((Button)(sender)).Content).Split(':')[0];
+            Window w = new ScoreKlasWindow(klas, menuWindow);
+            w.Show();
+            this.Hide();
+        }
+        
+       
+
         private void menuButton_Click(object sender, RoutedEventArgs e)
         {
+            //Author: Stijn Stas
             this.NaarMenu();
         }
 
         private void overzichtButton_Click(object sender, RoutedEventArgs e)
         {
+            //Author: Stijn Stas
             vorigWindow.Show();
             this.Close();
         }
 
+        //methods
+
         private void NaarMenu()
         {
+            //Author: Stijn Stas
             menuWindow.Show();
             vorigWindow.Close();
             this.Close();

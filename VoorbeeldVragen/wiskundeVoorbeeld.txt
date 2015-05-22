@@ -1,0 +1,13 @@
+wiskunde,35,76,+
+wiskunde,26,16,+
+wiskunde,66,79,+
+wiskunde,8,5,*
+wiskunde,9,8,*
+wiskunde,10,8,*
+wiskunde,5,4,*
+wiskunde,10,5,/
+wiskunde,10,4,/
+wiskunde,7,3,/
+wiskunde,31,23,-
+wiskunde,47,55,-
+wiskunde,11,57,-

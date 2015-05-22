@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
+//Author: Stijn Stas
 
 namespace ProjectChallenge.vragen
 {
@@ -20,9 +21,11 @@ namespace ProjectChallenge.vragen
     /// </summary>
     public partial class VragenSelectieWindow : Window
     {
+        //variables
         private Leerling gebruiker;
         private MainVragenWindow menuWindow;
 
+        //constructors
         public VragenSelectieWindow(Leerling gebruiker, MainVragenWindow menuWindow)
         {
             InitializeComponent();
@@ -32,8 +35,31 @@ namespace ProjectChallenge.vragen
             oefenenRadioButton.IsChecked = true;
         }
 
-        
+        //event handlers
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            string path = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Challenger\\Vragenlijsten";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            string[] files = Directory.GetFiles(path);
+            string filename, vak = "";
+            ListBoxItem vakItem;
 
+            foreach (string file in files)
+            {
+
+                filename = System.IO.Path.GetFileName(file);
+                if (filename.Split('.').Count() > 1 && filename.Split('.').Last() == "txt") //kijk of het bestand een extensie heeft, zo ja, kijk of het een .txt is
+                {
+                    vak = filename.Split('.')[0];
+                    vakItem = new ListBoxItem();
+                    vakItem.Content = vak;
+                    vakkenListBox.Items.Add(vakItem);
+                }
+            }
+        }
         private void beginButton_Click(object sender, RoutedEventArgs e)
         {
             OplossenWindow oplossen = null;
@@ -94,31 +120,8 @@ namespace ProjectChallenge.vragen
             this.Close();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            string path = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Challenger\\Vragenlijsten";
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-            string[] files = Directory.GetFiles(path);
-            string filename, vak = "";
-            ListBoxItem vakItem;
-
-            foreach (string file in files)
-            {
-                
-                filename = System.IO.Path.GetFileName(file);
-                if (filename.Split('.')[1] == "txt")
-                {
-                    vak = filename.Split('.')[0];
-                    vakItem = new ListBoxItem();
-                    vakItem.Content = vak;
-                    vakkenListBox.Items.Add(vakItem);
-                }
-            }
-        }
-      
+     
+      //methods
         private void NaarMenu()
         {
             menuWindow.Show();

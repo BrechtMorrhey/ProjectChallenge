@@ -12,7 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+//Author: Brecht Morrhey
 namespace ProjectChallenge
 {
     /// <summary>
@@ -20,39 +20,21 @@ namespace ProjectChallenge
     /// </summary>
     public partial class ScoreKlasWindow : Window
     {
+        //variables
         string klas;
         private MainVragenWindow menuWindow;
-        //        private Window vorigWindow;
 
-        public ScoreKlasWindow(string klas,/* Window vorigWindow,*/ MainVragenWindow menuWindow)
+        //constructors
+        public ScoreKlasWindow(string klas, MainVragenWindow menuWindow)
         {
             this.klas = klas;
             InitializeComponent();
+            //Author: Stijn Stas
             this.menuWindow = menuWindow;
-            //            this.vorigWindow = vorigWindow;
             klasLabel.Content = klas + ":";
         }
 
-        private void scoresListBoxItem_Click(object sender, RoutedEventArgs e)
-        {
-            string userId = ((string)((Button)(sender)).Content).Split(':')[0];
-            Leerling gebruiker = null;
-            foreach (Leerling leerling in menuWindow.Gebruikers.Leerlingen)
-            {
-                if (userId == leerling.ID)
-                {
-                    gebruiker = leerling;
-                    Window w = new ScoreLeerlingWindow(gebruiker, menuWindow);
-                    w.Show();
-                    this.Hide();
-                }
-                else
-                {
-                    MessageBox.Show("Foutief Bestand", "FOUT", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-        }
-
+        //event handlers
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             string path = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Challenger\\challenge scores";
@@ -89,7 +71,7 @@ namespace ProjectChallenge
 
 
             Dictionary<string, double> leerlingScores = new Dictionary<string, double>();
-            foreach (string item in leerlingenLijst)    //initialiseer Dictionary
+            foreach (string item in leerlingenLijst)    //initialiseer Dictionary waar per leerling de gemiddeldescore wordt bijgehouden
             {
                 leerlingScores.Add(item, 0);
             }
@@ -170,7 +152,7 @@ namespace ProjectChallenge
                 scoresListBox.Items.Add(b);
             }
             //http://stackoverflow.com/questions/141088/what-is-the-best-way-to-iterate-over-a-dictionary-in-c
-           
+
             if (leerlingenLijst.Count == 0)
             {
                 b = new Button();
@@ -178,9 +160,32 @@ namespace ProjectChallenge
                 scoresListBox.Items.Add(b);
             }
         }
+        private void scoresListBoxItem_Click(object sender, RoutedEventArgs e)
+        {
+            string userId = ((string)((Button)(sender)).Content).Split(':')[0];
+            Leerling gebruiker = null;
+            bool leerlingGevonden = false;
+            //Author: Stijn Stas
+            foreach (Leerling leerling in menuWindow.Gebruikers.Leerlingen)
+            {
+                if (userId == leerling.ID)
+                {
+                    leerlingGevonden = true;
+                    gebruiker = leerling;
+                    Window w = new ScoreLeerlingWindow(gebruiker, menuWindow);
+                    w.Show();
+                    this.Hide();
+                }
+            }
 
+            if (!leerlingGevonden)
+            {
+                MessageBox.Show("foutief bestand", "fout", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
         private void klassenButton_Click(object sender, RoutedEventArgs e)
         {
+            //Author: Stijn Stas
             ScoreAlleWindow klassen = new ScoreAlleWindow(new OverzichtScoresWindow(menuWindow), menuWindow);
             klassen.Show();
             this.Close();
@@ -188,11 +193,14 @@ namespace ProjectChallenge
 
         private void menuButton_Click(object sender, RoutedEventArgs e)
         {
+            //Author: Stijn Stas
             this.NaarMenu();
         }
 
+        //methods
         private void NaarMenu()
         {
+            //Author: Stijn Stas
             menuWindow.Show();
             this.Close();
         }

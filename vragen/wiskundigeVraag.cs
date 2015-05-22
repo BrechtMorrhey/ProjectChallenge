@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+//Author: Akki Akkix
 
 namespace ProjectChallenge
 {
     class wiskundigeVraag : Vraag
     {
+        //variables
         public override VraagType TypeVraag { get { return VraagType.wiskunde; } }
         private string opgave, antwoord, ingevuld, bewerking;
         //private bool isIngevuld, isJuist;
@@ -220,7 +222,14 @@ namespace ProjectChallenge
         {
             get
             {
-                return antwoord == ingevuld;
+                if (IsIngevuld)
+                {
+                    return antwoord.Trim() == ingevuld.Trim();
+                }
+                else
+                {
+                    return (false);
+                }
             }
         }
 

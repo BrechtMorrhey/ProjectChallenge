@@ -37,5 +37,8 @@
         <TextBox x:Name="getal1TextBox" HorizontalAlignment="Left" Height="23" Margin="11,307,0,0" TextWrapping="Wrap" Text="minimum" VerticalAlignment="Top" Width="76" Background="{x:Null}" GotFocus="getal1TextBox_GotFocus" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="getal2TextBox" HorizontalAlignment="Left" Height="23" Margin="196,307,0,0" TextWrapping="Wrap" Text="maximum" VerticalAlignment="Top" Width="73" GotFocus="getal2TextBox_GotFocus" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="bewerkingTextBox" HorizontalAlignment="Left" Height="23" Margin="103,307,0,0" TextWrapping="Wrap" Text="bewerking" VerticalAlignment="Top" Width="76" GotFocus="bewerkingTextBox_GotFocus" HorizontalContentAlignment="Center"/>
+        <Label x:Name="minimumLabel" Content="Minimum" HorizontalAlignment="Left" Margin="11,276,0,0" VerticalAlignment="Top" Width="76"/>
+        <Label x:Name="bewerkingLabel" Content="Bewerking" HorizontalAlignment="Left" Margin="103,276,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="maximumLabel" Content="Maximum" HorizontalAlignment="Left" Margin="196,276,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

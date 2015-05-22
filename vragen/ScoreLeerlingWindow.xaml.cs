@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
-
+//Author: Brecht Morrhey
 namespace ProjectChallenge
 {
     /// <summary>
@@ -20,25 +20,30 @@ namespace ProjectChallenge
     /// </summary>
     public partial class ScoreLeerlingWindow : Window
     {
+        //variables
         private string userId;
         private Leerling leerling;
         private Dictionary<Button, string> bestandsNaamDictionary;
         private MainVragenWindow menuWindow;
-        //        private Window vorigWindow;
 
-        public ScoreLeerlingWindow(Leerling leerling, /*Window vorigWindow,*/ MainVragenWindow menuWindow)
+        //constructors
+        public ScoreLeerlingWindow(Leerling leerling, MainVragenWindow menuWindow)
         {
             InitializeComponent();
+            //Author: Stijn Stas
             this.menuWindow = menuWindow;
-            //            this.vorigWindow = vorigWindow;
             this.userId = leerling.ID;
             this.leerling = leerling;
 
         }
 
+        //event handlers
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            //Author: Stijn Stas
             klasEnLeerlingLabel.Content = leerling.Voornaam + " " + leerling.Naam + "\n" + leerling.Klas;
+            //
+
             string path = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Challenger\\challenge scores";
             if (!Directory.Exists(path))
             {
@@ -74,7 +79,7 @@ namespace ProjectChallenge
             string vraag;
             Button b;
             ScoreLezer lezer = new ScoreLezer();
-            bestandsNaamDictionary = new Dictionary<Button, string>();
+            bestandsNaamDictionary = new Dictionary<Button, string>(); //Maak een dictionary om voor elke score het bijbehorende filepath bij te houden
             foreach (string file in userFiles)
             {
                 try
@@ -131,8 +136,10 @@ namespace ProjectChallenge
             w.Show();
             this.Hide();
         }
+
         private void klasButton_Click(object sender, RoutedEventArgs e)
         {
+            //Author: Stijn Stas
             ScoreKlasWindow klas = new ScoreKlasWindow(leerling.Klas, menuWindow);
             klas.Show();
             this.Close();
@@ -140,11 +147,14 @@ namespace ProjectChallenge
 
         private void menuButton_Click(object sender, RoutedEventArgs e)
         {
+            //Author: Stijn Stas
             NaarMenu();
         }
 
+        //methods
         private void NaarMenu()
         {
+            //Author: Stijn Stas
             menuWindow.Show();
             this.Close();
         }

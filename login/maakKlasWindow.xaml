@@ -1,4 +1,4 @@
-﻿<Window x:Class="ProjectChallenge.login.maakKlasWindow"
+﻿<Window x:Class="ProjectChallenge.login.MaakKlasWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="maakKlasWindow" Height="198" Width="301.333"

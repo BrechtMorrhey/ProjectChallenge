@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+//Author: Brecht Morrhey 
 
 namespace ProjectChallenge
 {
@@ -19,17 +20,22 @@ namespace ProjectChallenge
     /// </summary>
     public partial class OverzichtScoresWindow : Window
     {
+        //variables
         private MainVragenWindow menuWindow;
+
+        //constructors
         public OverzichtScoresWindow(MainVragenWindow menuWindow)
         {
             InitializeComponent();
             this.menuWindow = menuWindow;
         }
         
+        //event handlers
         private void userIdButton_Click(object sender, RoutedEventArgs e)
         {
             if (userIdTextBox.Text != "" && userIdTextBox.Text != null)
             {
+                //Author: Stijn Stas
                 Leerling gebruiker = null;
                 bool gebruikerGevonden = false;
                 foreach (Leerling leerling in menuWindow.Gebruikers.Leerlingen)
@@ -65,6 +71,7 @@ namespace ProjectChallenge
         {
             if (scoreKlasTextBox.Text != "" && scoreKlasTextBox.Text != null)
             {
+                //Author: Stijn Stas
                 bool klasGevonden = false;
                 foreach (string klas in menuWindow.Gebruikers.Klassen)
                 {
@@ -89,6 +96,7 @@ namespace ProjectChallenge
 
         private void terugButton_Click(object sender, RoutedEventArgs e)
         {
+            //Author: Stijn Stas
             menuWindow.Show();
             this.Close();
         }

@@ -36,6 +36,7 @@ namespace ProjectChallenge
         //  Constructors
         public Game(MainVragenWindow menuWindow)
         {
+            // Author: Timo Biesmans
             InitializeComponent();
             this.menuWindow = menuWindow;
             animationTimer = new DispatcherTimer();
@@ -45,7 +46,7 @@ namespace ProjectChallenge
         }
         public Game(MainVragenWindow menuWindow, int minuten):this(menuWindow)
         {
-
+            // Author: Stijn Stas
             klok = new DispatcherTimer();
             klok.Interval = TimeSpan.FromSeconds(1);
             klok.Tick += klok_Tick;
@@ -79,7 +80,7 @@ namespace ProjectChallenge
         //  Methode die de kleuren
         //  Van gebotste opbjecten verandert
         //
-        //  Author: Timo Biesmans
+        // Author: Brecht Morrhey
         public static void VeranderKleuren(GameObject a, GameObject b)
         {
             if (!(a.GetType() == b.GetType()) && a.Leven && b.Leven)
@@ -98,7 +99,7 @@ namespace ProjectChallenge
         //  hierin wordt nieuw rood object
         //  aangemaakt
         //
-        //  Author: Timo Biesmans
+        // Author: Timo Biesmans
         private void roodButton_Click(object sender, RoutedEventArgs e)
         {
             RoodObject roodObject;
@@ -115,7 +116,7 @@ namespace ProjectChallenge
         //  hierin wordt nieuw blauw object
         //  aangemaakt
         //
-        //  Author: Timo Biesmans
+        // Author: Timo Biesmans
         private void blauwButton_Click(object sender, RoutedEventArgs e)
         {
             BlauwObject blauwObject;
@@ -132,8 +133,8 @@ namespace ProjectChallenge
         //  timer wordt uigevoerd
         //  Deze code test elke tick of de objecten
         //  Botsen
+        // Author: Brecht Morrhey
         //
-        //  Author: Timo Biesmans
         private void animationTimer_Tick(object sender, EventArgs e)
         {
             List<GameObject> botsingLijst = new List<GameObject>();
@@ -165,7 +166,7 @@ namespace ProjectChallenge
         //  je er op klikt het spel stopt
         //  en het score scherm geopent word
         //
-        //  Author: Timo Biesmans
+        // Author: Brecht Morrhey
         private void scoreButton_Click(object sender, RoutedEventArgs e)
         {
             Window w = new GameScore(gameObjecten, menuWindow);
@@ -190,10 +191,11 @@ namespace ProjectChallenge
         //  Hierin worden de timers uit
         //  geschakeld
         //
-        //  Author: Timo Biesmans
+        // Author: Brecht Morrhey
         private void Window_Closed(object sender, EventArgs e)
         {
             animationTimer.Stop();  // https://social.msdn.microsoft.com/Forums/en-US/992b4aa3-f066-4ccf-8c14-aec871eccdb6/how-to-properly-close-dispose-a-wpf-window?forum=wpf
+            //Author: Stijn Stas
             if (klok != null)
             {
                 klok.Stop();

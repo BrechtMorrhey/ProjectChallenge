@@ -1,0 +1,11 @@
+meerkeuze,Duid de juiste spelling aan,Oost-Vlaams|Oostvlaams|
+meerkeuze,Duid de juiste spelling aan,het @-teken|het @ teken|
+meerkeuze,Duid de juiste spelling aan,mee-eten|meeëten|
+meerkeuze,Duid de juiste spelling aan,na-apen|naäpen|
+meerkeuze,Duid de juiste spelling aan,bejaardenhulp|bejaardehulp|
+meerkeuze,Duid de juiste spelling aan,zonnesteek|zonnesteek|
+basis,Geef een synoniem voor snel,rap
+basis,Geef een synoniem voor moeilijk,lastig
+basis,Mijn buurvrouw dacht dat haar zoon was ...(afkicken), maar ze vergist zich.,afgekickt
+basis,Meestal ... (basketballen) hij een uurtje en komt dan weer naar huis.,basketbalde
+basis,Ze ...(bowlen) vanavond voor het eerst en vindt het nog leuk ook.,bowlt

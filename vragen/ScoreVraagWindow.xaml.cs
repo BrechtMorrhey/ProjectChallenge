@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.IO;
+//Author: Brecht Morrhey
 
 namespace ProjectChallenge
 {
@@ -20,18 +21,22 @@ namespace ProjectChallenge
     /// </summary>
     public partial class ScoreVraagWindow : Window
     {
+        //variables
         private string bestandNaam;
         private MainVragenWindow menuWindow;
         private Window vorigWindow;
 
+        //constructors
         public ScoreVraagWindow(string bestandNaam, Window vorigWindow, MainVragenWindow menuWindow)
         {
             InitializeComponent();
             this.bestandNaam = bestandNaam;
+            //Author: Stijn Stas
             this.vorigWindow = vorigWindow;
             this.menuWindow = menuWindow;
         }
 
+        //event handlers
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             ScoreLezer lezer = new ScoreLezer();
@@ -50,8 +55,6 @@ namespace ProjectChallenge
                 {
                     scoresListBox.Items.Add(resultaat);
                 }
-
-
             }
             catch (FileNotFoundException)
             {
@@ -81,17 +84,21 @@ namespace ProjectChallenge
 
         private void leerlingButton_Click(object sender, RoutedEventArgs e)
         {
+            //Author: Stijn Stas
             vorigWindow.Show();
             this.Close();
         }
 
         private void menuButton_Click(object sender, RoutedEventArgs e)
         {
+            //Author: Stijn Stas
             NaarMenu();
         }
 
+        //methods
         private void NaarMenu()
         {
+            //Author: Stijn Stas
             menuWindow.Show();
             this.Close();
         }

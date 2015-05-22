@@ -4,14 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-
+//Author: Brecht Morrhey
 namespace ProjectChallenge
 {
     class VragenLezer: BestandsLezer
     {
+        //constructors
         public VragenLezer():base() { }
         public VragenLezer(string bestandsNaam) : base(bestandsNaam) { }
 
+        //properties
         public List<Vraag> VragenLijst
         {
             get

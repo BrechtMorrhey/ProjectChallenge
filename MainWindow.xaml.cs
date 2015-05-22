@@ -28,11 +28,8 @@ namespace ProjectChallenge
             //http://stackoverflow.com/questions/1472498/wpf-global-exception-handler
 
             AppDomain currentDomain = AppDomain.CurrentDomain;
-
             //currentDomain.UnhandledException += new UnhandledExceptionEventHandler(UEHandler);
             InitializeComponent();
-            this.
-            // akki test
             alleGebruikers = new AlleGebruikers();
             
         }

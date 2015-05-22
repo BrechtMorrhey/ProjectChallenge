@@ -15,7 +15,7 @@ namespace ProjectChallenge
     //  in blauwObject en roodObject
     //  en die de klasse iBeweegbaar implementeert
     //
-    //  Author: Timo Biesmans
+    // Author: Timo Biesmans, Brecht Morrhey
     public abstract class GameObject : iBeweegbaar
     {
         //  Eigenschappen
@@ -115,7 +115,7 @@ namespace ProjectChallenge
         //  andere dingen botst en verandert de 
         //  kleur als het wel botst
         //
-        //  Author: Timo Biesmans
+        //  Author: Brecht Morrhey
         public void Move(ref List<GameObject> gameObjecten, out GameObject botser)
         {
             gameObjecten.Remove(this);  // zodat dit object niet met zichzelf wordt vergeleken
@@ -143,7 +143,7 @@ namespace ProjectChallenge
         //  Methodes die gebruikt word
         //  om te kijken of objecten botsen
         //
-        //  Author: Timo Biesmans
+        //  Author: Brecht Morrhey
         public bool Overlapping(List<GameObject> gameObjecten)
         {
             bool overlap = false;
@@ -165,7 +165,7 @@ namespace ProjectChallenge
             return overlap;
         }
 
-        
+        // Author: Brecht Morrhey
         public void Overlapping(List<GameObject> gameObjecten, out bool overlap, out GameObject botser)
         {
             overlap = false;
@@ -206,7 +206,7 @@ namespace ProjectChallenge
         //  in roodObject en blauwObject
         //  om het object up te daten
         //
-        //  Author: Timo Biesmans
+        //  Author: Brecht Morrhey
         public abstract void UpdateElement();
     }
 }

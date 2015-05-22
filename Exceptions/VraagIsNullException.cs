@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//Author: Brecht Morrhey
 namespace ProjectChallenge
 {
-    class OnbekendVraagTypeException: ApplicationException
+    class VraagIsNullException : ApplicationException
     {
-        public OnbekendVraagTypeException() { }
-        public OnbekendVraagTypeException(string message)
+         public VraagIsNullException() { }
+         public VraagIsNullException(string message)
             : base(message)
         {          
         }

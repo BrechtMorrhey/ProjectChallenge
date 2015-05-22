@@ -53,11 +53,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BestandTeGrootException.cs" />
-    <Compile Include="LeegBestandException.cs" />
-    <Compile Include="VraagIsNullException.cs" />
+    <Compile Include="Exceptions\BestandTeGrootException.cs" />
+    <Compile Include="Exceptions\FouteWiskundeVraagException.cs" />
+    <Compile Include="Exceptions\LeegBestandException.cs" />
+    <Compile Include="Exceptions\VraagIsNullException.cs" />
     <Compile Include="vragen\VragenLezer.cs" />
-    <Compile Include="vragen\LezerNotInitialisedException.cs" />
+    <Compile Include="Exceptions\LezerNotInitialisedException.cs" />
     <Compile Include="vragen\ScoreLezer.cs" />
     <Compile Include="vragen\BestandsLezer.cs" />
     <Compile Include="game\GameScore.xaml.cs">
@@ -76,8 +77,8 @@
     <Compile Include="login\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="login\maakKlasWindow.xaml.cs">
-      <DependentUpon>maakKlasWindow.xaml</DependentUpon>
+    <Compile Include="login\MaakKlasWindow.xaml.cs">
+      <DependentUpon>MaakKlasWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -86,7 +87,7 @@
     <Compile Include="login\RegistratieWindow.xaml.cs">
       <DependentUpon>RegistratieWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="OnbekendVraagTypeException.cs" />
+    <Compile Include="Exceptions\OnbekendVraagTypeException.cs" />
     <Compile Include="vragen\ScoreVraagWindow.xaml.cs">
       <DependentUpon>ScoreVraagWindow.xaml</DependentUpon>
     </Compile>
@@ -166,7 +167,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="login\maakKlasWindow.xaml">
+    <Page Include="login\MaakKlasWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -4,15 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-
+//Author: Brecht Morrhey
 
 namespace ProjectChallenge
 {
     class ScoreLezer : BestandsLezer
     {
+        //constructors
         public ScoreLezer():base() { }
         public ScoreLezer(string bestandsNaam):base(bestandsNaam) { }
 
+        //properties
         public string VoorNaam {
             get
             {
